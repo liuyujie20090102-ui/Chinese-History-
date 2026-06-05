@@ -1,1 +1,471 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>唐太宗 · 筆記</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --ink-light: rgba(60,40,20,0.06);
+            --mountain-far: rgba(120,100,70,0.12);
+            --mountain-mid: rgba(100,80,55,0.16);
+            --mountain-near: rgba(80,60,40,0.2);
+            --cloud: rgba(255,252,245,0.7);
+            --card-bg: rgba(255,253,248,0.8);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 48px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+            user-select:none;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;
+            width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .mountain.m1{left:-8%;width:45%;height:55%;background:var(--mountain-far);border-radius:55% 55% 0 0}
+        .mountain.m2{left:22%;width:50%;height:68%;background:var(--mountain-mid);border-radius:50% 48% 0 0}
+        .mountain.m3{right:-8%;width:42%;height:60%;background:var(--mountain-near);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:var(--cloud);border-radius:50%;filter:blur(28px)}
+        .cloud.c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .cloud.c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .cloud.c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{
+            0%,100%{transform:translateY(0) translateX(0)}
+            25%{transform:translateY(-7px) translateX(3px)}
+            50%{transform:translateY(-2px) translateX(8px)}
+            75%{transform:translateY(-9px) translateX(2px)}
+        }
 
+        /* 主容器 */
+        .container{position:relative;z-index:1;width:100%;max-width:650px}
+
+        /* 顶部导航 */
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+        .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--text-primary)}
+        .page-indicator{font-family:var(--font-en);font-size:13px;color:var(--text-muted);letter-spacing:1px}
+
+        /* 内容卡片 */
+        .page-card{
+            background:var(--card-bg);
+            backdrop-filter:blur(8px);
+            -webkit-backdrop-filter:blur(8px);
+            border:1px solid rgba(180,160,130,0.2);
+            border-radius:16px;
+            padding:36px 32px;
+            min-height:420px;
+            box-shadow:0 2px 20px rgba(60,40,20,0.04);
+            position:relative;
+            overflow:hidden;
+        }
+        .page-content{transition:opacity 0.25s ease,transform 0.25s ease}
+        .page-content.slide-out-left{opacity:0;transform:translateX(-20px)}
+        .page-content.slide-out-right{opacity:0;transform:translateX(20px)}
+
+        /* 笔记标题 */
+        .note-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:28px}
+
+        /* 章节标题 */
+        .section-title{text-align:center;font-size:18px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:20px}
+
+        /* 正文 */
+        .content{font-size:16px;color:var(--text-secondary);line-height:2;letter-spacing:0.5px}
+        .content p{margin-bottom:10px}
+        .content .intro{color:var(--text-secondary);margin-bottom:16px}
+        .content ul{list-style:none;padding-left:0;margin-bottom:14px}
+        .content ul li{padding:4px 0 4px 20px;position:relative;line-height:1.9}
+        .content ul li::before{content:"·";position:absolute;left:4px;color:var(--gold-light);font-weight:bold;font-size:18px}
+        .content ul li.sub{padding-left:36px}
+        .content ul li.sub::before{content:"◦";left:18px;color:var(--text-muted)}
+        .content strong{color:var(--text-primary);font-weight:600}
+        .content .highlight{color:var(--gold);font-weight:600}
+
+        /* 引用 */
+        .quote-block{margin:16px 0;padding:14px 18px;border-left:3px solid var(--gold-light);background:rgba(196,169,125,0.06);border-radius:0 8px 8px 0;font-style:italic;color:var(--text-secondary);font-size:15px;line-height:1.9}
+        .quote-block .quote-author{display:block;text-align:right;font-style:normal;font-size:13px;color:var(--text-muted);margin-top:6px}
+
+        /* 底部导航 */
+        .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+        .nav-btn{padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
+        .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
+        .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
+        .nav-dots{display:flex;gap:6px}
+        .nav-dot{width:6px;height:6px;border-radius:50%;background:var(--text-muted);opacity:0.3;transition:all 0.3s}
+        .nav-dot.active{opacity:1;background:var(--gold);width:18px;border-radius:3px}
+
+        /* 页脚 */
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
+
+        @media (max-width:480px){
+            .page-card{padding:24px 18px}
+            .note-title{font-size:20px}
+            .content{font-size:15px}
+            .nav-btn{padding:8px 16px;font-size:13px}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mountains">
+        <div class="mountain m1"></div>
+        <div class="mountain m2"></div>
+        <div class="mountain m3"></div>
+    </div>
+    <div class="clouds">
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+        <div class="cloud c3"></div>
+    </div>
+    <div class="birds">
+        <span class="bird">⩳</span>
+        <span class="bird">⩳</span>
+        <span class="bird">⩳</span>
+    </div>
+
+    <div class="container">
+
+        <!-- 顶部 -->
+        <div class="top-bar">
+            <a href="1.html" class="back-link">← 返回唐朝</a>
+            <span class="page-indicator" id="page-indicator">1 / 14</span>
+        </div>
+
+        <!-- 内容卡片 -->
+        <div class="page-card">
+            <div class="page-content" id="page-content"></div>
+        </div>
+
+        <!-- 底部导航 -->
+        <div class="nav-bar">
+            <button class="nav-btn" id="prev-btn" onclick="prevPage()">← 上一頁</button>
+            <div class="nav-dots" id="nav-dots"></div>
+            <button class="nav-btn" id="next-btn" onclick="nextPage()">下一頁 →</button>
+        </div>
+
+        <div class="footer">── Shelly Liu ──</div>
+
+    </div>
+
+    <script>
+        // 14页笔记内容
+        const pages = [
+            // 第1页：背景
+            `<div class="note-title">👑 唐太宗</div>
+             <div class="section-title">── 背景 ──</div>
+             <div class="content">
+             <p class="intro">隋末唐初，天下初定，百废待兴。</p>
+             <ul>
+             <li>户口由隋炀帝时<strong>八百九十万户</strong>下跌至<strong>两百万户</strong></li>
+             <li>对外须面对<strong>突厥</strong>威胁</li>
+             <li><strong>玄武门之变</strong>后，朝廷社会人心惶惶</li>
+             </ul>
+             </div>`,
+
+            // 第2页：政制·改良中央政制
+            `<div class="section-title">── 政制方面 ──</div>
+             <div class="content">
+             <p><strong>1. 改良中央政制</strong></p>
+             <ul>
+             <li>继承隋代<strong>三省六部制</strong></li>
+             <li class="sub">中书省：起草诏令</li>
+             <li class="sub">门下省：审查诏令</li>
+             <li class="sub">尚书省：执行法令，下设六部</li>
+             <li>设<strong>政事堂</strong>，三省长官入内决策</li>
+             </ul>
+             <p><strong>成效：</strong>协调三省运作，提升效率</p>
+             <div class="quote-block">"不经凤阁鸾台，何名为敕？"<span class="quote-author">—— 意即未经中书起草、门下审核，不能称为诏令</span></div>
+             </div>`,
+
+            // 第3页：三省分立的作用
+            `<div class="section-title">── 三省分立的作用 ──</div>
+             <div class="content">
+             <p><strong>好处</strong></p>
+             <ul>
+             <li>步骤精密，有制衡作用</li>
+             <li>防止宰相专权</li>
+             <li>对君权有一定制衡</li>
+             </ul>
+             <p><strong>坏处</strong></p>
+             <ul>
+             <li>经多重程序，效率降低</li>
+             <li>引发宰臣争执，促成朋党</li>
+             </ul>
+             </div>`,
+
+            // 第4页：改良地方政制 + 确立科举制
+            `<div class="content">
+             <p><strong>2. 改良地方政制</strong></p>
+             <ul>
+             <li>沿用隋代<strong>州县二级制</strong></li>
+             <li>分全国为<strong>10道</strong>，作为监察区</li>
+             <li>不定期派遣<strong>巡察使</strong>监察地方</li>
+             </ul>
+             <p style="margin-top:14px"><strong>3. 确立科举制</strong></p>
+             <ul>
+             <li>继承科举制，以<strong>明经、进士</strong>两科最重要</li>
+             <li class="sub">明经：释经义为主，加试策论</li>
+             <li class="sub">进士：诗赋为主，加试经义、时务策</li>
+             </ul>
+             <div class="quote-block">"天下英雄，入吾彀中矣"<span class="quote-author">—— 唐太宗</span></div>
+             </div>`,
+
+            // 第5页：科举制好处与局限
+            `<div class="content">
+             <p><strong>科举制的好处</strong></p>
+             <ul>
+             <li>平民有晋升政坛的机会</li>
+             <li>促进社会阶级流动</li>
+             <li>吸纳大量人才</li>
+             </ul>
+             <p><strong>局限</strong></p>
+             <ul>
+             <li>明经徒诵经文，进士只重诗赋</li>
+             <li>所习无益于治道，与实际政事脱节</li>
+             </ul>
+             </div>`,
+
+            // 第6页：选贤任能
+            `<div class="content">
+             <p><strong>4. 选贤任能</strong></p>
+             <p>原则：<strong>用人唯才，不问出身与恩怨</strong></p>
+             <ul>
+             <li><strong>房玄龄</strong>（隋朝旧臣）—— 善于谋划，人称「房谋」</li>
+             <li><strong>杜如晦</strong>（太宗旧部）—— 善于决断，人称「杜断」</li>
+             <li><strong>魏征</strong>（原为李建成旧臣）—— 直言敢谏，太宗不计前嫌</li>
+             <li><strong>李靖</strong> —— 善于用兵，曾领军对抗突厥</li>
+             <li><strong>长孙无忌</strong>（宗亲外戚）—— 策划玄武门之变</li>
+             </ul>
+             <p style="text-align:center;color:var(--gold);margin-top:10px">房玄龄 + 杜如晦 = 「房谋杜断」</p>
+             </div>`,
+
+            // 第7页：善于纳谏
+            `<div class="content">
+             <p><strong>5. 善于纳谏</strong></p>
+             <p>背景：以<strong>隋炀帝拒谏亡国</strong>为鉴</p>
+             <ul>
+             <li>广开言路，鼓励群臣进谏</li>
+             <li>扩大谏官职权：宰相议事须有谏官陪同</li>
+             </ul>
+             <p><strong>例子</strong></p>
+             <ul>
+             <li>贞观四年，下令修洛阳宫，遭<strong>张玄素</strong>谏止</li>
+             <li><strong>魏征</strong>曾犯颜直谏十次，太宗大力嘉赏</li>
+             </ul>
+             <div class="quote-block">"以铜为镜，可以正衣冠；以古为镜，可以知兴替；以人为镜，可以明得失"<span class="quote-author">—— 魏征死后，太宗感叹</span></div>
+             </div>`,
+
+            // 第8页：留心吏治 + 律法宽仁
+            `<div class="content">
+             <p><strong>6. 留心吏治</strong></p>
+             <ul>
+             <li>命李靖等13人为<strong>黜陟大使</strong>，考察地方官</li>
+             <li>设<strong>记功过屏风</strong>，以备升贬</li>
+             <li>五品以上京官<strong>轮流值宿</strong>中书省</li>
+             <li>命房玄龄<strong>省并冗官</strong></li>
+             </ul>
+             <p style="margin-top:14px"><strong>7. 律法宽仁</strong></p>
+             <ul>
+             <li>编定<strong>《唐律》</strong>，以宽仁慎刑为宗旨</li>
+             <li>死刑须经<strong>三复奏</strong>（地方）或<strong>五复奏</strong>（京师）</li>
+             <li>设<strong>三司使</strong>会审重大案件</li>
+             </ul>
+             </div>`,
+
+            // 第9页：平抑门第
+            `<div class="content">
+             <p><strong>8. 平抑门第</strong></p>
+             <p>背景：旧氏族垄断政治，门第观念深厚</p>
+             <ul>
+             <li>命高士廉修<strong>《氏族志》</strong>，以功臣代替世胄</li>
+             <li>打击山东士族：崔、卢、李、郑等大姓</li>
+             </ul>
+             <p><strong>成效</strong></p>
+             <ul>
+             <li>平民可透过科举上升，社会安定</li>
+             <li>加强寒门对国家的向心力</li>
+             </ul>
+             <p><strong>局限</strong></p>
+             <ul>
+             <li>未彻底打破门阀观念，大族在婚姻上自矜高贵</li>
+             </ul>
+             </div>`,
+
+            // 第10页：经济方面
+            `<div class="section-title">── 經濟方面 ──</div>
+             <div class="content">
+             <p><strong>1. 改良均田制</strong></p>
+             <ul>
+             <li>按丁授田：丁男获<strong>八十亩口分田、二十亩永业田</strong></li>
+             <li>狭乡减半，鼓励迁往宽乡</li>
+             </ul>
+             <p><strong>2. 轻徭薄赋</strong></p>
+             <ul>
+             <li>田租约<strong>四十税一</strong>（比汉初三十税一更低）</li>
+             <li>力役每年<strong>二十天</strong>（比汉代少十天）</li>
+             </ul>
+             <p><strong>3. 重视民生</strong></p>
+             <ul>
+             <li>作<strong>《帝范》</strong>给太子李治</li>
+             <li>遣散宫女三千人，免去四方珍贡</li>
+             </ul>
+             </div>`,
+
+            // 第11页：经济·人口+贸易
+            `<div class="content">
+             <p><strong>4. 增加人口</strong></p>
+             <ul>
+             <li>招抚流民回乡垦殖</li>
+             <li>释放僧尼十余万人还俗婚配</li>
+             <li>户口由二百多万增至<strong>三百八十万户</strong></li>
+             </ul>
+             <p><strong>5. 发展对外贸易</strong></p>
+             <ul>
+             <li>长安、洛阳、扬州、广州聚集各国商人</li>
+             <li>外商运来香料、药材、珠宝</li>
+             <li>购回中国丝绸、瓷器</li>
+             </ul>
+             </div>`,
+
+            // 第12页：文化方面
+            `<div class="section-title">── 文化方面 ──</div>
+             <div class="content">
+             <p><strong>1. 兴办学校</strong></p>
+             <ul><li>京师设<strong>国子监</strong>，地方设州学、县学</li></ul>
+             <p><strong>2. 修订五经</strong></p>
+             <ul><li>颜师古校订文字，孔颖达疏解文义，完成<strong>《五经正义》</strong></li></ul>
+             <p><strong>3. 设弘文馆</strong> · 收藏图书，校理典籍</p>
+             <p><strong>4. 设文学馆与史馆</strong></p>
+             <ul><li>文学馆纳十八学士；史馆编修六朝正史</li></ul>
+             <p><strong>5. 信仰自由</strong></p>
+             <ul><li>景教、祆教等自由传教；玄奘往天竺取经</li></ul>
+             </div>`,
+
+            // 第13页：军事+盛况
+            `<div class="section-title">── 軍事方面 ──</div>
+             <div class="content">
+             <p><strong>1. 改良府兵制</strong> · 寓兵于农，关中设六百多个折冲府</p>
+             <p><strong>2. 平定突厥</strong> · 李靖、李勣出击，太宗被尊为<strong>「天可汗」</strong></p>
+             <p><strong>3. 经营西域</strong> · 设<strong>安西都护府</strong></p>
+             <p><strong>4. 和亲吐蕃</strong> · <strong>文成公主</strong>下嫁松赞干布</p>
+             <div class="quote-block">"自古皆贵中华，贱夷狄，朕独爱之如一"<span class="quote-author">—— 唐太宗</span></div>
+             </div>
+             <div class="section-title" style="margin-top:16px">── 貞觀之治盛況 ──</div>
+             <div class="content">
+             <ul>
+             <li>政治清明，社会安定，米价低廉</li>
+             <li>全国判死刑者不过<strong>二十九人</strong></li>
+             <li>各族共尊太宗为「天可汗」</li>
+             </ul>
+             </div>`,
+
+            // 第14页：评价
+            `<div class="section-title">── 評價 ──</div>
+             <div class="content">
+             <p><strong>正面</strong></p>
+             <ul>
+             <li>网罗人才：唯才是用，不问亲疏</li>
+             <li>知人善任：房谋杜断，各用其长</li>
+             <li>从谏如流：器重魏征等直谏之臣</li>
+             <li>崇尚节俭：遣散宫女，暂停纳贡</li>
+             </ul>
+             <p><strong>负面</strong></p>
+             <ul>
+             <li>未能贯彻始终：后期骄傲，广建宫室</li>
+             <li>东征高丽无功：晚年好大喜功</li>
+             <li>追求长生：迷信方士，服用丹药</li>
+             <li>开宫廷斗争恶例：玄武门之变，储位之争</li>
+             </ul>
+             </div>`
+        ];
+
+        let currentPage = 0;
+        const totalPages = pages.length;
+
+        function renderPage() {
+            document.getElementById('page-content').innerHTML = pages[currentPage];
+            document.getElementById('page-indicator').textContent = (currentPage + 1) + ' / ' + totalPages;
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = currentPage === totalPages - 1;
+
+            // 更新圆点
+            const dots = document.getElementById('nav-dots');
+            dots.innerHTML = '';
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === currentPage ? ' active' : '');
+                dot.onclick = () => { currentPage = i;
+                    renderPage();
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); };
+                dots.appendChild(dot);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextPage() {
+            if (currentPage < totalPages - 1) {
+                currentPage++;
+                renderPage();
+            }
+        }
+
+        function prevPage() {
+            if (currentPage > 0) {
+                currentPage--;
+                renderPage();
+            }
+        }
+
+        // 键盘翻页
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') prevPage();
+        });
+
+        // 触摸滑动
+        let touchStartX = 0;
+        document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+        document.addEventListener('touchend', function(e) {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) {
+                if (diff > 0) nextPage();
+                else prevPage();
+            }
+        });
+
+        renderPage();
+    </script>
+</body>
+</html>
