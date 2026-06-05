@@ -1,1 +1,294 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>明成祖 · 筆記</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --ink-light: rgba(60,40,20,0.06);
+            --mountain-far: rgba(120,100,70,0.12);
+            --mountain-mid: rgba(100,80,55,0.16);
+            --mountain-near: rgba(80,60,40,0.2);
+            --cloud: rgba(255,252,245,0.7);
+            --card-bg: rgba(255,253,248,0.8);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 48px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;
+            width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .mountain.m1{left:-8%;width:45%;height:55%;background:var(--mountain-far);border-radius:55% 55% 0 0}
+        .mountain.m2{left:22%;width:50%;height:68%;background:var(--mountain-mid);border-radius:50% 48% 0 0}
+        .mountain.m3{right:-8%;width:42%;height:60%;background:var(--mountain-near);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:var(--cloud);border-radius:50%;filter:blur(28px)}
+        .cloud.c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .cloud.c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .cloud.c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{
+            0%,100%{transform:translateY(0) translateX(0)}
+            25%{transform:translateY(-7px) translateX(3px)}
+            50%{transform:translateY(-2px) translateX(8px)}
+            75%{transform:translateY(-9px) translateX(3px)}
+        }
 
+        .container{position:relative;z-index:1;width:100%;max-width:650px}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+        .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--text-primary)}
+        .page-indicator{font-family:var(--font-en);font-size:13px;color:var(--text-muted);letter-spacing:1px}
+
+        .page-card{
+            background:var(--card-bg);
+            backdrop-filter:blur(8px);
+            -webkit-backdrop-filter:blur(8px);
+            border:1px solid rgba(180,160,130,0.2);
+            border-radius:16px;
+            padding:40px 32px;
+            box-shadow:0 2px 20px rgba(60,40,20,0.04);
+        }
+
+        .note-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:24px}
+        .section-label{text-align:center;font-size:16px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:20px}
+        .item-title{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:14px;letter-spacing:1px}
+        .content{font-size:16px;color:var(--text-secondary);line-height:2.1;letter-spacing:0.5px}
+        .content p{margin-bottom:8px}
+        .content ul{list-style:none;padding-left:0;margin-bottom:12px}
+        .content ul li{padding:4px 0 4px 20px;position:relative;line-height:2}
+        .content ul li::before{content:"·";position:absolute;left:4px;color:var(--gold-light);font-weight:bold;font-size:18px}
+        .content ul li.sub{padding-left:36px}
+        .content ul li.sub::before{content:"·";left:18px;color:var(--text-muted);font-size:14px}
+        .content ul li.sub2{padding-left:48px}
+        .content ul li.sub2::before{content:"·";left:32px;color:var(--text-muted);font-size:12px}
+        .content strong{color:var(--text-primary);font-weight:600}
+
+        .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+        .nav-btn{padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
+        .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
+        .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
+        .nav-dots{display:flex;gap:5px;flex-wrap:wrap;justify-content:center;max-width:180px}
+        .nav-dot{width:5px;height:5px;border-radius:50%;background:var(--text-muted);opacity:0.3;cursor:pointer;transition:all 0.3s}
+        .nav-dot.active{opacity:1;background:var(--gold);width:16px;border-radius:3px}
+
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
+
+        @media(max-width:480px){
+            .page-card{padding:24px 16px}
+            .item-title{font-size:16px}
+            .content{font-size:15px}
+            .nav-btn{padding:8px 14px;font-size:13px}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mountains">
+        <div class="mountain m1"></div>
+        <div class="mountain m2"></div>
+        <div class="mountain m3"></div>
+    </div>
+    <div class="clouds">
+        <div class="cloud c1"></div>
+        <div class="cloud c2"></div>
+        <div class="cloud c3"></div>
+    </div>
+    <div class="birds">
+        <span class="bird">⩳</span>
+        <span class="bird">⩳</span>
+        <span class="bird">⩳</span>
+    </div>
+
+    <div class="container">
+        <div class="top-bar">
+            <a href="1.html" class="back-link">← 返回明朝</a>
+            <span class="page-indicator" id="page-indicator">1 / 6</span>
+        </div>
+        <div class="page-card"><div id="page-content"></div></div>
+        <div class="nav-bar">
+            <button class="nav-btn" id="prev-btn" onclick="prevPage()">← 上一頁</button>
+            <div class="nav-dots" id="nav-dots"></div>
+            <button class="nav-btn" id="next-btn" onclick="nextPage()">下一頁 →</button>
+        </div>
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+
+    <script>
+        const pages = [
+            // 1. 集权原因
+            `<div class="note-title">👑 明成祖</div>
+             <div class="section-label">── 一、集權原因 ──</div>
+             <div class="item-title">個人性格與經歷</div>
+             <div class="content">
+             <ul>
+             <li>太祖死後，惠帝<strong>朱允炆</strong>繼位</li>
+             <li>成祖本為<strong>燕王</strong>，以<strong>「清君側、靖內難」</strong>為名發動靖難之變，推翻惠帝</li>
+             <li><strong>得位不正</strong>，且本身以藩王武力奪權，深知藩王擁兵自重之害</li>
+             </ul>
+             </div>`,
+
+            // 2. 削藩
+            `<div class="section-label">── 二、君主集權措施 ──</div>
+             <div class="item-title">1. 削藩</div>
+             <div class="content">
+             <p><strong>背景</strong></p>
+             <ul>
+             <li>明太祖賦予藩王多項權力，成祖深諳其弊</li>
+             <li class="sub">藩王擁有軍隊，朝廷調兵須其許可</li>
+             <li class="sub">藩王可決定封國內官民生死，監察官員無權過問</li>
+             <li class="sub">北方邊境藩王軍力尤強</li>
+             </ul>
+             <p><strong>措施</strong></p>
+             <ul>
+             <li><strong>遷封：</strong>將擁重兵守邊的藩王遷往內地，脫離原有軍事實力範圍</li>
+             <li><strong>削奪兵權：</strong>削減護衛軍，嚴禁藩王干預地方民政</li>
+             <li><strong>廢封：</strong>對有嫌疑的藩王直接廢除封爵</li>
+             </ul>
+             <p><strong>成效：</strong>解決明初以來藩王尾大不掉的問題，中央對地方控制力大增</p>
+             </div>`,
+
+            // 3. 杀戮建文旧臣
+            `<div class="item-title">2. 殺戮建文舊臣，任用酷吏</div>
+             <div class="content">
+             <ul>
+             <li>誅殺建文朝大臣，清除異己</li>
+             <li class="sub">例子：<strong>方孝孺</strong>拒絕起草即位詔書，被<strong>誅十族</strong></li>
+             <li>任用酷吏，如<strong>陳瑛、紀綱</strong>等</li>
+             </ul>
+             </div>`,
+
+            // 4. 创立内阁
+            `<div class="item-title">3. 創立內閣</div>
+             <div class="content">
+             <p><strong>背景：</strong>太祖廢相後，政務壓力全在皇帝一人，成祖為減輕負擔</p>
+             <p><strong>措施</strong></p>
+             <ul>
+             <li>選拔翰林院官員入職<strong>文淵閣</strong>，成為內閣大學士</li>
+             <li><strong>票擬：</strong>內閣大學士對奏章提出初步處理建議，寫於紙條貼於奏章</li>
+             <li><strong>批紅：</strong>最終裁決權仍歸皇帝，由皇帝用紅筆批示</li>
+             </ul>
+             <p><strong>內閣大學士的性質</strong></p>
+             <ul>
+             <li>官階僅<strong>正五品</strong>，屬宮內編制，僅為皇帝私人顧問</li>
+             <li>只可票擬，<strong>不具備行政執行權</strong></li>
+             </ul>
+             <p><strong>與前朝宰相的區別</strong></p>
+             <ul>
+             <li>宰相是法定外廷首長，位高權重，有決策權及統率百官之權</li>
+             <li>內閣無實權，日後實權漸落入宦官手中</li>
+             <li>宦官負責傳遞奏章，趁皇帝昏庸之際掌批紅大權，內閣大學士多依附宦官</li>
+             </ul>
+             </div>`,
+
+            // 5. 设立东厂
+            `<div class="item-title">4. 設立東廠</div>
+             <div class="content">
+             <p><strong>背景：</strong>宦官有助成祖奪位，成祖對宦官深為寵幸，為加強監控，在錦衣衛外增設東廠</p>
+             <ul>
+             <li>兩者合稱<strong>「廠衛」</strong>，為皇帝鞏固君權</li>
+             <li>錦衣衛是外官，東廠由皇帝親信宦官擔任，<strong>權力凌駕於錦衣衛之上</strong></li>
+             <li>職能：可直接逮捕臣民，進行<strong>秘密審訊</strong></li>
+             </ul>
+             <p><strong>發展</strong></p>
+             <ul>
+             <li>明憲宗時增設<strong>西廠</strong>，明武宗時設<strong>內行廠</strong></li>
+             <li>製造白色恐怖，全民噤若寒蟬，愈演愈烈</li>
+             </ul>
+             </div>`,
+
+            // 6. 宠信宦官
+            `<div class="item-title">5. 寵信宦官</div>
+             <div class="content">
+             <p><strong>背景</strong></p>
+             <ul>
+             <li>成祖靠宦官通風報信，才成功在靖難之變中奪位</li>
+             <li>故打破太祖<strong>「內臣不得干預政事」</strong>的禁令，開始委派宦官重要任務</li>
+             </ul>
+             <p><strong>例子：</strong>擔任統兵、監軍、出使（如<strong>鄭和下西洋</strong>）</p>
+             <p><strong>影響</strong></p>
+             <ul>
+             <li>廢相後，朝中無有力大臣能抗衡宦官</li>
+             <li>當皇帝無能時，便委任宦官處理政務，致使大權旁落</li>
+             <li>利用宦官雖能制衡大臣、強化對官員監控，但也開啟了明代中葉以後<strong>宦官亂政</strong>的禍根</li>
+             </ul>
+             </div>`
+        ];
+
+        let currentPage = 0;
+        const totalPages = pages.length;
+
+        function renderPage() {
+            document.getElementById('page-content').innerHTML = pages[currentPage];
+            document.getElementById('page-indicator').textContent = (currentPage + 1) + ' / ' + totalPages;
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = currentPage === totalPages - 1;
+            const dots = document.getElementById('nav-dots');
+            dots.innerHTML = '';
+            for (let i = 0; i < totalPages; i++) {
+                const dot = document.createElement('div');
+                dot.className = 'nav-dot' + (i === currentPage ? ' active' : '');
+                dot.onclick = () => { currentPage = i;
+                    renderPage();
+                    window.scrollTo({ top: 0, behavior: 'smooth' }); };
+                dots.appendChild(dot);
+            }
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function nextPage() { if (currentPage < totalPages - 1) { currentPage++;
+                renderPage(); } }
+        function prevPage() { if (currentPage > 0) { currentPage--;
+                renderPage(); } }
+
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') prevPage();
+        });
+
+        let touchStartX = 0;
+        document.addEventListener('touchstart', function(e) { touchStartX = e.touches[0].clientX; });
+        document.addEventListener('touchend', function(e) {
+            const diff = touchStartX - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 50) { if (diff > 0) nextPage();
+                else prevPage(); }
+        });
+
+        renderPage();
+    </script>
+</body>
+</html>
