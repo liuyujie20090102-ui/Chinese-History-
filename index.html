@@ -44,7 +44,6 @@
             overflow-x:hidden;
             -webkit-font-smoothing:antialiased;
         }
-        /* 宣纸纹理 */
         body::before{
             content:"";
             position:fixed;top:0;left:0;width:100%;height:100%;
@@ -54,28 +53,18 @@
                 repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.01) 5px,rgba(139,119,80,0.01) 6px);
             opacity:0.7;
         }
-
-        /* 圆月 */
         .moon{position:fixed;top:8%;right:12%;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle at 55% 45%,rgba(255,240,210,0.5) 0%,rgba(255,230,180,0.2) 40%,transparent 70%);pointer-events:none;z-index:0;filter:blur(4px)}
-
-        /* 远山（天空） */
         .mountains-sky{position:fixed;top:0;left:0;width:100%;height:35%;pointer-events:none;z-index:0}
         .ms{position:absolute;border-radius:50% 50% 0 0}
         .ms1{left:55%;top:30%;width:40%;height:50%;background:var(--mountain-far)}
         .ms2{right:-5%;top:40%;width:35%;height:40%;background:var(--mountain-far);border-radius:50% 45% 0 0}
-
-        /* 远山（底部） */
         .mountains{position:fixed;bottom:0;left:0;width:100%;height:38%;pointer-events:none;z-index:0}
         .mountain{position:absolute;bottom:0}
         .m1{left:-8%;width:50%;height:50%;background:var(--mountain-far);border-radius:55% 55% 0 0}
         .m2{left:15%;width:48%;height:65%;background:var(--mountain-mid);border-radius:50% 48% 0 0}
         .m3{left:35%;width:45%;height:55%;background:var(--mountain-near);border-radius:52% 50% 0 0}
         .m4{right:-5%;width:40%;height:70%;background:var(--mountain-close);border-radius:55% 55% 0 0}
-
-        /* 水面倒影 */
         .water-reflect{position:fixed;bottom:0;left:0;width:100%;height:10%;pointer-events:none;z-index:0;background:linear-gradient(to top,rgba(180,160,140,0.15) 0%,transparent 100%)}
-
-        /* 云雾 */
         .clouds{position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0}
         .cloud{position:absolute;background:var(--cloud);border-radius:50%;filter:blur(35px);animation:cloudDrift var(--drift) ease-in-out infinite}
         .c1{width:350px;height:55px;left:5%;top:25%;opacity:0.5;--drift:18s}
@@ -88,8 +77,6 @@
             50%{transform:translateX(-10px)}
             75%{transform:translateX(-20px)}
         }
-
-        /* 松树剪影 */
         .pine{position:fixed;left:3%;bottom:5%;pointer-events:none;z-index:0;opacity:0.25}
         .pine .trunk{width:4px;height:50px;background:rgba(60,40,20,0.5);margin:0 auto;border-radius:2px}
         .pine .branch{width:0;height:0;margin:0 auto}
@@ -97,8 +84,6 @@
         .pine .b2{border-left:26px solid transparent;border-right:26px solid transparent;border-bottom:35px solid rgba(60,40,20,0.35);border-radius:40%;margin-top:-10px}
         .pine .b3{border-left:30px solid transparent;border-right:30px solid transparent;border-bottom:40px solid rgba(60,40,20,0.3);border-radius:40%;margin-top:-12px}
         .pine2{left:auto;right:4%;bottom:8%;opacity:0.18;transform:scale(0.7)}
-
-        /* 飞鸟 */
         .birds{position:fixed;top:18%;left:25%;pointer-events:none;z-index:0;opacity:0.3}
         .bird{display:inline-block;font-size:13px;margin:0 6px;animation:birdFloat 6s ease-in-out infinite}
         .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
@@ -109,25 +94,18 @@
             50%{transform:translateY(-2px) translateX(8px)}
             75%{transform:translateY(-9px) translateX(3px)}
         }
-
-        /* 主容器 */
         .container{position:relative;z-index:1;width:100%;max-width:650px}
-
         .header{text-align:center;margin-bottom:44px}
         .header .site-title{font-size:30px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:6px}
         .header .site-title .star-icon{display:inline-block;color:var(--gold);animation:twinkle 2s ease-in-out infinite}
         @keyframes twinkle{0%,100%{opacity:0.6}50%{opacity:1}}
         .header .subtitle{font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:5px;text-transform:uppercase}
-
         .quote-wrapper{text-align:center;margin-bottom:40px;min-height:32px}
         .quote-wrapper .quote-text{font-size:15px;color:var(--text-secondary);font-style:italic;letter-spacing:1px;transition:opacity 0.5s ease,transform 0.5s ease}
-
         .section-label{text-align:center;font-size:13px;color:var(--text-muted);letter-spacing:4px;margin-bottom:18px}
-
         .card-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-bottom:28px}
         .card-grid.triple{grid-template-columns:repeat(2,1fr)}
-        .card-grid.triple .card:last-child{grid-column:1/-1;max-width:50%;margin:0 auto}
-
+        .card-grid.triple .card:last-child{grid-column:1/-1;max-width:100%;margin:0 auto}
         .card{display:block;background:var(--card-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 20px;text-align:center;text-decoration:none;cursor:pointer;transition:all 0.35s ease;box-shadow:var(--shadow-sm)}
         .card:hover{background:var(--card-hover-bg);transform:translateY(-4px);box-shadow:var(--shadow-md)}
         .card .card-icon{font-size:28px;margin-bottom:6px;display:block;transition:transform 0.3s ease}
@@ -138,23 +116,19 @@
         .card.available .card-name{color:#6b4e0a}
         .card.available .card-status{color:var(--gold)}
         .card.disabled{opacity:0.45;cursor:default;pointer-events:none}
-
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:28px}
         .footer .name{color:var(--text-secondary);font-weight:400}
-
         @media(max-width:480px){
             .header .site-title{font-size:24px}
             .card{padding:22px 14px}
             .card .card-icon{font-size:22px}
             .card .card-name{font-size:14px}
             .card-grid{gap:10px}
-            .card-grid.triple .card:last-child{max-width:100%}
         }
     </style>
 </head>
 <body>
 
-    <!-- 天空元素 -->
     <div class="moon"></div>
     <div class="mountains-sky">
         <div class="ms ms1"></div>
@@ -165,16 +139,12 @@
         <span class="bird">⩳</span>
         <span class="bird">⩳</span>
     </div>
-
-    <!-- 云雾 -->
     <div class="clouds">
         <div class="cloud c1"></div>
         <div class="cloud c2"></div>
         <div class="cloud c3"></div>
         <div class="cloud c4"></div>
     </div>
-
-    <!-- 底部元素 -->
     <div class="mountains">
         <div class="mountain m1"></div>
         <div class="mountain m2"></div>
@@ -182,8 +152,6 @@
         <div class="mountain m4"></div>
     </div>
     <div class="water-reflect"></div>
-
-    <!-- 松树 -->
     <div class="pine">
         <div class="b3"></div><div class="b2"></div><div class="b1"></div>
         <div class="trunk"></div>
@@ -193,81 +161,40 @@
         <div class="trunk"></div>
     </div>
 
-    <!-- 主容器 -->
     <div class="container">
-
         <div class="header">
             <div class="site-title"><span class="star-icon">✦</span> DSE 學習站</div>
             <div class="subtitle">Study · Review · Master</div>
         </div>
-
         <div class="quote-wrapper">
             <span class="quote-text" id="quote-text"></span>
         </div>
-
-        <!-- 必修科 -->
         <div class="section-label">── 必修科 ──</div>
         <div class="card-grid">
-            <a href="#" class="card disabled">
-                <span class="card-icon">📝</span><span class="card-name">中文</span><span class="card-status">待建</span>
-            </a>
-            <a href="#" class="card disabled">
-                <span class="card-icon">🔤</span><span class="card-name">英文</span><span class="card-status">待建</span>
-            </a>
-            <a href="#" class="card disabled">
-                <span class="card-icon">📐</span><span class="card-name">數學</span><span class="card-status">待建</span>
-            </a>
-            <a href="#" class="card disabled">
-                <span class="card-icon">🏛️</span><span class="card-name">公社</span><span class="card-status">待建</span>
-            </a>
+            <a href="#" class="card disabled"><span class="card-icon">📝</span><span class="card-name">中文</span><span class="card-status">待建</span></a>
+            <a href="#" class="card disabled"><span class="card-icon">🔤</span><span class="card-name">英文</span><span class="card-status">待建</span></a>
+            <a href="#" class="card disabled"><span class="card-icon">📐</span><span class="card-name">數學</span><span class="card-status">待建</span></a>
+            <a href="#" class="card disabled"><span class="card-icon">🏛️</span><span class="card-name">公社</span><span class="card-status">待建</span></a>
         </div>
-
-        <!-- 选修科 -->
         <div class="section-label">── 選修科 ──</div>
         <div class="card-grid triple">
-            <a href="中史.html" class="card available">
-                <span class="card-icon">🏯</span><span class="card-name">中史</span><span class="card-status">進入</span>
-            </a>
-            <a href="#" class="card disabled">
-                <span class="card-icon">📖</span><span class="card-name">歷史</span><span class="card-status">待建</span>
-            </a>
-            <a href="#" class="card disabled">
-                <span class="card-icon">🏗️</span><span class="card-name">健社</span><span class="card-status">待建</span>
-            </a>
+            <a href="中史.html" class="card available"><span class="card-icon">🏯</span><span class="card-name">中史</span><span class="card-status">進入</span></a>
+            <a href="#" class="card disabled"><span class="card-icon">📖</span><span class="card-name">歷史</span><span class="card-status">待建</span></a>
+            <a href="#" class="card disabled"><span class="card-icon">🏗️</span><span class="card-name">健社</span><span class="card-status">待建</span></a>
         </div>
-
-        <div class="footer">
-            ── <span class="name">Shelly Liu</span> ──
-        </div>
-
+        <div class="footer">── <span class="name">Shelly Liu</span> ──</div>
     </div>
 
     <script>
-        const quotes = [
-            "今天的努力，是明天的底氣。",
-            "每一個優秀的人，都有一段沉默的時光。",
-            "DSE不是終點，而是你證明自己的舞台。",
-            "知識就是力量，複習就是給力量充電。",
-            "不怕慢，就怕站。每天進步一點點。",
-            "你現在付出的每一分鐘，都在為未來投票。",
-            "自律的頂端是享受孤獨。",
-            "你未來的樣子，藏在你現在的努力裡。",
-            "唯有努力，不負光陰。",
-            "長風破浪會有時，直掛雲帆濟滄海。"
-        ];
-        const quoteText = document.getElementById('quote-text');
-        function showRandomQuote() {
-            const ri = Math.floor(Math.random() * quotes.length);
-            quoteText.style.opacity = '0';
-            quoteText.style.transform = 'translateY(8px)';
-            setTimeout(() => {
-                quoteText.textContent = '「 ' + quotes[ri] + ' 」';
-                quoteText.style.opacity = '1';
-                quoteText.style.transform = 'translateY(0)';
-            }, 400);
+        const quotes=["今天的努力，是明天的底氣。","每一個優秀的人，都有一段沉默的時光。","DSE不是終點，而是你證明自己的舞台。","知識就是力量，複習就是給力量充電。","不怕慢，就怕站。每天進步一點點。","你現在付出的每一分鐘，都在為未來投票。","自律的頂端是享受孤獨。","你未來的樣子，藏在你現在的努力裡。","唯有努力，不負光陰。","長風破浪會有時，直掛雲帆濟滄海。"];
+        const quoteText=document.getElementById('quote-text');
+        function showRandomQuote(){
+            const ri=Math.floor(Math.random()*quotes.length);
+            quoteText.style.opacity='0';quoteText.style.transform='translateY(8px)';
+            setTimeout(()=>{quoteText.textContent='「 '+quotes[ri]+' 」';quoteText.style.opacity='1';quoteText.style.transform='translateY(0)';},400);
         }
-        showRandomQuote();
-        setInterval(showRandomQuote, 7000);
+        showRandomQuote();setInterval(showRandomQuote,7000);
     </script>
 </body>
 </html>
+```
