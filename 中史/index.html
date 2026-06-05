@@ -153,7 +153,6 @@
             font-size:17px;
             color:var(--text-secondary);
             letter-spacing:2px;
-            transition:color 0.3s;
         }
         .timeline-item::before{
             content:"";
@@ -166,14 +165,6 @@
         }
         .timeline-item a{color:var(--text-secondary);text-decoration:none;transition:color 0.3s}
         .timeline-item a:hover{color:#8b6914}
-        .timeline-item.active::before{
-            background:#8b6914;
-            width:12px;height:12px;
-            left:-29px;
-            box-shadow:0 0 8px rgba(139,105,20,0.3);
-        }
-        .timeline-item.active a{color:#6b4e0a;font-weight:600;border-bottom:1px dashed #8b6914}
-        .timeline-item.disabled{color:var(--text-muted);cursor:default}
         .placeholder{text-align:center;padding:40px 20px;color:var(--text-muted);font-size:15px;letter-spacing:2px}
         .footer{
             text-align:center;
@@ -250,15 +241,15 @@
                 <a href="#top" class="top-link">↑ 返回頂部</a>
             </div>
             <div class="timeline">
-                <div class="timeline-item disabled">周朝</div>
-                <div class="timeline-item disabled">秦朝</div>
-                <div class="timeline-item disabled">漢朝</div>
-                <div class="timeline-item disabled">隋朝</div>
-                <div class="timeline-item disabled">唐朝</div>
-                <div class="timeline-item disabled">宋朝</div>
-                <div class="timeline-item disabled">元朝</div>
-                <div class="timeline-item disabled">明朝</div>
-                <div class="timeline-item disabled">清朝</div>
+                <div class="timeline-item">周朝</div>
+                <div class="timeline-item">秦朝</div>
+                <div class="timeline-item">漢朝</div>
+                <div class="timeline-item">隋朝</div>
+                <div class="timeline-item">唐朝</div>
+                <div class="timeline-item">宋朝</div>
+                <div class="timeline-item">元朝</div>
+                <div class="timeline-item">明朝</div>
+                <div class="timeline-item">清朝</div>
             </div>
         </div>
 
