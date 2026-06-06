@@ -61,12 +61,12 @@
         .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
         .bird:nth-child(3){animation-delay:3s;font-size:11px}
         @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
-        .container{position:relative;z-index:1;width:100%;max-width:480px;display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:80vh}
+        .container{position:relative;z-index:1;width:100%;max-width:480px;display:flex;flex-direction:column;align-items:center}
         .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px;align-self:flex-start}
         .back-link:hover{color:var(--gold)}
         .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:48px}
-        .menu{display:flex;flex-direction:column;gap:20px;width:100%;max-width:320px}
-        .menu a{
+        .menu{display:flex;flex-direction:column;gap:16px;width:100%;max-width:320px}
+        .menu a, .menu .disabled-card{
             display:flex;
             align-items:center;
             justify-content:center;
@@ -76,7 +76,7 @@
             -webkit-backdrop-filter:blur(10px);
             border:1px solid rgba(180,160,130,0.3);
             border-radius:16px;
-            padding:28px 24px;
+            padding:24px 20px;
             text-decoration:none;
             color:var(--text-primary);
             font-size:18px;
@@ -87,11 +87,13 @@
             transition:transform 0.3s ease,box-shadow 0.3s ease;
         }
         .menu a:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(60,40,20,0.06)}
-        .menu-icon{font-size:22px}
+        .menu .disabled-card{opacity:0.45;cursor:default;pointer-events:none}
+        .menu .disabled-card:hover{transform:none;box-shadow:0 2px 16px rgba(60,40,20,0.04)}
+        .menu-icon{font-size:20px}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:48px}
         @media(max-width:480px){
             .page-title{font-size:22px}
-            .menu a{font-size:16px;padding:24px 20px;letter-spacing:2px}
+            .menu a,.menu .disabled-card{font-size:16px;padding:20px 16px;letter-spacing:2px}
         }
     </style>
 </head>
@@ -106,15 +108,15 @@
             <a href="主题分类.html">
                 <span class="menu-icon">📂</span>按主題分類
             </a>
-            <a href="字母分类.html">
-                <span class="menu-icon">🔤</span>按字母分類
-            </a>
-            <a href="搭配类型.html">
-                <span class="menu-icon">📋</span>短語與固定搭配
-            </a>
-            <a href="实用参考.html">
-                <span class="menu-icon">🌏</span>實用參考
-            </a>
+            <div class="disabled-card">
+                <span class="menu-icon">🔤</span>按字母分類（待建）
+            </div>
+            <div class="disabled-card">
+                <span class="menu-icon">📋</span>短語與固定搭配（待建）
+            </div>
+            <div class="disabled-card">
+                <span class="menu-icon">🌏</span>實用參考（待建）
+            </div>
         </div>
         <div class="footer">── Shelly Liu ──</div>
     </div>
