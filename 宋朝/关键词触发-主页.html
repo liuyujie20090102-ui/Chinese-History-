@@ -1,1 +1,326 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>關鍵詞觸發 · 宋朝</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --correct: #2e7d32;
+            --wrong: #c62828;
+            --ink-light: rgba(60,40,20,0.06);
+            --mountain-far: rgba(120,100,70,0.12);
+            --mountain-mid: rgba(100,80,55,0.16);
+            --mountain-near: rgba(80,60,40,0.2);
+            --cloud: rgba(255,252,245,0.7);
+            --card-bg: rgba(255,253,248,0.85);
+            --card-border: rgba(180,160,130,0.3);
+            --shadow-sm: 0 2px 16px rgba(60,40,20,0.04);
+            --shadow-md: 0 8px 32px rgba(60,40,20,0.06);
+            --radius: 16px;
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:40px 24px 60px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:var(--mountain-far);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:var(--mountain-mid);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:var(--mountain-near);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:var(--cloud);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{
+            0%,100%{transform:translateY(0) translateX(0)}
+            25%{transform:translateY(-7px) translateX(3px)}
+            50%{transform:translateY(-2px) translateX(8px)}
+            75%{transform:translateY(-9px) translateX(3px)}
+        }
+        .container{position:relative;z-index:1;width:100%;max-width:600px}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:32px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--text-primary)}
+        .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:40px}
+        .page-title .icon{display:block;font-size:40px;margin-bottom:8px}
 
+        .card-list{display:flex;flex-direction:column;gap:14px;margin-bottom:40px}
+        .card{display:block;background:var(--card-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--card-border);border-radius:var(--radius);padding:24px 22px;text-align:center;text-decoration:none;cursor:pointer;box-shadow:var(--shadow-sm);transition:transform 0.3s ease,box-shadow 0.3s ease}
+        .card:hover{transform:translateY(-3px);box-shadow:var(--shadow-md)}
+        .card .card-icon{font-size:30px;display:block;margin-bottom:6px}
+        .card .card-name{font-size:18px;font-weight:600;color:var(--text-primary);letter-spacing:2px}
+        .card .card-desc{font-size:13px;color:var(--text-muted);margin-top:3px;letter-spacing:1px}
+
+        .review-badge{display:inline-block;background:var(--wrong);color:#fff;font-size:11px;padding:2px 10px;border-radius:10px;margin-left:6px;animation:pulse 2s ease-in-out infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:20px}
+        .footer .name{font-weight:500;color:var(--text-secondary)}
+
+        .overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:30;justify-content:center;align-items:center}
+        .overlay.show{display:flex}
+        .popup{background:#fffdf7;border-radius:16px;padding:28px 22px;max-width:500px;width:90%;max-height:70vh;overflow-y:auto;box-shadow:0 8px 40px rgba(0,0,0,0.1)}
+        .popup h3{color:var(--text-primary);margin-bottom:12px;letter-spacing:2px;text-align:center}
+        .popup .stat-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--ink-light);font-size:14px;color:var(--text-secondary)}
+        .popup .stat-row .stat-name{font-weight:600;color:var(--text-primary)}
+        .popup .review-dates{font-size:12px;color:var(--text-muted);margin-top:2px}
+        .popup button{margin-top:14px;padding:10px 24px;background:var(--gold);color:#fff;border:none;border-radius:20px;font-size:14px;cursor:pointer;letter-spacing:1px;font-family:var(--font-cn)}
+        .popup .btn-review{background:var(--correct)}
+        .popup .btn-close{background:#fff;color:var(--text-muted);border:1px solid var(--text-muted);margin-left:8px}
+
+        @media(max-width:480px){
+            .page-title{font-size:24px}
+            .card{padding:20px 16px}
+            .card .card-name{font-size:16px}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+
+    <div class="container">
+        <a href="1.html" class="back-link">← 返回練習</a>
+        <div class="page-title">
+            <span class="icon">🎯</span>
+            關鍵詞觸發
+        </div>
+
+        <div class="card-list">
+            <a href="关键词触发.html" class="card">
+                <span class="card-icon">▶️</span>
+                <span class="card-name">開始遊戲</span>
+                <span class="card-desc">按章節順序逐輪挑戰</span>
+            </a>
+            <div class="card" onclick="showStats()">
+                <span class="card-icon">📊</span>
+                <span class="card-name">學習統計</span>
+                <span class="card-desc">查看各輪正確率與複習提醒</span>
+            </div>
+            <div class="card" onclick="startReview()" id="review-card">
+                <span class="card-icon">📝</span>
+                <span class="card-name">錯題複習</span>
+                <span class="card-desc">只複習之前做錯的題目</span>
+            </div>
+        </div>
+
+        <div class="footer">── <span class="name">Shelly Liu</span> ──</div>
+    </div>
+
+    <div class="overlay" id="stats-overlay">
+        <div class="popup" id="stats-popup"></div>
+    </div>
+
+    <script>
+        const rounds = [
+            {name:"第一輪：中央集權原因", total:2},
+            {name:"第二輪：收中央相權", total:8},
+            {name:"第三輪：收其精兵", total:6},
+            {name:"第四輪：制其錢谷", total:2},
+            {name:"第五輪：稍奪其權+刑權", total:6}
+        ];
+
+        function getReviewData() {
+            try { return JSON.parse(localStorage.getItem('songKwcReview2') || '{}'); } catch(e) { return {}; }
+        }
+
+        function getRoundResults() {
+            try { return JSON.parse(localStorage.getItem('songKwcRoundResults2') || '{}'); } catch(e) { return {}; }
+        }
+
+        function getCompletedRounds() {
+            try { return JSON.parse(localStorage.getItem('songKwcRounds2') || '[]'); } catch(e) { return []; }
+        }
+
+        function showStats() {
+            const reviewData = getReviewData();
+            const roundResults = getRoundResults();
+            const completedRounds = getCompletedRounds();
+            const today = new Date().toISOString().split('T')[0];
+            const ebbinghaus = [1, 3, 7, 14, 30];
+
+            let html = '<h3>📊 學習統計</h3>';
+            let hasReviewToday = false;
+            let reviewRounds = [];
+
+            rounds.forEach((round, i) => {
+                const data = reviewData[i];
+                if (data && completedRounds.includes(i)) {
+                    const results = roundResults[i] || {};
+                    let correct = 0;
+                    const wrongList = [];
+                    Object.keys(results).forEach(j => {
+                        if (results[j] === 'correct') correct++;
+                        if (results[j] === 'wrong' || results[j] === 'reveal') wrongList.push(parseInt(j) +
+                            1);
+                    });
+                    const rate = Math.round(correct / round.total * 100);
+                    html +=
+                        `<div class="stat-row"><span class="stat-name">${round.name}</span><span>${correct}/${round.total}（${rate}%）</span></div>`;
+
+                    if (data.completedDate) {
+                        const completed = new Date(data.completedDate);
+                        const reviewDates = ebbinghaus.map(d => {
+                            const rd = new Date(completed);
+                            rd.setDate(rd.getDate() + d);
+                            return rd.toISOString().split('T')[0];
+                        });
+                        html +=
+                            `<div class="review-dates">📅 複習日：${reviewDates.join('、')}</div>`;
+                        if (reviewDates.includes(today)) {
+                            hasReviewToday = true;
+                            if (wrongList.length > 0) reviewRounds.push({ idx: i, name: round.name,
+                                wrongList });
+                        }
+                    }
+                    if (wrongList.length > 0) {
+                        html +=
+                            `<div class="review-dates" style="color:var(--wrong)">錯題：第${wrongList.join('、')}題</div>`;
+                    }
+                } else {
+                    html +=
+                        `<div class="stat-row"><span class="stat-name">${round.name}</span><span style="color:var(--text-muted)">未通關</span></div>`;
+                }
+            });
+
+            if (hasReviewToday && reviewRounds.length > 0) {
+                const names = reviewRounds.map(r => r.name).join('、');
+                html +=
+                    `<p style="color:var(--wrong);text-align:center;margin-top:12px;font-weight:600">📅 今日需要複習：${names}</p>`;
+                html +=
+                    `<button class="btn-review" onclick="startReviewFromStats()">🚀 一鍵開始複習</button>`;
+            }
+
+            html += `<button class="btn-close" onclick="closeStats()">關閉</button>`;
+            document.getElementById('stats-popup').innerHTML = html;
+            document.getElementById('stats-overlay').classList.add('show');
+        }
+
+        function startReview() {
+            const roundResults = getRoundResults();
+            const completedRounds = getCompletedRounds();
+            const allWrong = [];
+            completedRounds.forEach(i => {
+                const results = roundResults[i] || {};
+                Object.keys(results).forEach(j => {
+                    if (results[j] === 'wrong' || results[j] === 'reveal') {
+                        allWrong.push({ roundIdx: i, qIdx: parseInt(j) });
+                    }
+                });
+            });
+            if (allWrong.length === 0) {
+                alert('暫無錯題需要複習！');
+                return;
+            }
+            localStorage.setItem('songKwcReviewQueue', JSON.stringify(allWrong));
+            window.location.href = '关键词触发.html?mode=review';
+        }
+
+        function startReviewFromStats() {
+            const roundResults = getRoundResults();
+            const completedRounds = getCompletedRounds();
+            const reviewData = getReviewData();
+            const today = new Date().toISOString().split('T')[0];
+            const ebbinghaus = [1, 3, 7, 14, 30];
+            const allWrong = [];
+
+            completedRounds.forEach(i => {
+                const data = reviewData[i];
+                if (data && data.completedDate) {
+                    const completed = new Date(data.completedDate);
+                    const reviewDates = ebbinghaus.map(d => {
+                        const rd = new Date(completed);
+                        rd.setDate(rd.getDate() + d);
+                        return rd.toISOString().split('T')[0];
+                    });
+                    if (reviewDates.includes(today)) {
+                        const results = roundResults[i] || {};
+                        Object.keys(results).forEach(j => {
+                            if (results[j] === 'wrong' || results[j] === 'reveal') {
+                                allWrong.push({ roundIdx: i, qIdx: parseInt(j) });
+                            }
+                        });
+                    }
+                }
+            });
+
+            if (allWrong.length === 0) {
+                alert('今日沒有需要複習的題目！');
+                return;
+            }
+            localStorage.setItem('songKwcReviewQueue', JSON.stringify(allWrong));
+            document.getElementById('stats-overlay').classList.remove('show');
+            window.location.href = '关键词触发.html?mode=review';
+        }
+
+        function closeStats() {
+            document.getElementById('stats-overlay').classList.remove('show');
+        }
+
+        document.getElementById('stats-overlay').addEventListener('click', function(e) { if (e.target === this) closeStats(); });
+
+        // 检查今日复习提醒
+        (function() {
+            const reviewData = getReviewData();
+            const completedRounds = getCompletedRounds();
+            const today = new Date().toISOString().split('T')[0];
+            const ebbinghaus = [1, 3, 7, 14, 30];
+            let count = 0;
+            completedRounds.forEach(i => {
+                const data = reviewData[i];
+                if (data && data.completedDate) {
+                    const completed = new Date(data.completedDate);
+                    const reviewDates = ebbinghaus.map(d => {
+                        const rd = new Date(completed);
+                        rd.setDate(rd.getDate() + d);
+                        return rd.toISOString().split('T')[0];
+                    });
+                    if (reviewDates.includes(today)) count++;
+                }
+            });
+            if (count > 0) {
+                const badge = document.createElement('span');
+                badge.className = 'review-badge';
+                badge.textContent = count + '輪待複習';
+                document.getElementById('review-card').querySelector('.card-name').appendChild(badge);
+            }
+        })();
+    </script>
+</body>
+</html>
