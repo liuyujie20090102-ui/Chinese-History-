@@ -138,6 +138,15 @@ function renderAZNav(containerId) {
         link.style.cssText = 'display:inline-block;padding:5px 9px;margin:2px;color:#8b6914;text-decoration:none;font-size:14px;font-weight:500;border-radius:4px;transition:background 0.2s;';
         link.onmouseenter = function() { link.style.background = 'rgba(139,105,20,0.08)'; };
         link.onmouseleave = function() { link.style.background = 'transparent'; };
+        link.onclick = function(e) {
+            e.preventDefault();
+            currentPage = 1;
+            renderWordList();
+            setTimeout(function() {
+                const target = document.getElementById('letter-' + letter);
+                if (target) target.scrollIntoView({ behavior: 'smooth' });
+            }, 100);
+        };
         container.appendChild(link);
     });
 }
@@ -175,8 +184,8 @@ function initWordList(rawData) {
     currentPage = 1;
 
     renderWordList();
-    renderAZNav('az-nav');
     setupAZToggle('az-toggle', 'az-nav');
+    renderAZNav('az-nav');
 
     const style = document.createElement('style');
     style.textContent = '.page-btn{padding:8px 16px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:"Noto Serif TC",serif;font-size:13px;color:#5c5347;letter-spacing:1px;transition:all 0.3s;}.page-btn:hover{background:rgba(180,160,130,0.12);color:#2c2416;}.page-btn:disabled{opacity:0.4;cursor:default;}';
