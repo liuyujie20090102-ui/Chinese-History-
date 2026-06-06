@@ -79,12 +79,14 @@
             padding:36px 20px;
             text-align:center;
             text-decoration:none;
+            cursor:pointer;
             box-shadow:0 2px 16px rgba(60,40,20,0.04);
+            transition:transform 0.3s ease,box-shadow 0.3s ease;
         }
+        .card:hover{transform:translateY(-4px);box-shadow:0 8px 32px rgba(60,40,20,0.06)}
         .card-icon{font-size:36px;margin-bottom:12px}
         .card-title{font-size:18px;font-weight:600;color:var(--text-primary);letter-spacing:2px;margin-bottom:6px}
         .card-desc{font-size:12px;color:var(--text-muted);letter-spacing:1px;line-height:1.6}
-        .card.disabled{opacity:0.4;cursor:default;pointer-events:none}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:40px}
         @media(max-width:480px){
             .page-title{font-size:22px}
@@ -102,26 +104,26 @@
         <div class="page-title">英 文</div>
         <div class="page-subtitle">English Language · DSE</div>
         <div class="grid">
-            <div class="card disabled">
+            <a href="词汇库.html" class="card">
                 <div class="card-icon">📖</div>
                 <div class="card-title">詞彙庫</div>
-                <div class="card-desc">按主題分類的四五星詞彙<br>含家族詞、近反義詞、搭配<br>（待建）</div>
-            </div>
-            <div class="card disabled">
+                <div class="card-desc">按主題分類的四五星詞彙<br>含家族詞、近反義詞、搭配</div>
+            </a>
+            <a href="新闻库.html" class="card">
                 <div class="card-icon">📰</div>
                 <div class="card-title">新聞庫</div>
-                <div class="card-desc">新聞存檔 + 詞彙句式提取<br>真實語境學英文<br>（待建）</div>
-            </div>
-            <div class="card disabled">
+                <div class="card-desc">新聞存檔 + 詞彙句式提取<br>真實語境學英文</div>
+            </a>
+            <a href="句式库.html" class="card">
                 <div class="card-icon">📝</div>
                 <div class="card-title">句式庫</div>
-                <div class="card-desc">約60個DSE核心句式<br>含公式、例句、常見錯誤<br>（待建）</div>
-            </div>
-            <div class="card disabled">
+                <div class="card-desc">約60個DSE核心句式<br>含公式、例句、常見錯誤</div>
+            </a>
+            <a href="写作库.html" class="card">
                 <div class="card-icon">✍️</div>
                 <div class="card-title">寫作庫</div>
-                <div class="card-desc">News Commentary · Forum Post<br>書信 · 倒金字塔結構<br>（待建）</div>
-            </div>
+                <div class="card-desc">News Commentary · Forum Post<br>書信 · 倒金字塔結構</div>
+            </a>
         </div>
         <div class="footer">── Shelly Liu ──</div>
     </div>
