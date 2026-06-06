@@ -77,7 +77,6 @@
         .page-title .icon{display:block;font-size:36px;margin-bottom:6px}
 
         .section-card{background:var(--card-bg);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border:1px solid var(--card-border);border-radius:var(--radius);padding:28px 24px;box-shadow:var(--shadow-sm);margin-bottom:20px}
-
         .section-title{font-size:17px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin-bottom:16px;text-align:center}
 
         .btn-full{display:block;width:100%;padding:14px;background:var(--correct);color:#fff;border:none;border-radius:20px;font-size:15px;cursor:pointer;letter-spacing:2px;font-family:var(--font-cn);transition:all 0.2s}
@@ -118,14 +117,12 @@
             複習中心
         </div>
 
-        <!-- 错题重练 -->
         <div class="section-card">
             <div class="section-title">📝 錯題重練</div>
             <p style="text-align:center;color:var(--text-muted);font-size:14px;margin-bottom:12px">集中複習所有做錯過的題目</p>
             <button class="btn-full" onclick="startWrongReview()">🚀 開始錯題重練</button>
         </div>
 
-        <!-- 艾宾浩斯复习日历 -->
         <div class="section-card">
             <div class="section-title">📅 艾賓浩斯複習日曆</div>
             <p style="text-align:center;color:var(--text-muted);font-size:13px;margin-bottom:14px">以通關日期為起點，自動計算複習時間</p>
@@ -154,11 +151,18 @@
         function startWrongReview() {
             const roundResults = getRoundResults();
             const completedRounds = getCompletedRounds();
+            const seen = new Set();
             const allWrong = [];
             completedRounds.forEach(i => {
                 const results = roundResults[i] || {};
                 Object.keys(results).forEach(j => {
-                    if (results[j] === 'wrong' || results[j] === 'reveal') allWrong.push({ roundIdx: parseInt(i), qIdx: parseInt(j) });
+                    if (results[j] === 'wrong' || results[j] === 'reveal') {
+                        const key = i + '_' + j;
+                        if (!seen.has(key)) {
+                            seen.add(key);
+                            allWrong.push({ roundIdx: parseInt(i), qIdx: parseInt(j) });
+                        }
+                    }
                 });
             });
             if (allWrong.length === 0) { alert('暫無錯題需要複習！'); return; }
@@ -168,10 +172,17 @@
 
         function startReviewForRound(roundIdx) {
             const roundResults = getRoundResults();
-            const allWrong = [];
             const results = roundResults[roundIdx] || {};
+            const seen = new Set();
+            const allWrong = [];
             Object.keys(results).forEach(j => {
-                if (results[j] === 'wrong' || results[j] === 'reveal') allWrong.push({ roundIdx: roundIdx, qIdx: parseInt(j) });
+                if (results[j] === 'wrong' || results[j] === 'reveal') {
+                    const key = roundIdx + '_' + j;
+                    if (!seen.has(key)) {
+                        seen.add(key);
+                        allWrong.push({ roundIdx: roundIdx, qIdx: parseInt(j) });
+                    }
+                }
             });
             if (allWrong.length === 0) { alert('該輪暫無錯題！'); return; }
             localStorage.setItem('songKwcReviewQueue', JSON.stringify(allWrong));
@@ -185,7 +196,6 @@
             const today = new Date();
             const todayStr = today.toISOString().split('T')[0];
 
-            // 找到最早通关日期和30天后的日期
             let minDate = new Date();
             let maxDate = new Date();
             maxDate.setDate(maxDate.getDate() + 30);
@@ -208,15 +218,11 @@
                 return;
             }
 
-            // 生成从今天往前3天到往后30天的日期列表
             const startDate = new Date(today);
             startDate.setDate(startDate.getDate() - 3);
             const dates = [];
-            for (let d = new Date(startDate); d <= maxDate; d.setDate(d.getDate() + 1)) {
-                dates.push(new Date(d));
-            }
+            for (let d = new Date(startDate); d <= maxDate; d.setDate(d.getDate() + 1)) { dates.push(new Date(d)); }
 
-            // 计算每天有哪些轮次需要复习
             const dateMap = {};
             dates.forEach(d => {
                 const ds = d.toISOString().split('T')[0];
@@ -236,7 +242,6 @@
                 });
             });
 
-            // 按周分组
             let html = '<table class="calendar-table"><tr><th>日</th><th>一</th><th>二</th><th>三</th><th>四</th><th>五</th><th>六</th></tr><tr>';
             const firstDate = dates[0];
             const startDay = firstDate.getDay();
@@ -259,8 +264,7 @@
                     let linkClass = 'review-link';
                     if (isDone) linkClass += ' done-review';
                     else if (isToday) linkClass += ' today-link';
-                    html +=
-                        `<a class="${linkClass}" href="javascript:void(0)" onclick="${isDone?'':'startReviewForRound('+r.roundIdx+')'}">${rounds[r.roundIdx].name.replace('：','')}${isDone?' ✅':''}</a>`;
+                    html += `<a class="${linkClass}" href="javascript:void(0)" onclick="${isDone?'':'startReviewForRound('+r.roundIdx+')'}">${rounds[r.roundIdx].name.replace('：','')}${isDone?' ✅':''}</a>`;
                 });
                 html += '</td>';
                 dayCount++;
@@ -276,3 +280,4 @@
     </script>
 </body>
 </html>
+```
