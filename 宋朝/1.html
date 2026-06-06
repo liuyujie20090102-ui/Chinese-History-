@@ -83,6 +83,7 @@
         .list-item::before{content:"";position:absolute;left:-28px;top:50%;transform:translateY(-50%);width:10px;height:10px;border-radius:50%;background:var(--text-muted)}
         .list-item a{color:var(--text-secondary);text-decoration:none;transition:color 0.3s}
         .list-item a:hover{color:#8b6914}
+        .list-item.disabled{color:var(--text-muted);opacity:0.5}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:20px}
         .footer .name{font-weight:500;color:var(--text-secondary)}
         @media(max-width:480px){
@@ -128,9 +129,9 @@
         <div class="section">
             <div class="section-header"><span class="section-title">── ✏️ 練習 ──</span></div>
             <div class="list">
-                <div class="list-item"><a href="#">填空挑戰</a></div>
                 <div class="list-item"><a href="关键词触发.html">關鍵詞觸發</a></div>
-                <div class="list-item"><a href="#">限時問答</a></div>
+                <div class="list-item disabled">限時問答（待建）</div>
+                <div class="list-item disabled">填空挑戰（待建）</div>
             </div>
         </div>
         <div class="section">
