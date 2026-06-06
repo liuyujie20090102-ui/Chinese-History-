@@ -66,7 +66,7 @@
         .back-link:hover{color:var(--gold)}
         .page-title{text-align:center;font-size:28px;font-weight:700;color:var(--text-primary);letter-spacing:4px;margin-bottom:48px}
         .menu{display:flex;flex-direction:column;gap:14px;width:100%;max-width:320px}
-        .menu a{
+        .menu a, .menu .disabled-card{
             display:flex;
             align-items:center;
             justify-content:center;
@@ -87,11 +87,13 @@
             transition:transform 0.3s ease,box-shadow 0.3s ease;
         }
         .menu a:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(60,40,20,0.06)}
+        .menu .disabled-card{opacity:0.4;cursor:default;pointer-events:none}
+        .menu .disabled-card:hover{transform:none;box-shadow:0 2px 16px rgba(60,40,20,0.04)}
         .menu-icon{font-size:20px}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:48px}
         @media(max-width:480px){
             .page-title{font-size:22px}
-            .menu a{font-size:16px;padding:20px 16px;letter-spacing:2px}
+            .menu a,.menu .disabled-card{font-size:16px;padding:20px 16px;letter-spacing:2px}
         }
     </style>
 </head>
@@ -104,18 +106,18 @@
         <div class="page-title">按主題分類</div>
         <div class="menu">
             <a href="论证.html"><span class="menu-icon">💬</span>論證</a>
-            <a href="环境.html"><span class="menu-icon">🌿</span>環境</a>
-            <a href="科技.html"><span class="menu-icon">🤖</span>科技</a>
-            <a href="情感.html"><span class="menu-icon">❤️</span>情感</a>
-            <a href="社会.html"><span class="menu-icon">🏙️</span>社會</a>
-            <a href="职业.html"><span class="menu-icon">💼</span>職業</a>
-            <a href="程度.html"><span class="menu-icon">📏</span>程度</a>
-            <a href="教育.html"><span class="menu-icon">📚</span>教育</a>
-            <a href="健康.html"><span class="menu-icon">🏥</span>健康</a>
-            <a href="文化.html"><span class="menu-icon">🎭</span>文化</a>
-            <a href="经济.html"><span class="menu-icon">💰</span>經濟</a>
-            <a href="法律.html"><span class="menu-icon">⚖️</span>法律</a>
-            <a href="国际.html"><span class="menu-icon">🌐</span>國際</a>
+            <div class="disabled-card"><span class="menu-icon">🌿</span>環境</div>
+            <div class="disabled-card"><span class="menu-icon">🤖</span>科技</div>
+            <div class="disabled-card"><span class="menu-icon">❤️</span>情感</div>
+            <div class="disabled-card"><span class="menu-icon">🏙️</span>社會</div>
+            <div class="disabled-card"><span class="menu-icon">💼</span>職業</div>
+            <div class="disabled-card"><span class="menu-icon">📏</span>程度</div>
+            <div class="disabled-card"><span class="menu-icon">📚</span>教育</div>
+            <div class="disabled-card"><span class="menu-icon">🏥</span>健康</div>
+            <div class="disabled-card"><span class="menu-icon">🎭</span>文化</div>
+            <div class="disabled-card"><span class="menu-icon">💰</span>經濟</div>
+            <div class="disabled-card"><span class="menu-icon">⚖️</span>法律</div>
+            <div class="disabled-card"><span class="menu-icon">🌐</span>國際</div>
         </div>
         <div class="footer">── Shelly Liu ──</div>
     </div>
