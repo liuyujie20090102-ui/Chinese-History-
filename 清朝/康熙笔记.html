@@ -1,1 +1,493 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>康熙 · 筆記</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --ink-light: rgba(60,40,20,0.06);
+            --mountain-far: rgba(120,100,70,0.12);
+            --mountain-mid: rgba(100,80,55,0.16);
+            --mountain-near: rgba(80,60,40,0.2);
+            --cloud: rgba(255,252,245,0.7);
+            --card-bg: rgba(255,253,248,0.85);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 80px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:var(--mountain-far);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:var(--mountain-mid);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:var(--mountain-near);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:var(--cloud);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
 
+        .container{position:relative;z-index:1;width:100%;max-width:650px}
+        .top-bar{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;flex-wrap:wrap;gap:8px}
+        .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--text-primary)}
+        .page-indicator{font-family:var(--font-en);font-size:13px;color:var(--text-muted);letter-spacing:1px}
+
+        .page-card{
+            background:var(--card-bg);
+            backdrop-filter:blur(8px);
+            -webkit-backdrop-filter:blur(8px);
+            border:1px solid rgba(180,160,130,0.2);
+            border-radius:16px;
+            padding:40px 32px;
+            box-shadow:0 2px 20px rgba(60,40,20,0.04);
+        }
+
+        .note-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:24px}
+        .section-label{text-align:center;font-size:16px;font-weight:600;color:var(--text-muted);letter-spacing:3px;margin-bottom:20px}
+        .item-title{font-size:18px;font-weight:700;color:var(--text-primary);margin-bottom:14px;letter-spacing:1px;padding-bottom:8px;border-bottom:1px solid var(--ink-light)}
+        .content{font-size:16.5px;color:var(--text-secondary);line-height:2.4;letter-spacing:0.5px}
+        .content p{margin-bottom:10px}
+        .content ul{list-style:none;padding-left:0;margin-bottom:14px}
+        .content ul li{padding:5px 0 5px 20px;position:relative;line-height:2.2}
+        .content ul li::before{content:"·";position:absolute;left:4px;color:var(--gold-light);font-weight:bold;font-size:18px}
+        .content ul li.sub{padding-left:36px}
+        .content ul li.sub::before{content:"·";left:18px;color:var(--text-muted);font-size:14px}
+        .content ul li.sub2{padding-left:48px}
+        .content ul li.sub2::before{content:"·";left:32px;color:var(--text-muted);font-size:12px}
+        .content strong{color:var(--text-primary);font-weight:600}
+        .content table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}
+        .content table th{background:rgba(180,160,130,0.15);color:var(--text-primary);padding:10px 12px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.2)}
+        .content table td{padding:9px 12px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);line-height:1.7}
+        .content table td:first-child{font-weight:600;color:var(--text-primary);text-align:center;background:rgba(180,160,130,0.05)}
+        .content img{width:100%;max-width:500px;display:block;margin:20px auto;border-radius:12px;border:1px solid rgba(180,160,130,0.2);background:rgba(255,253,248,0.5);padding:12px}
+
+        .nav-bar{display:flex;justify-content:space-between;align-items:center;margin-top:20px;gap:12px}
+        .nav-btn{padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
+        .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
+        .nav-btn:disabled{opacity:0.3;cursor:default;pointer-events:none}
+
+        .toc-btn{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:50%;background:rgba(255,253,248,0.85);border:1px solid rgba(180,160,130,0.3);box-shadow:0 2px 16px rgba(60,40,20,0.1);cursor:pointer;z-index:20;font-size:22px;display:flex;align-items:center;justify-content:center;transition:all 0.3s;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}
+        .toc-btn:hover{background:rgba(255,253,248,1);box-shadow:0 4px 24px rgba(60,40,20,0.15)}
+        .toc-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.3);z-index:30;justify-content:center;align-items:flex-end}
+        .toc-overlay.show{display:flex}
+        .toc-panel{background:#fffdf7;border-radius:20px 20px 0 0;width:100%;max-width:500px;max-height:65vh;overflow-y:auto;padding:20px 24px 32px;box-shadow:0 -4px 24px rgba(0,0,0,0.1);animation:slideUp 0.3s ease;position:relative}
+        @keyframes slideUp{from{transform:translateY(100%)}to{transform:translateY(0)}}
+        .toc-panel .toc-header{display:flex;justify-content:center;margin-bottom:6px}
+        .toc-panel .toc-handle{width:40px;height:4px;border-radius:2px;background:var(--text-muted);opacity:0.4}
+        .toc-panel .toc-title{text-align:center;font-size:16px;font-weight:700;color:var(--text-primary);letter-spacing:2px;margin:12px 0 16px}
+        .toc-item{display:flex;align-items:center;padding:7px 8px;font-size:14px;color:var(--text-secondary);text-decoration:none;border-radius:6px;cursor:pointer;transition:all 0.2s;letter-spacing:0.5px;line-height:1.8}
+        .toc-item:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
+        .toc-item.active{background:rgba(139,105,20,0.1);color:var(--gold);font-weight:600}
+        .toc-item.toc-l1{font-weight:600;color:var(--text-primary);margin-top:8px;font-size:15px}
+        .toc-item.toc-l2{padding-left:20px}
+        .toc-item .toc-toggle{width:20px;height:20px;display:inline-flex;align-items:center;justify-content:center;margin-right:4px;font-size:10px;transition:transform 0.2s;flex-shrink:0}
+        .toc-item .toc-toggle.collapsed{transform:rotate(-90deg)}
+        .toc-children{overflow:hidden;transition:max-height 0.3s ease}
+        .toc-children.collapsed{max-height:0}
+
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:24px}
+
+        @media(max-width:480px){
+            .page-card{padding:24px 16px}
+            .item-title{font-size:16px}
+            .content{font-size:15px}
+            .content table{font-size:12px}
+            .nav-btn{padding:8px 14px;font-size:13px}
+            .toc-btn{bottom:16px;right:16px;width:42px;height:42px;font-size:20px}
+            .toc-panel{max-height:55vh;padding:16px 18px 24px}
+        }
+    </style>
+</head>
+<body>
+
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+
+    <div class="container">
+        <div class="top-bar">
+            <a href="笔记主页.html" class="back-link">← 返回筆記</a>
+            <span class="page-indicator" id="page-indicator">1 / 10</span>
+        </div>
+        <div class="page-card"><div id="page-content"></div></div>
+        <div class="nav-bar">
+            <button class="nav-btn" id="prev-btn" onclick="prevPage()">← 上一頁</button>
+            <button class="nav-btn" id="next-btn" onclick="nextPage()">下一頁 →</button>
+        </div>
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+
+    <div class="toc-btn" onclick="openToc()">📂</div>
+    <div class="toc-overlay" id="toc-overlay" onclick="closeToc(event)">
+        <div class="toc-panel" id="toc-panel" onclick="event.stopPropagation()">
+            <div class="toc-header"><div class="toc-handle"></div></div>
+            <div class="toc-title">── 目錄 ──</div>
+            <div id="toc-content"></div>
+        </div>
+    </div>
+
+    <script>
+        const pages = [
+            // 第1页：封面
+            `<div class="note-title">🏯 康熙帝的君主集權</div>
+             <div class="section-label">── 清聖祖 · 康熙帝 ──</div>
+             <div class="content">
+             <p style="text-align:center;color:var(--text-muted)">愛新覺羅·玄燁</p>
+             <p style="text-align:center;color:var(--text-muted)">在位：1661年－1722年</p>
+             </div>`,
+
+            // 第2页：集權原因 + 集權目的
+            `<div class="section-label">── 一、集權原因 ──</div>
+             <div class="content">
+             <ul>
+             <li>滿洲人口較少，需統治人數眾多且文官深厚的漢人</li>
+             <li>清初入關，各地抗清活動頻繁（反清復明）</li>
+             <li>保留「議政王大臣會議」制度，滿洲王公貴族及八旗旗主得以參與軍政權</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:20px">集權目的</div>
+             <div class="content">
+             <ul>
+             <li>鞏固政權穩定，壓制反清，須集中決策與軍事權力於皇帝</li>
+             <li>若不削弱旗主／貴族集體決策機制，皇權會被「貴族政治」牽制，促使皇帝另建親信決策系統</li>
+             </ul>
+             </div>`,
+
+            // 第3页：1. 清除權臣
+            `<div class="section-label">── 二、集權措施 ──</div>
+             <div class="item-title">1. 清除權臣</div>
+             <div class="content">
+             <p><strong>背景</strong></p>
+             <ul><li>康熙年幼即位，國政由索尼、蘇克薩哈、遏必隆、鰲拜四位輔政大臣把持，鰲拜多次矯旨</li></ul>
+             <p><strong>內容</strong></p>
+             <ul><li>康熙設計削弱鰲拜等人的勢力，逮捕懲治擅權結黨的明珠和索額圖</li></ul>
+             </div>`,
+
+            // 第4页：2. 設立南書房（上）
+            `<div class="item-title">2. 設立南書房</div>
+             <div class="content">
+             <p><strong>背景</strong></p>
+             <ul>
+             <li>未入關前，設議政王大臣會議，軍國大事由滿洲貴族與八旗首領共同商定，約束皇權</li>
+             <li>內閣設置初期，分議政王大臣會議之權，初被稱為宰相，能輔弼主事，但只能票擬，欠缺實權，形同政治花瓶</li>
+             <li>內閣為正式機關，運作公開，不利保密，康熙為便於秘密決策，另設南書房</li>
+             </ul>
+             </div>`,
+
+            // 第5页：2. 設立南書房（下）
+            `<div class="item-title">2. 設立南書房（續）</div>
+             <div class="content">
+             <p><strong>內容</strong></p>
+             <ul>
+             <li>設南書房，作為皇帝私人秘書機構（非正式架構），實為政治決策中樞</li>
+             <li class="sub">議政王大臣會議與內閣均不合康熙心意，於是設立南書房</li>
+             <li>挑選翰林院才德兼備的滿漢大臣入值，稱為「南書房行走」</li>
+             <li>表面與皇帝探討詩文，實際秉承意旨撰寫諭旨、發佈政令、批答奏章</li>
+             <li>位置較近深宮，非定製，無內院正式編制</li>
+             </ul>
+             <p><strong>例子</strong></p>
+             <ul>
+             <li>入南書房有34人，日後為二品以上大官有24人，如張廷玉亦是出身於南書房</li>
+             <li>罷免納蘭明珠即在南書房策劃，因行動機密，得以成功</li>
+             </ul>
+             <p><strong>作用</strong></p>
+             <ul>
+             <li>與南書房行走商議機密、起草政令，削弱內閣及議政王權力，防止權臣濫權</li>
+             </ul>
+             </div>`,
+
+            // 第6页：3. 抑制八旗
+            `<div class="item-title">3. 抑制八旗</div>
+             <div class="content">
+             <p><strong>背景</strong></p>
+             <ul>
+             <li>清初旗主勢力很大，威脅君權</li>
+             <li class="sub">八旗旗主擁有議政權力，且八旗軍政合一、兵民一體，旗主兼掌軍事與民政</li>
+             </ul>
+             <p><strong>內容</strong></p>
+             <ul>
+             <li><strong>加強對上三旗控制：</strong>從輔政大臣手中收回「上三旗」控制權，由皇帝直接掌握。康熙晚年派皇子（貝勒）兼任都統、管理旗務，取代原有旗主</li>
+             <li><strong>設都統和副都統管理：</strong>各旗設都統、副都統，均由君主任命，直接聽命於君主</li>
+             <li><strong>限制旗主權力：</strong>規定各旗王公不可干涉旗務，下五旗亦受約束</li>
+             </ul>
+             <p style="color:var(--text-muted);font-size:14px">* 貝勒：滿語爵位稱號，此處指康熙派皇子代管旗務</p>
+             </div>`,
+
+            // 第7页：4. 密折制度
+            `<div class="item-title">4. 密折制度</div>
+             <div class="content">
+             <p><strong>背景</strong></p>
+             <ul>
+             <li>清初官員上奏須經通政司，以題本（報告、事項意見）或奏本（私事）上呈</li>
+             <li>原有流程為：官員 → 通政司 → 內閣 → 皇帝</li>
+             </ul>
+             <p><strong>內容</strong></p>
+             <ul>
+             <li>康熙改為密折制度，一切聽聞皆可上報，允許上奏未經證實的事</li>
+             <li>不經通政司，直達御前：官員 → 密折 → 皇帝</li>
+             <li>不經內閣票擬，由皇帝御覽和親自批閱</li>
+             <li>高度保密，除奏折者和皇帝外，不允許第三人拆閱</li>
+             <li>使用範圍：康熙本只准許部分親近官員使用，後擴展至全國高級官員</li>
+             </ul>
+             <p><strong>作用</strong></p>
+             <ul>
+             <li>大臣暗中監察，人人恐受秘密檢舉，政風因循</li>
+             <li>互相監督、互相牽制，不敢擅自枉為</li>
+             </ul>
+             </div>`,
+
+            // 第8页：5. 地方監察 + 6. 加強監察
+            `<div class="item-title">5. 地方監察</div>
+             <div class="content">
+             <ul>
+             <li>康熙帝把明的布政司改稱行省</li>
+             <li>各省最高長官為總督和巡撫，總督掌一省或數省軍政，巡撫管一省民政</li>
+             <li>兩者互不統屬，且可互相監察和牽制</li>
+             <li>後來康熙帝奪去地方的用人用財權力，加強中央對地方的控制</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:20px">6. 加強監察</div>
+             <div class="content">
+             <ul>
+             <li>開放「風聞言事」的禁令，允許監察官員上奏未經證實的情況或傳言</li>
+             <li>批准監察官隨時面見君主，並嚴禁被彈劾的人報復</li>
+             </ul>
+             </div>`,
+
+            // 第9页：7. 文字獄 + 8. 裁撤三藩
+            `<div class="item-title">7. 文字獄</div>
+             <div class="content">
+             <ul>
+             <li>凡詩文中有涉嫌讒謗滿清和懷念明室的內容，即興大獄，遭監禁殺害者以百計，株連甚廣</li>
+             <li>以莊廷鑨《明史》和戴名世《南山集》牽連最廣</li>
+             </ul>
+             </div>
+             <div class="item-title" style="margin-top:20px">8. 裁撤三藩</div>
+             <div class="content">
+             <ul>
+             <li>康熙帝裁撤吳三桂、尚可喜、耿精忠三位藩王，激起「三藩之亂」</li>
+             <li>康熙帝重用漢人組成的綠營兵，平定三藩叛亂</li>
+             </ul>
+             <p><strong>目的：</strong>解決藩王割據問題，加強中央對地方的控制和提升君權</p>
+             </div>`,
+
+            // 第10页：9. 收司法權
+            `<div class="item-title">9. 收司法權</div>
+             <div class="content">
+             <ul>
+             <li>各級官員如有干犯法律，司法官員必須事先向君主請旨，方可審問</li>
+             <li>重大案件由皇帝親自審問，或命王公大臣會審</li>
+             </ul>
+             </div>`
+        ];
+
+        const tocItems = [
+            {label:"一、集權原因", level:1, page:1, expanded:true, children:[
+                {label:"集權原因", level:2, page:1},
+                {label:"集權目的", level:2, page:1}
+            ]},
+            {label:"二、集權措施", level:1, page:2, expanded:true, children:[
+                {label:"1. 清除權臣", level:2, page:2},
+                {label:"2. 設立南書房", level:2, page:3},
+                {label:"3. 抑制八旗", level:2, page:5},
+                {label:"4. 密折制度", level:2, page:6},
+                {label:"5. 地方監察", level:2, page:7},
+                {label:"6. 加強監察", level:2, page:7},
+                {label:"7. 文字獄", level:2, page:8},
+                {label:"8. 裁撤三藩", level:2, page:8},
+                {label:"9. 收司法權", level:2, page:9}
+            ]}
+        ];
+
+        let currentPage = 0;
+        const totalPages = pages.length;
+
+        function renderPage() {
+            document.getElementById('page-content').innerHTML = pages[currentPage];
+            document.getElementById('page-indicator').textContent = (currentPage + 1) + ' / ' + totalPages;
+            document.getElementById('prev-btn').disabled = currentPage === 0;
+            document.getElementById('next-btn').disabled = currentPage === totalPages - 1;
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+            if (document.getElementById('toc-overlay').classList.contains('show')) renderToc();
+        }
+
+        function renderToc() {
+            const tocContent = document.getElementById('toc-content');
+            tocContent.innerHTML = '';
+
+            function buildToc(items) {
+                items.forEach(item => {
+                    const hasChildren = item.children && item.children.length > 0;
+                    const div = document.createElement('div');
+                    div.className = 'toc-item';
+                    if (item.level === 1) div.classList.add('toc-l1');
+                    if (item.level === 2) div.classList.add('toc-l2');
+
+                    if (hasChildren) {
+                        const toggle = document.createElement('span');
+                        toggle.className = 'toc-toggle';
+                        if (!item.expanded) toggle.classList.add('collapsed');
+                        toggle.textContent = '▼';
+                        toggle.onclick = (e) => {
+                            e.stopPropagation();
+                            item.expanded = !item.expanded;
+                            renderToc();
+                        };
+                        div.appendChild(toggle);
+                    } else {
+                        const spacer = document.createElement('span');
+                        spacer.style.cssText = 'width:20px;display:inline-block;flex-shrink:0';
+                        div.appendChild(spacer);
+                    }
+
+                    const label = document.createElement('span');
+                    label.textContent = item.label;
+                    label.style.flex = '1';
+                    div.appendChild(label);
+
+                    if (item.page === currentPage) div.classList.add('active');
+                    div.onclick = (e) => {
+                        if (e.target.classList.contains('toc-toggle')) return;
+                        currentPage = item.page;
+                        renderPage();
+                        closeTocDirect();
+                    };
+                    tocContent.appendChild(div);
+
+                    if (hasChildren) {
+                        const childContainer = document.createElement('div');
+                        childContainer.className = 'toc-children';
+                        if (!item.expanded) childContainer.classList.add('collapsed');
+                        const childWrapper = document.createElement('div');
+                        buildToc.call({tocContent: childWrapper}, item.children);
+                        childContainer.appendChild(childWrapper);
+                        tocContent.appendChild(childContainer);
+                    } else if (!hasChildren && item.children === undefined) {
+                        // leaf node, no children container
+                    }
+                });
+            }
+
+            // override buildToc to append to tocContent directly for root items
+            tocItems.forEach(item => {
+                const hasChildren = item.children && item.children.length > 0;
+                const div = document.createElement('div');
+                div.className = 'toc-item';
+                if (item.level === 1) div.classList.add('toc-l1');
+                if (item.level === 2) div.classList.add('toc-l2');
+
+                if (hasChildren) {
+                    const toggle = document.createElement('span');
+                    toggle.className = 'toc-toggle';
+                    if (!item.expanded) toggle.classList.add('collapsed');
+                    toggle.textContent = '▼';
+                    toggle.onclick = (e) => {
+                        e.stopPropagation();
+                        item.expanded = !item.expanded;
+                        renderToc();
+                    };
+                    div.appendChild(toggle);
+                } else {
+                    const spacer = document.createElement('span');
+                    spacer.style.cssText = 'width:20px;display:inline-block;flex-shrink:0';
+                    div.appendChild(spacer);
+                }
+
+                const label = document.createElement('span');
+                label.textContent = item.label;
+                label.style.flex = '1';
+                div.appendChild(label);
+
+                if (item.page === currentPage) div.classList.add('active');
+                div.onclick = (e) => {
+                    if (e.target.classList.contains('toc-toggle')) return;
+                    currentPage = item.page;
+                    renderPage();
+                    closeTocDirect();
+                };
+                tocContent.appendChild(div);
+
+                if (hasChildren) {
+                    const childContainer = document.createElement('div');
+                    childContainer.className = 'toc-children';
+                    if (!item.expanded) childContainer.classList.add('collapsed');
+                    item.children.forEach(child => {
+                        const childDiv = document.createElement('div');
+                        childDiv.className = 'toc-item toc-l2';
+                        const spacer = document.createElement('span');
+                        spacer.style.cssText = 'width:20px;display:inline-block;flex-shrink:0';
+                        childDiv.appendChild(spacer);
+                        const childLabel = document.createElement('span');
+                        childLabel.textContent = child.label;
+                        childLabel.style.flex = '1';
+                        childDiv.appendChild(childLabel);
+                        if (child.page === currentPage) childDiv.classList.add('active');
+                        childDiv.onclick = () => {
+                            currentPage = child.page;
+                            renderPage();
+                            closeTocDirect();
+                        };
+                        childContainer.appendChild(childDiv);
+                    });
+                    tocContent.appendChild(childContainer);
+                }
+            });
+        }
+
+        function nextPage() { if (currentPage < totalPages - 1) { currentPage++; renderPage(); } }
+        function prevPage() { if (currentPage > 0) { currentPage--; renderPage(); } }
+
+        function openToc() { document.getElementById('toc-overlay').classList.add('show'); document.body.classList.add('toc-open'); renderToc(); }
+        function closeToc(e) { if (e && e.target !== document.getElementById('toc-overlay')) return; document.getElementById('toc-overlay').classList.remove('show'); document.body.classList.remove('toc-open'); }
+        function closeTocDirect() { document.getElementById('toc-overlay').classList.remove('show'); document.body.classList.remove('toc-open'); }
+
+        document.addEventListener('keydown', function(e) {
+            if (document.body.classList.contains('toc-open')) return;
+            if (e.key === 'ArrowRight') nextPage();
+            if (e.key === 'ArrowLeft') prevPage();
+        });
+
+        let touchStartX = 0, touchStartY = 0;
+        document.addEventListener('touchstart', function(e) { if (document.body.classList.contains('toc-open')) return; touchStartX = e.touches[0].clientX; touchStartY = e.touches[0].clientY; });
+        document.addEventListener('touchend', function(e) { if (document.body.classList.contains('toc-open')) return; const diffX = touchStartX - e.changedTouches[0].clientX; const diffY = touchStartY - e.changedTouches[0].clientY; if (Math.abs(diffX) > Math.abs(diffY) && Math.abs(diffX) > 80) { if (diffX > 0) nextPage(); else prevPage(); } });
+
+        renderPage();
+    </script>
+</body>
+</html>
