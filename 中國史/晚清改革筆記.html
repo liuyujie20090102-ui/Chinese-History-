@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -26,20 +25,12 @@
             background-color:var(--bg);
             font-family:var(--font-cn);
             min-height:100vh;
-            display:flex;
-            flex-direction:column;
-            align-items:center;
-            padding:32px 20px 48px;
-            position:relative;
-            overflow-x:hidden;
-            -webkit-font-smoothing:antialiased;
-            user-select:none;
-            -webkit-user-select:none;
+            display:flex;flex-direction:column;align-items:center;
+            padding:32px 20px 48px;position:relative;overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;user-select:none;-webkit-user-select:none;
         }
         body::before{
-            content:"";
-            position:fixed;top:0;left:0;width:100%;height:100%;
-            pointer-events:none;z-index:0;
+            content:"";position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
             background-image:
                 repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
                 repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
@@ -81,53 +72,22 @@
         .note-table td{padding:8px 10px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);font-size:15px;line-height:2;letter-spacing:1px;vertical-align:top}
         .note-table td:first-child{color:var(--gold);font-weight:600;text-align:center;width:60px;font-size:20px;background:rgba(180,160,130,0.04)}
         .nav-bar{display:flex;align-items:center;justify-content:center;gap:24px;padding:20px 0 0}
-        .nav-btn{
-            padding:8px 16px;
-            background:rgba(255,253,248,0.7);
-            border:1px solid rgba(180,160,130,0.25);
-            border-radius:20px;
-            cursor:pointer;
-            font-family:var(--font-cn);
-            font-size:14px;
-            color:var(--text-secondary);
-            letter-spacing:1px;
-            transition:all 0.3s;
-        }
+        .nav-btn{padding:8px 16px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:var(--text-secondary);letter-spacing:1px;transition:all 0.3s}
         .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
         .nav-btn:disabled{opacity:0.35;cursor:default;pointer-events:none}
         .page-num{font-size:13px;color:var(--text-muted);letter-spacing:1px;min-width:50px;text-align:center}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:12px}
         .page{display:none}
         .page.active{display:block}
-
-        .floating-toc-btn{
-            position:fixed;bottom:100px;right:20px;width:44px;height:44px;border-radius:50%;
-            background:var(--card-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
-            border:1px solid var(--card-border);cursor:pointer;font-size:20px;
-            display:flex;align-items:center;justify-content:center;z-index:10;
-            box-shadow:0 2px 16px rgba(60,40,20,0.06);transition:transform 0.3s ease;color:var(--text-secondary);
-        }
+        .floating-toc-btn{position:fixed;bottom:100px;right:20px;width:44px;height:44px;border-radius:50%;background:var(--card-bg);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border:1px solid var(--card-border);cursor:pointer;font-size:20px;display:flex;align-items:center;justify-content:center;z-index:10;box-shadow:0 2px 16px rgba(60,40,20,0.06);transition:transform 0.3s ease;color:var(--text-secondary)}
         .floating-toc-btn:hover{transform:scale(1.08)}
         .toc-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.2);z-index:20;display:none}
         .toc-overlay.show{display:block}
-        .toc-popup{
-            position:fixed;bottom:160px;right:20px;background:var(--card-bg);
-            backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
-            border:1px solid var(--card-border);border-radius:16px;padding:18px 16px;
-            z-index:21;display:none;box-shadow:0 4px 24px rgba(60,40,20,0.08);min-width:180px;
-        }
+        .toc-popup{position:fixed;bottom:160px;right:20px;background:var(--card-bg);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border:1px solid var(--card-border);border-radius:16px;padding:18px 16px;z-index:21;display:none;box-shadow:0 4px 24px rgba(60,40,20,0.08);min-width:180px}
         .toc-popup.show{display:block}
-        .toc-popup span{
-            display:block;padding:6px 10px;border-radius:8px;cursor:pointer;
-            color:var(--text-secondary);font-size:14px;letter-spacing:1px;transition:background 0.2s;
-        }
+        .toc-popup span{display:block;padding:6px 10px;border-radius:8px;cursor:pointer;color:var(--text-secondary);font-size:14px;letter-spacing:1px;transition:background 0.2s}
         .toc-popup span:hover{background:rgba(180,160,130,0.1);color:var(--text-primary)}
-
-        @media(max-width:480px){
-            .page-title{font-size:17px}.note-table td{font-size:14px;padding:6px 8px}
-            .text-block{font-size:15px}.cause-list li{font-size:15px}
-            .floating-toc-btn{bottom:90px;right:14px}.toc-popup{bottom:150px;right:14px}
-        }
+        @media(max-width:480px){.page-title{font-size:17px}.note-table td{font-size:14px;padding:6px 8px}.text-block{font-size:15px}.cause-list li{font-size:15px}.floating-toc-btn{bottom:90px;right:14px}.toc-popup{bottom:150px;right:14px}}
     </style>
 </head>
 <body>
@@ -251,8 +211,12 @@
         popup.classList.toggle('show');
     }
 
-    const targetPage=getPageFromHash();
-    if(targetPage>0)showPage(targetPage);
+    document.addEventListener('DOMContentLoaded',()=>{
+        setTimeout(()=>{
+            const targetPage=getPageFromHash();
+            if(targetPage>0)showPage(targetPage);
+        },100);
+    });
 
     window.addEventListener('hashchange',()=>{
         const tp=getPageFromHash();
