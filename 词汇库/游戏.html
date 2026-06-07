@@ -146,11 +146,21 @@
         const wordId = params.get('id');
         const dataFiles = ['论证数据.js'];
         let currentWord = null;
-        let gameState = { level: 1, correct: 0, selectedOpt: null, slots: [], formIndex: 0, blanks: [], availableLetters: [], matchSelected: null, matchPairs: [] };
+        let gameState = { level: 1, correct: 0, selectedOpt: null, slots: [], formIndex: 0, blanks: [], availableLetters: [], matchSelected: null, matchPairs: [], matchCount: 0 };
+        let distractPool = [];
 
         function findWordById(id) {
             if (typeof 论证词汇数据 !== 'undefined') return 论证词汇数据.find(item => item.id === id) || null;
             return null;
+        }
+
+        function buildDistractPool() {
+            const pool = [];
+            论证词汇数据.forEach(w => {
+                if (w.近义词) w.近义词.forEach(s => pool.push({ 词: s.词, 中文: s.中文 }));
+                if (w.反义词) w.反义词.forEach(s => pool.push({ 词: s.词, 中文: s.中文 }));
+            });
+            distractPool = pool.filter((v, i, self) => self.findIndex(t => t.词 === v.词) === i);
         }
 
         function startGame() {
@@ -158,6 +168,7 @@
             if (!word) { document.getElementById('game-content').innerHTML = `<div class="game-area"><div class="feedback">找不到詞彙，請確認 id 是否正確。</div></div>`; return; }
             currentWord = word;
             gameState = { level: 1, correct: 0, selectedOpt: null, slots: [], formIndex: 0, blanks: [], availableLetters: [], matchSelected: null, matchPairs: [], matchCount: 0 };
+            if (distractPool.length === 0) buildDistractPool();
             renderLevel();
         }
 
@@ -178,7 +189,7 @@
             container.innerHTML = html;
         }
 
-        // ========== 第1关：词根拖拽排序 ==========
+        // ========== 第1关 ==========
         function renderLevel1() {
             if (!currentWord.词根拆解) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無詞根拆解數據，自動跳過第1關...</div>`; }
             const data = currentWord.词根拆解;
@@ -193,23 +204,19 @@
             html += `</div><div class="action-row"><button class="action-btn" onclick="checkLevel1()">提交</button><button class="action-btn" onclick="skipLevel1()">不會</button></div>`;
             return html;
         }
-
         function clickSlot(idx) {
             const pool = gameState._l1pool;
             if (gameState.slots[idx] !== null) { pool[gameState.slots[idx]].used = false; document.getElementById(`opt-${gameState.slots[idx]}`).classList.remove('used'); gameState.slots[idx] = null; }
             if (gameState.selectedOpt !== null) { gameState.slots[idx] = gameState.selectedOpt; pool[gameState.selectedOpt].used = true; document.getElementById(`opt-${gameState.selectedOpt}`).classList.add('used'); gameState.selectedOpt = null; }
             refreshSlots();
         }
-
         function clickOpt(idx) {
             if (gameState._l1pool[idx].used) return;
             document.querySelectorAll('.opt.selected').forEach(el => el.classList.remove('selected'));
-            gameState.selectedOpt = idx;
-            document.getElementById(`opt-${idx}`).classList.add('selected');
+            gameState.selectedOpt = idx; document.getElementById(`opt-${idx}`).classList.add('selected');
             const empty = gameState.slots.findIndex(s => s === null);
             if (empty >= 0) { gameState.slots[empty] = idx; gameState._l1pool[idx].used = true; document.getElementById(`opt-${idx}`).classList.add('used'); gameState.selectedOpt = null; refreshSlots(); }
         }
-
         function refreshSlots() {
             const pool = gameState._l1pool;
             for (let i = 0; i < gameState.slots.length; i++) {
@@ -218,7 +225,6 @@
                 else { el.innerHTML = `？`; el.classList.remove('filled'); }
             }
         }
-
         function checkLevel1() {
             const data = currentWord.词根拆解; const pool = gameState._l1pool;
             let ok = gameState.slots.length === data.部件.length;
@@ -228,17 +234,14 @@
             else { fb.innerHTML = `❌ 順序不對，點擊已填入的槽位可移除重排。`; }
             document.querySelector('.game-area').appendChild(fb);
         }
-
         function skipLevel1() {
             const data = currentWord.词根拆解; const fb = document.createElement('div'); fb.className = 'feedback';
             fb.innerHTML = `💡 正確答案：${data.部件.join(' — ')}<br>${data.解释}`;
-            document.querySelector('.game-area').appendChild(fb);
-            document.querySelector('.action-row').innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
+            document.querySelector('.game-area').appendChild(fb); document.querySelector('.action-row').innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
         }
-
         function nextLevel() { gameState.level++; renderLevel(); }
 
-        // ========== 第2关：家族词填空 ==========
+        // ========== 第2关 ==========
         function renderLevel2() {
             if (!currentWord.家族词 || currentWord.家族词.length < 2) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無足夠家族詞數據，自動跳過...</div>`; }
             const family = currentWord.家族词; const target = family[gameState.formIndex % family.length]; gameState.formIndex++;
@@ -246,7 +249,6 @@
             gameState.blanks = new Array(word.length).fill(''); gameState.blanks[0] = word[0]; gameState.blanks[word.length - 1] = word[word.length - 1];
             const innerLetters = word.slice(1, -1).split(''); const pool = [...innerLetters]; pool.sort(() => Math.random() - 0.5);
             gameState.availableLetters = pool.map((l, i) => ({ letter: l, used: false, id: i }));
-            gameState._lv2pool = pool;
             gameState._lv2extras = 'abcdefghijklmnopqrstuvwxyz'.split('').filter(l => !innerLetters.includes(l)); gameState._lv2extras.sort(() => Math.random() - 0.5);
             let html = `<div class="game-question">「<b>${currentWord.英文}</b>」的 <b>${target.形式}</b> 是什麼？<br>拼出正確的詞</div>`;
             html += `<div class="blank-row">`;
@@ -256,7 +258,6 @@
             html += `</div><div class="action-row"><button class="action-btn" onclick="checkLevel2()">提交</button><button class="action-btn" onclick="skipLevel2()">不會</button><button class="action-btn" id="hint-btn" onclick="addHintLetters()">+ 提示</button></div>`;
             return html;
         }
-
         function addHintLetters() {
             if (gameState._lv2hintLevel >= 3) return;
             const count = gameState._lv2hintLevel === 0 ? 3 : gameState._lv2hintLevel === 1 ? 4 : 5;
@@ -265,27 +266,22 @@
             const container = document.getElementById('letter-pool'); container.innerHTML = '';
             gameState.availableLetters.forEach((l, i) => { container.innerHTML += `<div class="letter-btn ${l.used ? 'used' : ''}" id="lbtn-${i}" onclick="clickLetter(${i})">${l.letter}</div>`; });
         }
-
         function clickBlank(idx) {
             if (gameState.blanks[idx]) return;
             if (gameState._lv2selectedLetter !== undefined) { gameState.blanks[idx] = gameState.availableLetters[gameState._lv2selectedLetter].letter; gameState.availableLetters[gameState._lv2selectedLetter].used = true; document.getElementById(`lbtn-${gameState._lv2selectedLetter}`).classList.add('used'); gameState._lv2selectedLetter = undefined; refreshBlanks2(); }
         }
-
         function clickLetter(idx) {
             if (gameState.availableLetters[idx].used) return;
             document.querySelectorAll('.letter-btn.selected').forEach(el => el.classList.remove('selected'));
             gameState._lv2selectedLetter = idx; document.getElementById(`lbtn-${idx}`).classList.add('selected');
         }
-
         function refreshBlanks2() { for (let i = 0; i < gameState.blanks.length; i++) { const el = document.getElementById(`blank-${i}`); if (el) el.textContent = gameState.blanks[i] || ''; } }
-
         function checkLevel2() {
             const built = gameState.blanks.join(''); const fb = document.createElement('div'); fb.className = 'feedback'; const row = document.querySelector('.action-row');
             if (built === gameState._lv2answer) { gameState.correct++; fb.innerHTML = `✅ 正確！答案是 <b>${gameState._lv2answer}</b>`; row.innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`; }
             else { fb.innerHTML = `❌ 拼寫不對，再試試。`; }
             document.querySelector('.game-area').appendChild(fb);
         }
-
         function skipLevel2() {
             const fb = document.createElement('div'); fb.className = 'feedback'; fb.innerHTML = `💡 正確答案：<b>${gameState._lv2answer}</b>`;
             document.querySelector('.game-area').appendChild(fb); document.querySelector('.action-row').innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
@@ -306,11 +302,11 @@
         function renderChoiceList(target, lvId, type) {
             let html = `<div class="game-question">哪個是 <b>${currentWord.英文}</b> 的${type}？</div><div class="choice-list">`;
             const choices = [target];
-            const fullPool = [
-                {词:'brilliant',中文:'杰出的'},{词:'fragile',中文:'脆弱的'},{词:'eager',中文:'渴望的'},{词:'humble',中文:'谦虚的'},{词:'gloomy',中文:'阴郁的'},{词:'hollow',中文:'空洞的'},{词:'rapid',中文:'迅速的'},{词:'dull',中文:'乏味的'},{词:'vivid',中文:'生动的'},{词:'rigid',中文:'僵硬的'},{词:'timid',中文:'胆小的'},{词:'valid',中文:'有效的'},{词:'bitter',中文:'苦涩的'},{词:'smooth',中文:'平滑的'},{词:'steady',中文:'稳定的'},{词:'subtle',中文:'微妙的'},{词:'absurd',中文:'荒谬的'},{词:'obscure',中文:'晦涩的'}
-            ];
-            const poolCopy = [...fullPool];
-            while (choices.length < 4) { const idx = Math.floor(Math.random() * poolCopy.length); const d = poolCopy.splice(idx, 1)[0]; if (d.词 !== target.词) choices.push(d); }
+            const poolCopy = [...distractPool];
+            while (choices.length < 4 && poolCopy.length > 0) {
+                const idx = Math.floor(Math.random() * poolCopy.length); const d = poolCopy.splice(idx, 1)[0];
+                if (d.词 !== target.词 && !choices.find(c => c.词 === d.词)) choices.push(d);
+            }
             choices.sort(() => Math.random() - 0.5);
             gameState[`_${lvId}answer`] = target.词;
             choices.forEach(c => { html += `<div class="choice" id="${lvId}-${c.词}" onclick="checkChoiceReveal(this,'${c.词}','${c.中文}','${lvId}')">${c.词}<span class="reveal-cn">（${c.中文}）</span></div>`; });
@@ -334,7 +330,7 @@
             let html = `<div class="game-question">將左邊的英文搭配與右邊的中文正確配對</div><div class="match-row">`;
             html += `<div class="match-col" id="match-en">`; enList.forEach((en, i) => { html += `<div class="match-item" id="men-${i}" onclick="clickMatchEN(${i})">${en}</div>`; }); html += `</div>`;
             html += `<div class="match-col" id="match-cn">`; cnList.forEach((cn, i) => { html += `<div class="match-item" id="mcn-${i}" onclick="clickMatchCN(${i})">${cn}</div>`; }); html += `</div></div>`;
-            html += `<div class="action-row" id="lv5-actions" style="display:none"><button class="action-btn primary" onclick="nextLevel()">下一關 →</button></div>`;
+            html += `<div class="action-row" id="lv5-actions" style="display:none"><button class="action-btn primary" onclick="showSummary()">查看結果 →</button></div>`;
             return html;
         }
 
