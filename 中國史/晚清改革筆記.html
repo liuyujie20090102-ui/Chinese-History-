@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>晚清改革筆記</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --card-bg: rgba(255,253,248,0.75);
+            --card-border: rgba(180,160,130,0.25);
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 48px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+            user-select:none;
+            -webkit-user-select:none;
+        }
+        body::before{
+            content:"";
+            position:fixed;top:0;left:0;width:100%;height:100%;
+            pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:rgba(120,100,70,0.12);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:rgba(100,80,55,0.16);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:rgba(80,60,40,0.2);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:rgba(255,252,245,0.7);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
+        .container{position:relative;z-index:1;width:100%;max-width:650px;min-height:70vh;display:flex;flex-direction:column}
+        .top-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+        .back-link{color:var(--text-muted);text-decoration:none;font-size:14px;letter-spacing:1px;transition:color 0.3s}
+        .back-link:hover{color:var(--gold)}
+        .page-indicator-top{font-size:13px;color:var(--text-muted);letter-spacing:1px}
+        .page-title{text-align:center;font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:6px}
+        .page-subtitle{text-align:center;font-size:14px;color:var(--text-muted);letter-spacing:2px;margin-bottom:20px}
+        .content-area{flex:1}
+        .section-heading{text-align:center;font-size:16px;color:var(--text-secondary);letter-spacing:2px;margin-bottom:6px}
+        .text-block{font-size:16px;color:var(--text-secondary);line-height:2.2;letter-spacing:1px;margin-bottom:10px}
+        .cause-list{list-style:none;padding:0}
+        .cause-list li{font-size:16px;color:var(--text-secondary);line-height:2;letter-spacing:1px;padding:4px 0}
+        .cause-list li::before{content:"①";color:var(--gold);margin-right:8px}
+        .cause-list li:nth-child(2)::before{content:"②"}
+        .cause-list li:nth-child(3)::before{content:"③"}
+        .cause-list li:nth-child(4)::before{content:"④"}
+        .cause-list li:nth-child(5)::before{content:"⑤"}
+        .note-table{width:100%;border-collapse:collapse;margin:8px 0}
+        .note-table td{padding:8px 10px;border:1px solid rgba(180,160,130,0.2);color:var(--text-secondary);font-size:15px;line-height:2;letter-spacing:1px;vertical-align:top}
+        .note-table td:first-child{color:var(--gold);font-weight:600;text-align:center;width:60px;font-size:20px;background:rgba(180,160,130,0.04)}
+        .note-table .measure{color:var(--gold);font-weight:600}
+        .nav-bar{display:flex;align-items:center;justify-content:center;gap:24px;padding:20px 0 0}
+        .nav-btn{
+            padding:8px 16px;
+            background:rgba(255,253,248,0.7);
+            border:1px solid rgba(180,160,130,0.25);
+            border-radius:20px;
+            cursor:pointer;
+            font-family:var(--font-cn);
+            font-size:14px;
+            color:var(--text-secondary);
+            letter-spacing:1px;
+            transition:all 0.3s;
+        }
+        .nav-btn:hover{background:rgba(180,160,130,0.12);color:var(--text-primary)}
+        .nav-btn:disabled{opacity:0.35;cursor:default;pointer-events:none}
+        .page-num{font-size:13px;color:var(--text-muted);letter-spacing:1px;min-width:50px;text-align:center}
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:12px}
+        .page{display:none}
+        .page.active{display:block}
+        @media(max-width:480px){
+            .page-title{font-size:17px}
+            .note-table td{font-size:14px;padding:6px 8px}
+            .text-block{font-size:15px}
+            .cause-list li{font-size:15px}
+        }
+    </style>
+</head>
+<body>
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+    <div class="container">
+        <div class="top-bar">
+            <a href="筆記目錄.html" class="back-link">← 返回</a>
+            <span class="page-indicator-top" id="page-indicator-top">1 / 9</span>
+        </div>
+        <div class="page-title">晚清改革</div>
+
+        <!-- Page 1 -->
+        <div class="page active" data-page="1">
+            <div class="page-subtitle">背景 · 推行原因</div>
+            <div class="content-area">
+                <div class="text-block">
+                    <strong>背景</strong><br>
+                    1900年義和團之亂與八國聯軍之役後，清廷於1901年簽訂《辛丑條約》，需賠償4.5億兩、拆毁炮台、允許外國駐兵、設立使館區，並廢除總理衙門改設外務部。戰敗的屈辱促使慈禧不得不推行改革。
+                </div>
+                <div class="text-block">
+                    <strong>推行原因</strong>
+                </div>
+                <ul class="cause-list">
+                    <li>戰敗的恥辱：義和團與八國聯軍由慈禧引發，成為政治污點，藉改革挽回民心及建立政治形象</li>
+                    <li>革命勢力增加，清廷欲透過改革鞏固統治</li>
+                    <li>改革派興起，保守派支持</li>
+                    <li>效法明治維新，獲得西方認同</li>
+                    <li>慈禧痛恨革命多於改革</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Page 2: 政治 -->
+        <div class="page" data-page="2">
+            <div class="page-subtitle">改革措施 · 政治方面</div>
+            <div class="content-area">
+                <table class="note-table">
+                    <tr><td>▸<br>措施</td><td>① 成立督辦政務處，取消6部，另建11個新部門<br>② 設立外務部<br>③ 成立省諮議局，引入選舉制<br>④ 頒布《欽定憲法大綱》，宣布9年立憲，成立內閣（13名大臣僅4名漢人）</td></tr>
+                    <tr><td>▸<br>成效</td><td>▹ 引入西方制度，踏出現代化第一步<br>▹ 選舉制是史無前例突破</td></tr>
+                    <tr><td>▸<br>局限</td><td>▪ 憲法仍以皇帝為中心，無分享權力概念<br>▪ 官員貪污未改善<br>▪ 人民認為無誠意轉投革命</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page 3: 經濟 -->
+        <div class="page" data-page="3">
+            <div class="page-subtitle">改革措施 · 經濟方面</div>
+            <div class="content-area">
+                <table class="note-table">
+                    <tr><td>▸<br>措施</td><td>① 鼓勵民間開辦實業，成立農工商部和郵傳部<br>② 設立農業學院和工業學院<br>③ 開辦國營和私營銀行<br>④ 推行「鐵路國有化」，將鐵路權益出售給列強</td></tr>
+                    <tr><td>▸<br>成效</td><td>▹ 引入西方商業法則，建立金融體系<br>▹ 機械化生產走向工業化<br>▹ 建立現代交通網絡</td></tr>
+                    <tr><td>▸<br>局限</td><td>▪ 未廢不平等條約，外國商品低關稅進口<br>▪ 未脫傳統農業模式<br>▪ 鐵路國有化損害國家利益</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page 4: 司法 -->
+        <div class="page" data-page="4">
+            <div class="page-subtitle">改革措施 · 司法方面</div>
+            <div class="content-area">
+                <table class="note-table">
+                    <tr><td>▸<br>措施</td><td>① 成立全新司法制度取代刑部<br>② 起草商業法和新刑事法<br>③ 禁止虐囚逼供</td></tr>
+                    <tr><td>▸<br>成效</td><td>▹ 嘗試建立法治基礎和現代化司法制度</td></tr>
+                    <tr><td>▸<br>局限</td><td>▪ 仍以人治為主，憲法寫明「皇帝神聖不可侵犯」</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page 5: 軍事 -->
+        <div class="page" data-page="5">
+            <div class="page-subtitle">改革措施 · 軍事方面</div>
+            <div class="content-area">
+                <table class="note-table">
+                    <tr><td>▸<br>措施</td><td>① 裁減冗員，解散綠營兵，廢除武舉<br>② 設立練兵處，組織及訓練新軍<br>③ 成立軍事學院，派遣軍官留學海外<br>④ 1906年軍部取代兵部</td></tr>
+                    <tr><td>▸<br>成效</td><td>▹ 建立現代化海陸軍隊<br>▹ 改良武器，建立系統軍事培訓</td></tr>
+                    <tr><td>▸<br>局限</td><td>▪ 新軍由袁世凱掌兵培植親信<br>▪ 資金不足，容許地方增收稅項引起反感<br>▪ 部分留學生投向革命</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page 6: 教育 -->
+        <div class="page" data-page="6">
+            <div class="page-subtitle">改革措施 · 教育方面</div>
+            <div class="content-area">
+                <table class="note-table">
+                    <tr><td>▸<br>措施</td><td>① 成立全國學校制度（小學、中學、大學），以西方及日本制度為基礎<br>② 建立中西混合課程<br>③ 1902年取消八股文<br>④ 1905年廢除科舉</td></tr>
+                    <tr><td>▸<br>成效</td><td>▹ 建立現代化教育制度，引入西式普及教育<br>▹ 派遣留學生，知識分子湧現</td></tr>
+                    <tr><td>▸<br>局限</td><td>▪ 教師未熟悉西學，各地辦學條件不一<br>▪ 廢科舉令士紳不滿走向革命<br>▪ 部分留學生受西方思想影響投向革命</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page 7: 社會 -->
+        <div class="page" data-page="7">
+            <div class="page-subtitle">改革措施 · 社會方面</div>
+            <div class="content-area">
+                <table class="note-table">
+                    <tr><td>▸<br>措施</td><td>① 容許不纏足及禁止吸食鴉片<br>② 容許滿漢通婚</td></tr>
+                    <tr><td>▸<br>成效</td><td>▹ 扭轉不良社會風氣，實踐人道主義<br>▹ 提升人民質素及勞動力<br>▹ 突破傳統陋習</td></tr>
+                    <tr><td>▸<br>局限</td><td>▪ 男女不能同校，男女平等不為大眾接受<br>▪ 婚姻自由觀念仍未普及<br>▪ 婦女地位仍待提升</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page 8: 失敗原因1 -->
+        <div class="page" data-page="8">
+            <div class="page-subtitle">失敗原因</div>
+            <div class="content-area">
+                <table class="note-table">
+                    <tr><td>▸<br>缺乏領導人物</td><td>▪ 滿清貴族（奕劻、榮祿）貪污腐敗，庸碌無能<br>▪ 李鴻章、劉坤一等有經驗的大臣相繼去世<br>▪ 溥儀年幼，攝政的載灃欠領導能力，更迫走袁世凱<br>▪ 後期清廷無核心人物主持新政</td></tr>
+                    <tr><td>▸<br>吏治敗壞</td><td>▪ 官員中飽私囊，貪污受賄風氣嚴重<br>▪ 新政未能肅清吏治，民眾認為清廷腐敗無可救藥<br>▪ 轉而支持革命</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Page 9: 失敗原因2 -->
+        <div class="page" data-page="9">
+            <div class="page-subtitle">失敗原因</div>
+            <div class="content-area">
+                <table class="note-table">
+                    <tr><td>▸<br>缺乏改革誠意</td><td>▪ 改革僅為鞏固滿清統治、削弱漢族勢力<br>▪ 9年成立「皇族內閣」被視為騙局<br>▪ 漢人意識到非真誠現代化，轉投革命</td></tr>
+                    <tr><td>▸<br>資金不足</td><td>▪ 巨額賠款令財政緊絀<br>▪ 陸軍編練、學校建設難以完成<br>▪ 收回鐵路權觸發辛亥革命</td></tr>
+                </table>
+            </div>
+        </div>
+
+        <div class="nav-bar">
+            <button class="nav-btn" id="prev-btn" onclick="changePage(-1)" disabled>◀ 上一頁</button>
+            <span class="page-num" id="page-num">1 / 9</span>
+            <button class="nav-btn" id="next-btn" onclick="changePage(1)">下一頁 ▶</button>
+        </div>
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+    <script>
+        let currentPage=1;
+        const totalPages=9;
+        const pages=document.querySelectorAll('.page');
+        const prevBtn=document.getElementById('prev-btn');
+        const nextBtn=document.getElementById('next-btn');
+        const pageNum=document.getElementById('page-num');
+        const pageIndicatorTop=document.getElementById('page-indicator-top');
+        let touchStartX=0;
+        let touchStartY=0;
+
+        function showPage(n){
+            pages.forEach(p=>p.classList.remove('active'));
+            const target=document.querySelector(`[data-page="${n}"]`);
+            if(target)target.classList.add('active');
+            pageNum.textContent=n+' / '+totalPages;
+            pageIndicatorTop.textContent=n+' / '+totalPages;
+            prevBtn.disabled=n===1;
+            nextBtn.disabled=n===totalPages;
+            currentPage=n;
+        }
+
+        function changePage(dir){
+            const newPage=currentPage+dir;
+            if(newPage>=1&&newPage<=totalPages)showPage(newPage);
+        }
+
+        document.addEventListener('touchstart',e=>{
+            touchStartX=e.touches[0].clientX;
+            touchStartY=e.touches[0].clientY;
+        },{passive:true});
+
+        document.addEventListener('touchend',e=>{
+            const dx=e.changedTouches[0].clientX-touchStartX;
+            const dy=e.changedTouches[0].clientY-touchStartY;
+            if(Math.abs(dx)>Math.abs(dy)&&Math.abs(dx)>50){
+                if(dx<-40)changePage(1);
+                else if(dx>40)changePage(-1);
+            }
+        });
+    </script>
+</body>
+</html>
