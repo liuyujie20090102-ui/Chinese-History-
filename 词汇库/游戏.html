@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -93,6 +92,7 @@
             display:flex;align-items:center;justify-content:center;
         }
         .letter-btn:hover{background:rgba(180,160,130,0.12)}
+        .letter-btn.selected{background:rgba(139,105,20,0.2);border-color:var(--gold);font-weight:600}
         .letter-btn.used{opacity:0.3;pointer-events:none}
         .choice-list{display:flex;flex-direction:column;gap:12px;margin-bottom:24px}
         .choice{
@@ -104,17 +104,19 @@
         .choice.wrong{border-color:var(--wrong);background:rgba(198,40,40,0.04)}
         .choice .reveal-cn{font-size:13px;color:var(--text-muted);margin-left:8px;display:none}
         .choice.show-cn .reveal-cn{display:inline}
-        .match-row{display:flex;gap:24px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
+        .match-row{display:flex;gap:32px;justify-content:center;flex-wrap:wrap;margin-bottom:24px}
         .match-col{display:flex;flex-direction:column;gap:10px}
         .match-item{
             padding:12px 18px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
-            border-radius:10px;font-size:14px;color:var(--text-primary);cursor:pointer;transition:all 0.2s;
-            text-align:center;
+            border-radius:10px;font-size:14px;color:var(--text-primary);cursor:pointer;transition:all 0.2s;text-align:center;
         }
         .match-item.selected{background:rgba(139,105,20,0.15);border-color:var(--gold);font-weight:600}
-        .match-item.matched{background:rgba(46,125,50,0.08);border-color:var(--correct);pointer-events:none}
+        .match-item.matched{pointer-events:none;border-width:2px}
+        .match-item.matched-0{border-color:#8b6914;background:rgba(139,105,20,0.1)}
+        .match-item.matched-1{border-color:#2e7d32;background:rgba(46,125,50,0.08)}
+        .match-item.matched-2{border-color:#5c6bc0;background:rgba(92,107,192,0.08)}
         .feedback{text-align:center;font-size:15px;margin:16px 0;line-height:2;min-height:24px;color:var(--text-secondary)}
-        .action-row{display:flex;justify-content:center;gap:16px;margin-top:20px}
+        .action-row{display:flex;justify-content:center;gap:16px;margin-top:20px;flex-wrap:wrap}
         .action-btn{
             padding:12px 24px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);
             border-radius:24px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:#5c5347;
@@ -126,7 +128,7 @@
         .summary-box{text-align:center;line-height:2.4;font-size:15px;color:#5c5347}
         .summary-box .big{font-size:24px;font-weight:700;color:var(--text-primary);margin-bottom:8px}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:40px}
-        @media(max-width:480px){.game-area{padding:20px 14px}}
+        @media(max-width:480px){.game-area{padding:20px 14px}.match-row{gap:16px}}
     </style>
 </head>
 <body>
@@ -155,7 +157,7 @@
             const word = findWordById(wordId);
             if (!word) { document.getElementById('game-content').innerHTML = `<div class="game-area"><div class="feedback">找不到詞彙，請確認 id 是否正確。</div></div>`; return; }
             currentWord = word;
-            gameState = { level: 1, correct: 0, selectedOpt: null, slots: [], formIndex: 0, blanks: [], availableLetters: [], matchSelected: null, matchPairs: [] };
+            gameState = { level: 1, correct: 0, selectedOpt: null, slots: [], formIndex: 0, blanks: [], availableLetters: [], matchSelected: null, matchPairs: [], matchCount: 0 };
             renderLevel();
         }
 
@@ -218,20 +220,17 @@
         }
 
         function checkLevel1() {
-            const data = currentWord.词根拆解;
-            const pool = gameState._l1pool;
+            const data = currentWord.词根拆解; const pool = gameState._l1pool;
             let ok = gameState.slots.length === data.部件.length;
             for (let i = 0; i < gameState.slots.length; i++) { if (gameState.slots[i] === null || pool[gameState.slots[i]].text !== data.部件[i]) { ok = false; break; } }
-            const fb = document.createElement('div'); fb.className = 'feedback';
-            const row = document.querySelector('.action-row');
+            const fb = document.createElement('div'); fb.className = 'feedback'; const row = document.querySelector('.action-row');
             if (ok) { gameState.correct++; fb.innerHTML = `✅ 正確！<br>${data.解释}`; row.innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`; }
             else { fb.innerHTML = `❌ 順序不對，點擊已填入的槽位可移除重排。`; }
             document.querySelector('.game-area').appendChild(fb);
         }
 
         function skipLevel1() {
-            const data = currentWord.词根拆解;
-            const fb = document.createElement('div'); fb.className = 'feedback';
+            const data = currentWord.词根拆解; const fb = document.createElement('div'); fb.className = 'feedback';
             fb.innerHTML = `💡 正確答案：${data.部件.join(' — ')}<br>${data.解释}`;
             document.querySelector('.game-area').appendChild(fb);
             document.querySelector('.action-row').innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
@@ -242,216 +241,147 @@
         // ========== 第2关：家族词填空 ==========
         function renderLevel2() {
             if (!currentWord.家族词 || currentWord.家族词.length < 2) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無足夠家族詞數據，自動跳過...</div>`; }
-            const family = currentWord.家族词;
-            const target = family[gameState.formIndex % family.length];
-            gameState.formIndex++;
-            const word = target.词;
-            gameState._lv2answer = word;
-            // 首尾字母固定显示
-            gameState.blanks = new Array(word.length).fill('');
-            gameState.blanks[0] = word[0];
-            gameState.blanks[word.length - 1] = word[word.length - 1];
-            // 生成字母池
-            const innerLetters = word.slice(1, -1).split('');
-            const extras = 'abcdefghijklmnopqrstuvwxyz'.split('').filter(l => !innerLetters.includes(l));
-            const pool = [...innerLetters];
-            while (pool.length < 12) { const r = extras.splice(Math.floor(Math.random() * extras.length), 1)[0]; if (r) pool.push(r); }
-            pool.sort(() => Math.random() - 0.5);
+            const family = currentWord.家族词; const target = family[gameState.formIndex % family.length]; gameState.formIndex++;
+            const word = target.词; gameState._lv2answer = word; gameState._lv2hintLevel = 0;
+            gameState.blanks = new Array(word.length).fill(''); gameState.blanks[0] = word[0]; gameState.blanks[word.length - 1] = word[word.length - 1];
+            const innerLetters = word.slice(1, -1).split(''); const pool = [...innerLetters]; pool.sort(() => Math.random() - 0.5);
             gameState.availableLetters = pool.map((l, i) => ({ letter: l, used: false, id: i }));
-
+            gameState._lv2pool = pool;
+            gameState._lv2extras = 'abcdefghijklmnopqrstuvwxyz'.split('').filter(l => !innerLetters.includes(l)); gameState._lv2extras.sort(() => Math.random() - 0.5);
             let html = `<div class="game-question">「<b>${currentWord.英文}</b>」的 <b>${target.形式}</b> 是什麼？<br>拼出正確的詞</div>`;
             html += `<div class="blank-row">`;
-            for (let i = 0; i < word.length; i++) {
-                if (gameState.blanks[i]) html += `<div class="blank">${gameState.blanks[i]}</div>`;
-                else html += `<div class="blank" id="blank-${i}" onclick="clickBlank(${i})"></div>`;
-            }
-            html += `</div>`;
-            html += `<div class="letter-pool" id="letter-pool">`;
-            gameState.availableLetters.forEach((l, i) => {
-                html += `<div class="letter-btn" id="lbtn-${i}" onclick="clickLetter(${i})">${l.letter}</div>`;
-            });
-            html += `</div>`;
-            html += `<div class="action-row"><button class="action-btn" onclick="checkLevel2()">提交</button><button class="action-btn" onclick="skipLevel2()">不會</button></div>`;
+            for (let i = 0; i < word.length; i++) { if (gameState.blanks[i]) html += `<div class="blank">${gameState.blanks[i]}</div>`; else html += `<div class="blank" id="blank-${i}" onclick="clickBlank(${i})"></div>`; }
+            html += `</div><div class="letter-pool" id="letter-pool">`;
+            gameState.availableLetters.forEach((l, i) => { html += `<div class="letter-btn" id="lbtn-${i}" onclick="clickLetter(${i})">${l.letter}</div>`; });
+            html += `</div><div class="action-row"><button class="action-btn" onclick="checkLevel2()">提交</button><button class="action-btn" onclick="skipLevel2()">不會</button><button class="action-btn" id="hint-btn" onclick="addHintLetters()">+ 提示</button></div>`;
             return html;
         }
 
+        function addHintLetters() {
+            if (gameState._lv2hintLevel >= 3) return;
+            const count = gameState._lv2hintLevel === 0 ? 3 : gameState._lv2hintLevel === 1 ? 4 : 5;
+            for (let i = 0; i < count && gameState._lv2extras.length > 0; i++) { gameState.availableLetters.push({ letter: gameState._lv2extras.shift(), used: false, id: gameState.availableLetters.length }); }
+            gameState._lv2hintLevel++; if (gameState._lv2hintLevel >= 3) document.getElementById('hint-btn').style.display = 'none';
+            const container = document.getElementById('letter-pool'); container.innerHTML = '';
+            gameState.availableLetters.forEach((l, i) => { container.innerHTML += `<div class="letter-btn ${l.used ? 'used' : ''}" id="lbtn-${i}" onclick="clickLetter(${i})">${l.letter}</div>`; });
+        }
+
         function clickBlank(idx) {
-            if (gameState.blanks[idx]) return; // 首尾不可改
-            // 清空该位置
-            if (gameState._lv2selectedLetter !== undefined) {
-                gameState.blanks[idx] = gameState.availableLetters[gameState._lv2selectedLetter].letter;
-                gameState.availableLetters[gameState._lv2selectedLetter].used = true;
-                document.getElementById(`lbtn-${gameState._lv2selectedLetter}`).classList.add('used');
-                gameState._lv2selectedLetter = undefined;
-                refreshBlanks();
-            }
+            if (gameState.blanks[idx]) return;
+            if (gameState._lv2selectedLetter !== undefined) { gameState.blanks[idx] = gameState.availableLetters[gameState._lv2selectedLetter].letter; gameState.availableLetters[gameState._lv2selectedLetter].used = true; document.getElementById(`lbtn-${gameState._lv2selectedLetter}`).classList.add('used'); gameState._lv2selectedLetter = undefined; refreshBlanks2(); }
         }
 
         function clickLetter(idx) {
             if (gameState.availableLetters[idx].used) return;
             document.querySelectorAll('.letter-btn.selected').forEach(el => el.classList.remove('selected'));
-            gameState._lv2selectedLetter = idx;
-            document.getElementById(`lbtn-${idx}`).classList.add('selected');
+            gameState._lv2selectedLetter = idx; document.getElementById(`lbtn-${idx}`).classList.add('selected');
         }
 
-        function refreshBlanks() {
-            for (let i = 0; i < gameState.blanks.length; i++) {
-                const el = document.getElementById(`blank-${i}`);
-                if (el) el.textContent = gameState.blanks[i] || '';
-            }
-        }
+        function refreshBlanks2() { for (let i = 0; i < gameState.blanks.length; i++) { const el = document.getElementById(`blank-${i}`); if (el) el.textContent = gameState.blanks[i] || ''; } }
 
         function checkLevel2() {
-            const built = gameState.blanks.join('');
-            const fb = document.createElement('div'); fb.className = 'feedback';
-            const row = document.querySelector('.action-row');
-            if (built === gameState._lv2answer) {
-                gameState.correct++;
-                fb.innerHTML = `✅ 正確！答案是 <b>${gameState._lv2answer}</b>`;
-                row.innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
-            } else {
-                fb.innerHTML = `❌ 拼寫不對，再試試。`;
-            }
+            const built = gameState.blanks.join(''); const fb = document.createElement('div'); fb.className = 'feedback'; const row = document.querySelector('.action-row');
+            if (built === gameState._lv2answer) { gameState.correct++; fb.innerHTML = `✅ 正確！答案是 <b>${gameState._lv2answer}</b>`; row.innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`; }
+            else { fb.innerHTML = `❌ 拼寫不對，再試試。`; }
             document.querySelector('.game-area').appendChild(fb);
         }
 
         function skipLevel2() {
-            const fb = document.createElement('div'); fb.className = 'feedback';
-            fb.innerHTML = `💡 正確答案：<b>${gameState._lv2answer}</b>`;
-            document.querySelector('.game-area').appendChild(fb);
-            document.querySelector('.action-row').innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
+            const fb = document.createElement('div'); fb.className = 'feedback'; fb.innerHTML = `💡 正確答案：<b>${gameState._lv2answer}</b>`;
+            document.querySelector('.game-area').appendChild(fb); document.querySelector('.action-row').innerHTML = `<button class="action-btn primary" onclick="nextLevel()">下一關 →</button>`;
         }
 
         // ========== 第3关：近义词 ==========
         function renderLevel3() {
             if (!currentWord.近义词 || currentWord.近义词.length === 0) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無近義詞數據，自動跳過...</div>`; }
-            const target = currentWord.近义词[Math.floor(Math.random() * currentWord.近义词.length)];
-            return renderChoiceList(target, 'lv3', '近義詞');
+            return renderChoiceList(currentWord.近义词[Math.floor(Math.random() * currentWord.近义词.length)], 'lv3', '近義詞');
         }
 
         // ========== 第4关：反义词 ==========
         function renderLevel4() {
             if (!currentWord.反义词 || currentWord.反义词.length === 0) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無反義詞數據，自動跳過...</div>`; }
-            const target = currentWord.反义词[Math.floor(Math.random() * currentWord.反义词.length)];
-            return renderChoiceList(target, 'lv4', '反義詞');
+            return renderChoiceList(currentWord.反义词[Math.floor(Math.random() * currentWord.反义词.length)], 'lv4', '反義詞');
         }
 
         function renderChoiceList(target, lvId, type) {
-            let html = `<div class="game-question">哪個是 <b>${currentWord.英文}</b> 的${type}？</div>`;
-            html += `<div class="choice-list">`;
+            let html = `<div class="game-question">哪個是 <b>${currentWord.英文}</b> 的${type}？</div><div class="choice-list">`;
             const choices = [target];
-            const distractors = [
-                {词:'brilliant',中文:'杰出的'},{词:'fragile',中文:'脆弱的'},{词:'eager',中文:'渴望的'},
-                {词:'humble',中文:'谦虚的'},{词:'gloomy',中文:'阴郁的'},{词:'hollow',中文:'空洞的'},
-                {词:'rapid',中文:'迅速的'},{词:'dull',中文:'乏味的'},{词:'vivid',中文:'生动的'},
-                {词:'rigid',中文:'僵硬的'},{词:'timid',中文:'胆小的'},{词:'valid',中文:'有效的'}
+            const fullPool = [
+                {词:'brilliant',中文:'杰出的'},{词:'fragile',中文:'脆弱的'},{词:'eager',中文:'渴望的'},{词:'humble',中文:'谦虚的'},{词:'gloomy',中文:'阴郁的'},{词:'hollow',中文:'空洞的'},{词:'rapid',中文:'迅速的'},{词:'dull',中文:'乏味的'},{词:'vivid',中文:'生动的'},{词:'rigid',中文:'僵硬的'},{词:'timid',中文:'胆小的'},{词:'valid',中文:'有效的'},{词:'bitter',中文:'苦涩的'},{词:'smooth',中文:'平滑的'},{词:'steady',中文:'稳定的'},{词:'subtle',中文:'微妙的'},{词:'absurd',中文:'荒谬的'},{词:'obscure',中文:'晦涩的'}
             ];
-            while (choices.length < 4) {
-                const d = distractors.splice(Math.floor(Math.random() * distractors.length), 1)[0];
-                if (d.词 !== target.词) choices.push(d);
-            }
+            const poolCopy = [...fullPool];
+            while (choices.length < 4) { const idx = Math.floor(Math.random() * poolCopy.length); const d = poolCopy.splice(idx, 1)[0]; if (d.词 !== target.词) choices.push(d); }
             choices.sort(() => Math.random() - 0.5);
             gameState[`_${lvId}answer`] = target.词;
-            choices.forEach(c => {
-                html += `<div class="choice" id="${lvId}-${c.词}" onclick="checkChoiceReveal(this,'${c.词}','${c.中文}','${lvId}')">${c.词}<span class="reveal-cn">（${c.中文}）</span></div>`;
-            });
-            html += `</div>`;
-            html += `<div class="action-row" id="${lvId}-actions" style="display:none"><button class="action-btn primary" onclick="nextLevel()">下一關 →</button></div>`;
+            choices.forEach(c => { html += `<div class="choice" id="${lvId}-${c.词}" onclick="checkChoiceReveal(this,'${c.词}','${c.中文}','${lvId}')">${c.词}<span class="reveal-cn">（${c.中文}）</span></div>`; });
+            html += `</div><div class="action-row" id="${lvId}-actions" style="display:none"><button class="action-btn primary" onclick="nextLevel()">下一關 →</button></div>`;
             return html;
         }
 
         function checkChoiceReveal(el, en, cn, lvId) {
-            const all = el.parentElement.querySelectorAll('.choice');
-            all.forEach(c => {
-                c.style.pointerEvents = 'none';
-                c.classList.add('show-cn');
-            });
+            const all = el.parentElement.querySelectorAll('.choice'); all.forEach(c => { c.style.pointerEvents = 'none'; c.classList.add('show-cn'); });
             if (en === gameState[`_${lvId}answer`]) { el.classList.add('correct'); gameState.correct++; }
             else { el.classList.add('wrong'); all.forEach(c => { if (c.id === `${lvId}-${gameState[`_${lvId}answer`]}`) c.classList.add('correct'); }); }
             document.getElementById(`${lvId}-actions`).style.display = 'flex';
         }
 
-        // ========== 第5关：搭配匹配 ==========
+        // ========== 第5关：搭配配对 ==========
         function renderLevel5() {
             if (!currentWord.搭配 || currentWord.搭配.length < 2) { setTimeout(() => { gameState.level++; renderLevel(); }, 800); return `<div class="game-question">此詞暫無足夠搭配數據，自動跳過...</div>`; }
-            const colls = [...currentWord.搭配];
-            colls.sort(() => Math.random() - 0.5);
-            const selected = colls.slice(0, 3);
-            const enList = selected.map(s => s.英文);
-            const cnList = selected.map(s => s.中文);
-            cnList.sort(() => Math.random() - 0.5);
-            gameState._lv5en = enList;
-            gameState._lv5cn = cnList;
-            gameState._lv5pairs = selected;
-            gameState._lv5matched = 0;
-            gameState._lv5selectedEN = null;
-
-            let html = `<div class="game-question">將左邊的英文搭配與右邊的中文正確配對</div>`;
-            html += `<div class="match-row">`;
-            html += `<div class="match-col" id="match-en">`;
-            enList.forEach((en, i) => { html += `<div class="match-item" id="men-${i}" onclick="clickMatchEN(${i})">${en}</div>`; });
-            html += `</div>`;
-            html += `<div class="match-col" id="match-cn">`;
-            cnList.forEach((cn, i) => { html += `<div class="match-item" id="mcn-${i}" onclick="clickMatchCN(${i})">${cn}</div>`; });
-            html += `</div></div>`;
-            html += `<div class="action-row" id="lv5-actions"><button class="action-btn primary" onclick="nextLevel()">下一關 →</button></div>`;
-            document.getElementById('lv5-actions') && (document.getElementById('lv5-actions').style.display = 'none');
+            const colls = [...currentWord.搭配]; colls.sort(() => Math.random() - 0.5); const selected = colls.slice(0, 3);
+            const enList = selected.map(s => s.英文); const cnList = selected.map(s => s.中文); cnList.sort(() => Math.random() - 0.5);
+            gameState._lv5en = enList; gameState._lv5cn = cnList; gameState._lv5pairs = selected; gameState._lv5matched = 0; gameState._lv5selectedEN = null;
+            let html = `<div class="game-question">將左邊的英文搭配與右邊的中文正確配對</div><div class="match-row">`;
+            html += `<div class="match-col" id="match-en">`; enList.forEach((en, i) => { html += `<div class="match-item" id="men-${i}" onclick="clickMatchEN(${i})">${en}</div>`; }); html += `</div>`;
+            html += `<div class="match-col" id="match-cn">`; cnList.forEach((cn, i) => { html += `<div class="match-item" id="mcn-${i}" onclick="clickMatchCN(${i})">${cn}</div>`; }); html += `</div></div>`;
+            html += `<div class="action-row" id="lv5-actions" style="display:none"><button class="action-btn primary" onclick="nextLevel()">下一關 →</button></div>`;
             return html;
         }
 
         function clickMatchEN(idx) {
+            if (document.getElementById(`men-${idx}`).classList.contains('matched')) return;
             document.querySelectorAll('.match-item.selected').forEach(el => el.classList.remove('selected'));
-            gameState._lv5selectedEN = idx;
-            document.getElementById(`men-${idx}`).classList.add('selected');
+            gameState._lv5selectedEN = idx; document.getElementById(`men-${idx}`).classList.add('selected');
         }
 
         function clickMatchCN(idx) {
             if (gameState._lv5selectedEN === null) return;
-            const enIdx = gameState._lv5selectedEN;
-            const enEl = document.getElementById(`men-${enIdx}`);
-            const cnEl = document.getElementById(`mcn-${idx}`);
+            if (document.getElementById(`mcn-${idx}`).classList.contains('matched')) return;
+            const enIdx = gameState._lv5selectedEN; const enEl = document.getElementById(`men-${enIdx}`); const cnEl = document.getElementById(`mcn-${idx}`);
             const correctPair = gameState._lv5pairs.find(p => p.英文 === gameState._lv5en[enIdx]);
             if (correctPair && correctPair.中文 === gameState._lv5cn[idx]) {
-                enEl.classList.add('matched');
-                cnEl.classList.add('matched');
-                gameState._lv5matched++;
-                gameState.correct++;
+                const colorClass = `matched-${gameState._lv5matched}`;
+                enEl.classList.add('matched', colorClass); cnEl.classList.add('matched', colorClass);
+                gameState._lv5matched++; gameState.correct++;
                 if (gameState._lv5matched === 3) document.getElementById('lv5-actions').style.display = 'flex';
             }
-            gameState._lv5selectedEN = null;
-            document.querySelectorAll('.match-item.selected').forEach(el => el.classList.remove('selected'));
+            gameState._lv5selectedEN = null; document.querySelectorAll('.match-item.selected').forEach(el => el.classList.remove('selected'));
         }
 
+        // ========== 通关 ==========
         function showSummary() { gameState.level = 6; renderLevel(); }
 
         function renderSummary() {
-            let html = `<div class="summary-box">`;
-            html += `<div class="big">🏆 通關</div>`;
-            html += `<div>${currentWord.英文} —— ${currentWord.中文}</div>`;
-            html += `<div>闖過 ${gameState.correct} 關</div><br>`;
+            let html = `<div class="summary-box"><div class="big">🏆 通關</div><div>${currentWord.英文} —— ${currentWord.中文}</div><div>闖過 ${gameState.correct} 關</div><br>`;
             if (currentWord.词根拆解) { html += `<div>詞根：${currentWord.词根拆解.部件.join(' — ')}</div><div>${currentWord.词根拆解.解释}</div>`; }
             if (currentWord.家族词) html += `<div>家族：${currentWord.家族词.map(f => f.词).join(' / ')}</div>`;
             if (currentWord.近义词) html += `<div>近義：${currentWord.近义词.slice(0,3).map(s => s.词).join(', ')}</div>`;
             if (currentWord.反义词) html += `<div>反義：${currentWord.反义词.slice(0,3).map(s => s.词).join(', ')}</div>`;
-            html += `</div>`;
-            html += `<div class="action-row">`;
+            html += `</div><div class="action-row">`;
             html += `<button class="action-btn" onclick="window.location.href='词汇详情.html?id=${encodeURIComponent(wordId)}'">📖 返回詳情</button>`;
-            html += `<button class="action-btn primary" onclick="startGame()">🔄 重新闖關</button>`;
-            html += `</div>`;
+            html += `<button class="action-btn primary" onclick="startGame()">🔄 重新闖關</button></div>`;
             return html;
         }
 
         function loadDataFiles(files, callback) {
             let loaded = 0;
             files.forEach(file => {
-                const script = document.createElement('script');
-                script.src = file;
+                const script = document.createElement('script'); script.src = file;
                 script.onload = () => { loaded++; if (loaded === files.length) callback(); };
                 script.onerror = () => { loaded++; if (loaded === files.length) callback(); };
                 document.head.appendChild(script);
             });
         }
-
         loadDataFiles(dataFiles, () => setTimeout(startGame, 500));
     </script>
 </body>
