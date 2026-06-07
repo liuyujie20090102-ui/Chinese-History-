@@ -1143,4 +1143,416 @@ const 论证词汇数据 = [
         搭配: [{ 英文: "widespread support", 中文: "广泛的支持" },{ 英文: "widespread concern", 中文: "普遍的担忧" }],
         例句: "There is widespread agreement on the need for reform."
     }
+代码太长，分两批发。第一批 A-M。
+
+```javascript
+    {
+        id: "论证_144", 英文: "albeit", 中文: "尽管",
+        家族词: [{ 形式: "conj 连词", 词: "albeit", 中文: "尽管" }],
+        近义词: [{ 词: "although", 中文: "虽然", 场景: "日常通用" },{ 词: "even though", 中文: "即使", 场景: "强调让步" }],
+        反义词: [],
+        搭配: [{ 英文: "albeit reluctantly", 中文: "尽管不情愿" },{ 英文: "albeit briefly", 中文: "尽管短暂" }],
+        例句: "He accepted the decision, albeit reluctantly."
+    },
+    {
+        id: "论证_145", 英文: "ascertain", 中文: "确定；查明",
+        家族词: [{ 形式: "verb 动词", 词: "ascertain", 中文: "确定；查明" },{ 形式: "adj 形容词", 词: "ascertainable", 中文: "可确定的" }],
+        近义词: [{ 词: "determine", 中文: "确定", 场景: "通过调查查明" },{ 词: "verify", 中文: "核实", 场景: "确认是否真实" }],
+        反义词: [{ 词: "ignore", 中文: "忽视", 场景: "不去查明" }],
+        搭配: [{ 英文: "ascertain the facts", 中文: "查明事实" },{ 英文: "ascertain whether", 中文: "确定是否" }],
+        例句: "The investigation aims to ascertain the cause of the accident."
+    },
+    {
+        id: "论证_146", 英文: "attribute to", 中文: "归因于",
+        家族词: [{ 形式: "verb phr 动词短语", 词: "attribute to", 中文: "归因于" },{ 形式: "noun 名词", 词: "attribution", 中文: "归因" }],
+        近义词: [{ 词: "ascribe to", 中文: "归因于", 场景: "正式书面语" },{ 词: "credit to", 中文: "归功于", 场景: "正面归因" }],
+        反义词: [],
+        搭配: [{ 英文: "be attributed to", 中文: "被归因于" },{ 英文: "attribute the success to", 中文: "将成功归因于" }],
+        例句: "The decline can be attributed to a lack of funding."
+    },
+    {
+        id: "论证_147", 英文: "backing", 中文: "支持",
+        家族词: [{ 形式: "noun 名词", 词: "backing", 中文: "支持" },{ 形式: "verb 动词", 词: "back", 中文: "支持" }],
+        近义词: [{ 词: "support", 中文: "支持", 场景: "日常通用" },{ 词: "endorsement", 中文: "背书", 场景: "正式公开支持" }],
+        反义词: [{ 词: "opposition", 中文: "反对", 场景: "对立立场" }],
+        搭配: [{ 英文: "financial backing", 中文: "财政支持" },{ 英文: "have the backing of", 中文: "有……的支持" }],
+        例句: "The proposal gained strong backing from the committee."
+    },
+    {
+        id: "论证_148", 英文: "bolster", 中文: "支持；巩固",
+        家族词: [{ 形式: "verb 动词", 词: "bolster", 中文: "支持；巩固" }],
+        近义词: [{ 词: "strengthen", 中文: "加强", 场景: "使变强" },{ 词: "reinforce", 中文: "强化", 场景: "加强现有事物" },{ 词: "boost", 中文: "促进", 场景: "提升" }],
+        反义词: [{ 词: "undermine", 中文: "削弱", 场景: "暗中破坏" }],
+        搭配: [{ 英文: "bolster confidence", 中文: "增强信心" },{ 英文: "bolster the argument", 中文: "支持论点" }],
+        例句: "The new evidence bolstered her case."
+    },
+    {
+        id: "论证_149", 英文: "breach", 中文: "违反；破坏",
+        家族词: [{ 形式: "verb/noun 动词/名词", 词: "breach", 中文: "违反；破坏" }],
+        近义词: [{ 词: "violate", 中文: "违反", 场景: "违反法律/协议" },{ 词: "break", 中文: "打破", 场景: "违反规则" }],
+        反义词: [{ 词: "comply with", 中文: "遵守", 场景: "服从规定" },{ 词: "observe", 中文: "遵守", 场景: "遵守法律" }],
+        搭配: [{ 英文: "breach of contract", 中文: "违约" },{ 英文: "breach of trust", 中文: "背信" }],
+        例句: "The company was sued for breach of contract."
+    },
+    {
+        id: "论证_150", 英文: "broaden", 中文: "拓宽",
+        家族词: [{ 形式: "verb 动词", 词: "broaden", 中文: "拓宽" },{ 形式: "adj 形容词", 词: "broad", 中文: "广阔的" }],
+        近义词: [{ 词: "widen", 中文: "加宽", 场景: "物理或抽象范围" },{ 词: "expand", 中文: "扩展", 场景: "扩大范围" }],
+        反义词: [{ 词: "narrow", 中文: "缩小", 场景: "使变窄" }],
+        搭配: [{ 英文: "broaden one's horizons", 中文: "拓宽视野" },{ 英文: "broaden the scope", 中文: "扩大范围" }],
+        例句: "Travel helps broaden your perspective on the world."
+    },
+    {
+        id: "论证_151", 英文: "burden", 中文: "负担",
+        家族词: [{ 形式: "noun 名词", 词: "burden", 中文: "负担" },{ 形式: "adj 形容词", 词: "burdensome", 中文: "繁重的" }],
+        近义词: [{ 词: "load", 中文: "负荷", 场景: "需要承受的重量或压力" },{ 词: "responsibility", 中文: "责任", 场景: "需要承担的义务" }],
+        反义词: [{ 词: "relief", 中文: "减轻", 场景: "负担的解除" }],
+        搭配: [{ 英文: "burden of proof", 中文: "举证责任" },{ 英文: "financial burden", 中文: "经济负担" }],
+        例句: "The burden of proof lies with the prosecution."
+    },
+    {
+        id: "论证_152", 英文: "complement", 中文: "补充",
+        家族词: [{ 形式: "verb 动词", 词: "complement", 中文: "补充" },{ 形式: "adj 形容词", 词: "complementary", 中文: "补充的" }],
+        近义词: [{ 词: "supplement", 中文: "补充", 场景: "增加额外内容" },{ 词: "enhance", 中文: "提升", 场景: "使更好" }],
+        反义词: [{ 词: "contradict", 中文: "矛盾", 场景: "与……冲突" }],
+        搭配: [{ 英文: "complement each other", 中文: "互相补充" }],
+        例句: "The two studies complement each other perfectly."
+    },
+    {
+        id: "论证_153", 英文: "comply", 中文: "遵守",
+        家族词: [{ 形式: "verb 动词", 词: "comply", 中文: "遵守" },{ 形式: "noun 名词", 词: "compliance", 中文: "遵守；合规" }],
+        近义词: [{ 词: "obey", 中文: "服从", 场景: "遵守命令或规则" },{ 词: "conform to", 中文: "符合", 场景: "符合标准" }],
+        反义词: [{ 词: "violate", 中文: "违反", 场景: "不遵守" },{ 词: "defy", 中文: "违抗", 场景: "公然反抗" }],
+        搭配: [{ 英文: "comply with regulations", 中文: "遵守规定" },{ 英文: "fail to comply", 中文: "未能遵守" }],
+        例句: "All companies must comply with the new regulations."
+    },
+    {
+        id: "论证_154", 英文: "concur", 中文: "同意",
+        家族词: [{ 形式: "verb 动词", 词: "concur", 中文: "同意" },{ 形式: "noun 名词", 词: "concurrence", 中文: "同意" }],
+        近义词: [{ 词: "agree", 中文: "同意", 场景: "日常通用" },{ 词: "consent", 中文: "赞同", 场景: "正式同意" }],
+        反义词: [{ 词: "disagree", 中文: "不同意", 场景: "意见不同" },{ 词: "dissent", 中文: "异议", 场景: "正式反对" }],
+        搭配: [{ 英文: "concur with the view", 中文: "同意这个观点" },{ 英文: "concur that", 中文: "同意……" }],
+        例句: "Most experts concur that early intervention is key."
+    },
+    {
+        id: "论证_155", 英文: "consolidate", 中文: "巩固",
+        家族词: [{ 形式: "verb 动词", 词: "consolidate", 中文: "巩固" },{ 形式: "noun 名词", 词: "consolidation", 中文: "巩固" }],
+        近义词: [{ 词: "strengthen", 中文: "加强", 场景: "使变强" },{ 词: "unify", 中文: "统一", 场景: "合并为一个整体" }],
+        反义词: [{ 词: "weaken", 中文: "削弱", 场景: "使变弱" },{ 词: "fragment", 中文: "分裂", 场景: "使分散" }],
+        搭配: [{ 英文: "consolidate power", 中文: "巩固权力" },{ 英文: "consolidate the position", 中文: "巩固地位" }],
+        例句: "The company is consolidating its position in the market."
+    },
+    {
+        id: "论证_156", 英文: "deem", 中文: "认为",
+        家族词: [{ 形式: "verb 动词", 词: "deem", 中文: "认为" }],
+        近义词: [{ 词: "consider", 中文: "考虑；认为", 场景: "日常通用" },{ 词: "regard as", 中文: "视为", 场景: "主观看法" }],
+        反义词: [],
+        搭配: [{ 英文: "be deemed necessary", 中文: "被认为是必要的" },{ 英文: "be deemed inappropriate", 中文: "被认为是不恰当的" }],
+        例句: "The proposal was deemed unacceptable by the committee."
+    },
+    {
+        id: "论证_157", 英文: "deviate", 中文: "偏离",
+        家族词: [{ 形式: "verb 动词", 词: "deviate", 中文: "偏离" },{ 形式: "noun 名词", 词: "deviation", 中文: "偏离" }],
+        近义词: [{ 词: "stray", 中文: "偏离", 场景: "离开正确路径" },{ 词: "diverge", 中文: "分歧", 场景: "走向不同方向" }],
+        反义词: [{ 词: "conform", 中文: "符合", 场景: "遵守规范" }],
+        搭配: [{ 英文: "deviate from the plan", 中文: "偏离计划" },{ 英文: "deviate from the norm", 中文: "偏离常规" }],
+        例句: "We cannot deviate from the original plan."
+    },
+    {
+        id: "论证_158", 英文: "dilemma", 中文: "两难",
+        家族词: [{ 形式: "noun 名词", 词: "dilemma", 中文: "两难" }],
+        近义词: [{ 词: "predicament", 中文: "困境", 场景: "困难的情况" },{ 词: "quandary", 中文: "困惑", 场景: "难以抉择" }],
+        反义词: [{ 词: "solution", 中文: "解决方案", 场景: "问题的答案" }],
+        搭配: [{ 英文: "face a dilemma", 中文: "面临两难" },{ 英文: "moral dilemma", 中文: "道德两难" }],
+        例句: "The government faces a dilemma between growth and sustainability."
+    },
+    {
+        id: "论证_159", 英文: "elaborate", 中文: "详细说明",
+        家族词: [{ 形式: "verb 动词", 词: "elaborate", 中文: "详细说明" },{ 形式: "noun 名词", 词: "elaboration", 中文: "详细阐述" }],
+        近义词: [{ 词: "explain", 中文: "解释", 场景: "说清楚" },{ 词: "expand on", 中文: "展开", 场景: "补充细节" },{ 词: "clarify", 中文: "澄清", 场景: "使更明白" }],
+        反义词: [{ 词: "summarise", 中文: "总结", 场景: "简要概括" }],
+        搭配: [{ 英文: "elaborate on the point", 中文: "详细说明这一点" },{ 英文: "elaborate further", 中文: "进一步阐述" }],
+        例句: "Could you elaborate on your proposal?"
+    },
+    {
+        id: "论证_160", 英文: "elicit", 中文: "引出；探出",
+        家族词: [{ 形式: "verb 动词", 词: "elicit", 中文: "引出；探出" },{ 形式: "noun 名词", 词: "elicitation", 中文: "引出" }],
+        近义词: [{ 词: "draw out", 中文: "引出", 场景: "让人说出" },{ 词: "extract", 中文: "提取", 场景: "费力获取" },{ 词: "obtain", 中文: "获得", 场景: "得到" }],
+        反义词: [],
+        搭配: [{ 英文: "elicit a response", 中文: "引出回应" },{ 英文: "elicit information", 中文: "探出信息" }],
+        例句: "The teacher's question elicited a thoughtful discussion."
+    },
+    {
+        id: "论证_161", 英文: "embody", 中文: "体现",
+        家族词: [{ 形式: "verb 动词", 词: "embody", 中文: "体现" },{ 形式: "noun 名词", 词: "embodiment", 中文: "化身；体现" }],
+        近义词: [{ 词: "represent", 中文: "代表", 场景: "作为……的象征" },{ 词: "exemplify", 中文: "例证", 场景: "作为例子" },{ 词: "manifest", 中文: "表明", 场景: "清晰显示" }],
+        反义词: [],
+        搭配: [{ 英文: "embody the spirit", 中文: "体现精神" },{ 英文: "embody the values", 中文: "体现价值观" }],
+        例句: "The policy embodies the government's commitment to reform."
+    },
+    {
+        id: "论证_162", 英文: "encompass", 中文: "包含",
+        家族词: [{ 形式: "verb 动词", 词: "encompass", 中文: "包含" }],
+        近义词: [{ 词: "include", 中文: "包括", 场景: "作为一部分" },{ 词: "cover", 中文: "涵盖", 场景: "涉及某范围" },{ 词: "embrace", 中文: "包含", 场景: "涵盖多方面" }],
+        反义词: [{ 词: "exclude", 中文: "排除", 场景: "不包括" }],
+        搭配: [{ 英文: "encompass a wide range of", 中文: "涵盖广泛的" },{ 英文: "encompass all aspects", 中文: "涵盖所有方面" }],
+        例句: "The report encompasses all aspects of the issue."
+    },
+    {
+        id: "论证_163", 英文: "entail", 中文: "涉及",
+        家族词: [{ 形式: "verb 动词", 词: "entail", 中文: "涉及" }],
+        近义词: [{ 词: "involve", 中文: "涉及", 场景: "包含作为一部分" },{ 词: "require", 中文: "需要", 场景: "作为条件" }],
+        反义词: [],
+        搭配: [{ 英文: "entail risks", 中文: "涉及风险" },{ 英文: "entail sacrifices", 中文: "需要牺牲" }],
+        例句: "The project will entail considerable costs."
+    },
+    {
+        id: "论证_164", 英文: "envision", 中文: "设想",
+        家族词: [{ 形式: "verb 动词", 词: "envision", 中文: "设想" }],
+        近义词: [{ 词: "imagine", 中文: "想象", 场景: "在大脑中构建" },{ 词: "foresee", 中文: "预见", 场景: "预先看到" },{ 词: "conceive", 中文: "构思", 场景: "想出主意" }],
+        反义词: [],
+        搭配: [{ 英文: "envision a future", 中文: "设想未来" },{ 英文: "envision the possibility", 中文: "设想可能性" }],
+        例句: "The architect envisioned a city full of green spaces."
+    },
+    {
+        id: "论证_165", 英文: "evoke", 中文: "唤起",
+        家族词: [{ 形式: "verb 动词", 词: "evoke", 中文: "唤起" },{ 形式: "adj 形容词", 词: "evocative", 中文: "唤起情感的" }],
+        近义词: [{ 词: "arouse", 中文: "引起", 场景: "引发情感" },{ 词: "provoke", 中文: "激起", 场景: "引发强烈反应" }],
+        反义词: [{ 词: "suppress", 中文: "压制", 场景: "抑制情感" }],
+        搭配: [{ 英文: "evoke memories", 中文: "唤起回忆" },{ 英文: "evoke a response", 中文: "引起回应" }],
+        例句: "The photograph evoked fond memories of childhood."
+    },
+    {
+        id: "论证_166", 英文: "fabricate", 中文: "捏造",
+        家族词: [{ 形式: "verb 动词", 词: "fabricate", 中文: "捏造" },{ 形式: "noun 名词", 词: "fabrication", 中文: "捏造" }],
+        近义词: [{ 词: "invent", 中文: "虚构", 场景: "编造不实之事" },{ 词: "falsify", 中文: "伪造", 场景: "篡改使之虚假" }],
+        反义词: [{ 词: "verify", 中文: "核实", 场景: "确认真实性" }],
+        搭配: [{ 英文: "fabricate evidence", 中文: "捏造证据" },{ 英文: "fabricate a story", 中文: "编造故事" }],
+        例句: "The witness admitted to fabricating the entire story."
+    },
+    {
+        id: "论证_167", 英文: "facilitate", 中文: "促进",
+        家族词: [{ 形式: "verb 动词", 词: "facilitate", 中文: "促进" },{ 形式: "noun 名词", 词: "facilitation", 中文: "促进" }],
+        近义词: [{ 词: "promote", 中文: "推动", 场景: "促进发展" },{ 词: "enable", 中文: "使能够", 场景: "创造条件" },{ 词: "assist", 中文: "协助", 场景: "帮助完成" }],
+        反义词: [{ 词: "hinder", 中文: "阻碍", 场景: "使困难" },{ 词: "obstruct", 中文: "阻挠", 场景: "故意阻挡" }],
+        搭配: [{ 英文: "facilitate discussion", 中文: "促进讨论" },{ 英文: "facilitate the process", 中文: "促进过程" }],
+        例句: "The new software facilitates communication between teams."
+    },
+    {
+        id: "论证_168", 英文: "feasible", 中文: "可行的",
+        家族词: [{ 形式: "adj 形容词", 词: "feasible", 中文: "可行的" },{ 形式: "noun 名词", 词: "feasibility", 中文: "可行性" }],
+        近义词: [{ 词: "viable", 中文: "可行的", 场景: "可以实施的" },{ 词: "workable", 中文: "可操作的", 场景: "可以执行的" },{ 词: "practicable", 中文: "切实可行的", 场景: "现实可行的" }],
+        反义词: [{ 词: "impractical", 中文: "不切实际的", 场景: "不现实的" }],
+        搭配: [{ 英文: "a feasible solution", 中文: "可行的解决方案" },{ 英文: "economically feasible", 中文: "经济上可行的" }],
+        例句: "Is this plan financially feasible?"
+    },
+    {
+        id: "论证_169", 英文: "formulate", 中文: "制定",
+        家族词: [{ 形式: "verb 动词", 词: "formulate", 中文: "制定" },{ 形式: "noun 名词", 词: "formulation", 中文: "制定；构想" }],
+        近义词: [{ 词: "devise", 中文: "设计", 场景: "想出方案" },{ 词: "develop", 中文: "发展", 场景: "逐步建立" }],
+        反义词: [],
+        搭配: [{ 英文: "formulate a plan", 中文: "制定计划" },{ 英文: "formulate a policy", 中文: "制定政策" }],
+        例句: "The committee will formulate a new strategy."
+    },
+    {
+        id: "论证_170", 英文: "gauge", 中文: "评估",
+        家族词: [{ 形式: "verb 动词", 词: "gauge", 中文: "评估" }],
+        近义词: [{ 词: "measure", 中文: "衡量", 场景: "用标准衡量" },{ 词: "assess", 中文: "评估", 场景: "判断价值或程度" }],
+        反义词: [],
+        搭配: [{ 英文: "gauge public opinion", 中文: "评估公众意见" },{ 英文: "gauge the impact", 中文: "评估影响" }],
+        例句: "It is difficult to gauge the long-term effects."
+    },
+    {
+        id: "论证_171", 英文: "generalize", 中文: "概括",
+        家族词: [{ 形式: "verb 动词", 词: "generalize", 中文: "概括" },{ 形式: "noun 名词", 词: "generalization", 中文: "概括" }],
+        近义词: [{ 词: "summarise", 中文: "总结", 场景: "简要归纳" },{ 词: "simplify", 中文: "简化", 场景: "使之更简单" }],
+        反义词: [{ 词: "specify", 中文: "具体说明", 场景: "明确细节" }],
+        搭配: [{ 英文: "generalize about", 中文: "对……进行概括" },{ 英文: "broad generalization", 中文: "过于宽泛的概括" }],
+        例句: "It is unfair to generalize about an entire generation."
+    },
+    {
+        id: "论证_172", 英文: "hence", 中文: "因此",
+        家族词: [{ 形式: "adv 副词", 词: "hence", 中文: "因此" }],
+        近义词: [{ 词: "therefore", 中文: "因此", 场景: "逻辑结论" },{ 词: "thus", 中文: "因此", 场景: "正式书面语" },{ 词: "consequently", 中文: "因此", 场景: "表示结果" }],
+        反义词: [],
+        搭配: [{ 英文: "hence the need for", 中文: "因此需要……" },{ 英文: "hence the importance of", 中文: "因此……的重要性" }],
+        例句: "Resources are limited, hence the need for careful planning."
+    },
+    {
+        id: "论证_173", 英文: "hinder", 中文: "阻碍",
+        家族词: [{ 形式: "verb 动词", 词: "hinder", 中文: "阻碍" },{ 形式: "noun 名词", 词: "hindrance", 中文: "障碍" }],
+        近义词: [{ 词: "obstruct", 中文: "阻挡", 场景: "物理或抽象阻挡" },{ 词: "hamper", 中文: "妨碍", 场景: "使困难" },{ 词: "impede", 中文: "阻碍", 场景: "减慢进程" }],
+        反义词: [{ 词: "facilitate", 中文: "促进", 场景: "使更容易" },{ 词: "aid", 中文: "帮助", 场景: "提供帮助" }],
+        搭配: [{ 英文: "hinder progress", 中文: "阻碍进步" },{ 英文: "hinder development", 中文: "阻碍发展" }],
+        例句: "A lack of funding hindered the project's progress."
+    },
+    {
+        id: "论证_174", 英文: "implement", 中文: "实施",
+        家族词: [{ 形式: "verb 动词", 词: "implement", 中文: "实施" },{ 形式: "noun 名词", 词: "implementation", 中文: "实施" }],
+        近义词: [{ 词: "carry out", 中文: "执行", 场景: "按计划执行" },{ 词: "execute", 中文: "执行", 场景: "正式执行" },{ 词: "enforce", 中文: "强制执行", 场景: "用权威执行" }],
+        反义词: [],
+        搭配: [{ 英文: "implement a policy", 中文: "实施政策" },{ 英文: "implement changes", 中文: "实施变革" }],
+        例句: "The government plans to implement the new regulations next year."
+    },
+    {
+        id: "论证_175", 英文: "impose", 中文: "强加",
+        家族词: [{ 形式: "verb 动词", 词: "impose", 中文: "强加" },{ 形式: "noun 名词", 词: "imposition", 中文: "强加" }],
+        近义词: [{ 词: "force", 中文: "强迫", 场景: "用力量推行" },{ 词: "enforce", 中文: "强制执行", 场景: "用权威推行" }],
+        反义词: [{ 词: "remove", 中文: "移除", 场景: "取消" }],
+        搭配: [{ 英文: "impose restrictions", 中文: "施加限制" },{ 英文: "impose a fine", 中文: "处以罚款" }],
+        例句: "The new law imposes stricter controls on pollution."
+    },
+    {
+        id: "论证_176", 英文: "incline", 中文: "倾向于",
+        家族词: [{ 形式: "verb 动词", 词: "incline", 中文: "倾向于" },{ 形式: "noun 名词", 词: "inclination", 中文: "倾向" }],
+        近义词: [{ 词: "tend", 中文: "倾向于", 场景: "有……的倾向" },{ 词: "lean towards", 中文: "偏向", 场景: "主观偏向" }],
+        反义词: [{ 词: "resist", 中文: "抗拒", 场景: "不愿接受" }],
+        搭配: [{ 英文: "be inclined to", 中文: "倾向于" },{ 英文: "incline towards", 中文: "偏向……" }],
+        例句: "I am inclined to agree with your assessment."
+    },
+    {
+        id: "论证_177", 英文: "inhibit", 中文: "抑制",
+        家族词: [{ 形式: "verb 动词", 词: "inhibit", 中文: "抑制" },{ 形式: "noun 名词", 词: "inhibition", 中文: "抑制" }],
+        近义词: [{ 词: "restrain", 中文: "限制", 场景: "控制不使过度" },{ 词: "suppress", 中文: "压制", 场景: "强压下去" }],
+        反义词: [{ 词: "encourage", 中文: "鼓励", 场景: "促进" },{ 词: "stimulate", 中文: "刺激", 场景: "激发" }],
+        搭配: [{ 英文: "inhibit growth", 中文: "抑制增长" },{ 英文: "inhibit creativity", 中文: "抑制创造力" }],
+        例句: "Too many rules can inhibit creativity."
+    },
+    {
+        id: "论证_178", 英文: "integrate", 中文: "融入",
+        家族词: [{ 形式: "verb 动词", 词: "integrate", 中文: "融入" },{ 形式: "noun 名词", 词: "integration", 中文: "融入；一体化" }],
+        近义词: [{ 词: "combine", 中文: "结合", 场景: "将多个合成一个" },{ 词: "incorporate", 中文: "纳入", 场景: "使成为一部分" }],
+        反义词: [{ 词: "separate", 中文: "分开", 场景: "拆散" }],
+        搭配: [{ 英文: "integrate into", 中文: "融入……" },{ 英文: "integrate with", 中文: "与……结合" }],
+        例句: "The programme helps newcomers integrate into the community."
+    },
+    {
+        id: "论证_179", 英文: "intervene", 中文: "干预",
+        家族词: [{ 形式: "verb 动词", 词: "intervene", 中文: "干预" },{ 形式: "noun 名词", 词: "intervention", 中文: "干预" }],
+        近义词: [{ 词: "interfere", 中文: "干涉", 场景: "过多参与" },{ 词: "mediate", 中文: "调解", 场景: "居中调停" }],
+        反义词: [],
+        搭配: [{ 英文: "intervene in a dispute", 中文: "介入争议" },{ 英文: "government intervention", 中文: "政府干预" }],
+        例句: "The government decided to intervene in the crisis."
+    },
+    {
+        id: "论证_180", 英文: "invoke", 中文: "援引",
+        家族词: [{ 形式: "verb 动词", 词: "invoke", 中文: "援引" },{ 形式: "noun 名词", 词: "invocation", 中文: "援引" }],
+        近义词: [{ 词: "cite", 中文: "引用", 场景: "引用作为理由" },{ 词: "refer to", 中文: "提及", 场景: "提到以支撑论点" }],
+        反义词: [],
+        搭配: [{ 英文: "invoke a law", 中文: "援引法律" },{ 英文: "invoke the principle", 中文: "援引原则" }],
+        例句: "The lawyer invoked a rarely used legal provision."
+    },
+    {
+        id: "论证_181", 英文: "jeopardise", 中文: "危害",
+        家族词: [{ 形式: "verb 动词", 词: "jeopardise", 中文: "危害" }],
+        近义词: [{ 词: "endanger", 中文: "危及", 场景: "使处于危险中" },{ 词: "threaten", 中文: "威胁", 场景: "构成威胁" },{ 词: "undermine", 中文: "削弱", 场景: "暗中破坏" }],
+        反义词: [{ 词: "protect", 中文: "保护", 场景: "使免受伤害" },{ 词: "safeguard", 中文: "保障", 场景: "确保安全" }],
+        搭配: [{ 英文: "jeopardise the chances", 中文: "危及机会" },{ 英文: "jeopardise safety", 中文: "危及安全" }],
+        例句: "The scandal could jeopardise his career."
+    },
+    {
+        id: "论证_182", 英文: "justification", 中文: "正当理由",
+        家族词: [{ 形式: "noun 名词", 词: "justification", 中文: "正当理由" },{ 形式: "verb 动词", 词: "justify", 中文: "证明合理" }],
+        近义词: [{ 词: "reason", 中文: "理由", 场景: "解释原因" },{ 词: "grounds", 中文: "根据", 场景: "法律或逻辑依据" }],
+        反义词: [],
+        搭配: [{ 英文: "without justification", 中文: "无正当理由" },{ 英文: "provide justification for", 中文: "为……提供理由" }],
+        例句: "There is no justification for such behaviour."
+    },
+    {
+        id: "论证_183", 英文: "justly", 中文: "公正地",
+        家族词: [{ 形式: "adv 副词", 词: "justly", 中文: "公正地" },{ 形式: "adj 形容词", 词: "just", 中文: "公正的" }],
+        近义词: [{ 词: "fairly", 中文: "公平地", 场景: "不偏不倚" },{ 词: "rightfully", 中文: "正当地", 场景: "合情合理" }],
+        反义词: [{ 词: "unjustly", 中文: "不公正地", 场景: "不公平" }],
+        搭配: [{ 英文: "be justly proud of", 中文: "有理由为……感到自豪" },{ 英文: "justly deserved", 中文: "应得的" }],
+        例句: "She is justly proud of her achievements."
+    },
+    {
+        id: "论证_184", 英文: "keen", 中文: "敏锐的；热衷的",
+        家族词: [{ 形式: "adj 形容词", 词: "keen", 中文: "敏锐的；热衷的" },{ 形式: "noun 名词", 词: "keenness", 中文: "热衷；敏锐" }],
+        近义词: [{ 词: "eager", 中文: "热切的", 场景: "充满期待" },{ 词: "sharp", 中文: "敏锐的", 场景: "洞察力强" }],
+        反义词: [{ 词: "indifferent", 中文: "漠不关心的", 场景: "不在意" }],
+        搭配: [{ 英文: "keen interest", 中文: "浓厚的兴趣" },{ 英文: "keen to learn", 中文: "热衷学习" }],
+        例句: "She has a keen interest in environmental issues."
+    },
+    {
+        id: "论证_185", 英文: "keynote", 中文: "主旨",
+        家族词: [{ 形式: "noun 名词", 词: "keynote", 中文: "主旨" }],
+        近义词: [{ 词: "theme", 中文: "主题", 场景: "核心话题" },{ 词: "main idea", 中文: "主旨", 场景: "核心思想" }],
+        反义词: [],
+        搭配: [{ 英文: "keynote speech", 中文: "主旨演讲" },{ 英文: "keynote speaker", 中文: "主旨演讲者" }],
+        例句: "The professor delivered the keynote address at the conference."
+    },
+    {
+        id: "论证_186", 英文: "likewise", 中文: "同样地",
+        家族词: [{ 形式: "adv 副词", 词: "likewise", 中文: "同样地" }],
+        近义词: [{ 词: "similarly", 中文: "类似地", 场景: "以相似方式" },{ 词: "also", 中文: "也", 场景: "日常通用" }],
+        反义词: [{ 词: "conversely", 中文: "相反地", 场景: "以相反方式" }],
+        搭配: [{ 英文: "and likewise", 中文: "同样地" },{ 英文: "do likewise", 中文: "照样做" }],
+        例句: "The first study found positive results, and the second likewise."
+    },
+    {
+        id: "论证_187", 英文: "legitimacy", 中文: "合法性",
+        家族词: [{ 形式: "noun 名词", 词: "legitimacy", 中文: "合法性" },{ 形式: "adj 形容词", 词: "legitimate", 中文: "合法的" }],
+        近义词: [{ 词: "validity", 中文: "有效性", 场景: "符合规则" },{ 词: "lawfulness", 中文: "合法性", 场景: "符合法律" }],
+        反义词: [{ 词: "illegitimacy", 中文: "不合法性", 场景: "不符合规则" }],
+        搭配: [{ 英文: "question the legitimacy", 中文: "质疑合法性" },{ 英文: "lack of legitimacy", 中文: "缺乏合法性" }],
+        例句: "The legitimacy of the election was widely questioned."
+    },
+    {
+        id: "论证_188", 英文: "magnify", 中文: "放大",
+        家族词: [{ 形式: "verb 动词", 词: "magnify", 中文: "放大" },{ 形式: "noun 名词", 词: "magnification", 中文: "放大" }],
+        近义词: [{ 词: "enlarge", 中文: "扩大", 场景: "使变大" },{ 词: "amplify", 中文: "放大", 场景: "增强效果" },{ 词: "exaggerate", 中文: "夸大", 场景: "言过其实" }],
+        反义词: [{ 词: "minimise", 中文: "最小化", 场景: "使变小" }],
+        搭配: [{ 英文: "magnify the problem", 中文: "放大问题" },{ 英文: "magnify the impact", 中文: "放大影响" }],
+        例句: "Social media can magnify both positive and negative messages."
+    },
+    {
+        id: "论证_189", 英文: "maintain", 中文: "主张",
+        家族词: [{ 形式: "verb 动词", 词: "maintain", 中文: "主张；维持" },{ 形式: "noun 名词", 词: "maintenance", 中文: "维持" }],
+        近义词: [{ 词: "assert", 中文: "断言", 场景: "坚定地陈述" },{ 词: "claim", 中文: "声称", 场景: "提出主张" }],
+        反义词: [{ 词: "deny", 中文: "否认", 场景: "不承认" }],
+        搭配: [{ 英文: "maintain that", 中文: "主张……" },{ 英文: "maintain the status quo", 中文: "维持现状" }],
+        例句: "The author maintains that education is the key to change."
+    },
+    {
+        id: "论证_190", 英文: "mandate", 中文: "授权",
+        家族词: [{ 形式: "noun/verb 名词/动词", 词: "mandate", 中文: "授权" },{ 形式: "adj 形容词", 词: "mandatory", 中文: "强制的" }],
+        近义词: [{ 词: "authorise", 中文: "授权", 场景: "正式许可" },{ 词: "require", 中文: "要求", 场景: "规定必须做" }],
+        反义词: [{ 词: "prohibit", 中文: "禁止", 场景: "不允许" }],
+        搭配: [{ 英文: "legal mandate", 中文: "法律授权" },{ 英文: "mandate that", 中文: "规定……" }],
+        例句: "The law mandates equal pay for equal work."
+    },
+    {
+        id: "论证_191", 英文: "manifest", 中文: "表明",
+        家族词: [{ 形式: "verb 动词", 词: "manifest", 中文: "表明" },{ 形式: "adj 形容词", 词: "manifest", 中文: "明显的" },{ 形式: "noun 名词", 词: "manifestation", 中文: "表现" }],
+        近义词: [{ 词: "demonstrate", 中文: "展示", 场景: "清楚表明" },{ 词: "reveal", 中文: "揭示", 场景: "使显露" },{ 词: "display", 中文: "表现", 场景: "表现出" }],
+        反义词: [{ 词: "conceal", 中文: "隐藏", 场景: "不显露" }],
+        搭配: [{ 英文: "manifest itself as", 中文: "表现为" },{ 英文: "manifest concern", 中文: "表现出担忧" }],
+        例句: "The disease can manifest itself in various ways."
+    },
+    {
+        id: "论证_192", 英文: "merely", 中文: "仅仅",
+        家族词: [{ 形式: "adv 副词", 词: "merely", 中文: "仅仅" }],
+        近义词: [{ 词: "only", 中文: "只有", 场景: "日常通用" },{ 词: "simply", 中文: "只不过", 场景: "强调程度低" },{ 词: "solely", 中文: "唯一地", 场景: "只因为一个原因" }],
+        反义词: [{ 词: "largely", 中文: "很大程度上", 场景: "程度高" }],
+        搭配: [{ 英文: "not merely... but also", 中文: "不仅……而且……" },{ 英文: "merely a coincidence", 中文: "仅仅是巧合" }],
+        例句: "This is not merely an economic issue but also a social one."
+    },
+    {
+        id: "论证_193", 英文: "mitigate", 中文: "缓解",
+        家族词: [{ 形式: "verb 动词", 词: "mitigate", 中文: "缓解" },{ 形式: "noun 名词", 词: "mitigation", 中文: "缓解" }],
+        近义词: [{ 词: "alleviate", 中文: "减轻", 场景: "减轻痛苦或问题" },{ 词: "reduce", 中文: "减少", 场景: "降低程度" }],
+        反义词: [{ 词: "aggravate", 中文: "加剧", 场景: "使更严重" },{ 词: "worsen", 中文: "恶化", 场景: "使变差" }],
+        搭配: [{ 英文: "mitigate the risks", 中文: "降低风险" },{ 英文: "mitigate the impact", 中文: "减轻影响" }],
+        例句: "Steps were taken to mitigate the environmental damage."
+    },
+    {
+        id: "论证_194", 英文: "moreover", 中文: "此外",
+        家族词: [{ 形式: "adv 副词", 词: "moreover", 中文: "此外" }],
+        近义词: [{ 词: "furthermore", 中文: "此外", 场景: "补充更多信息" },{ 词: "in addition", 中文: "另外", 场景: "增加要点" },{ 词: "besides", 中文: "除此之外", 场景: "日常口语" }],
+        反义词: [],
+        搭配: [],
+        例句: "The plan is costly; moreover, it is unlikely to succeed."
+    }
+  
 ];
