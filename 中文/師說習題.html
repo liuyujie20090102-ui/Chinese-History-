@@ -84,11 +84,11 @@
         }
         .section-title:first-of-type{margin-top:0}
 
-        /* ====== 翻卡：字詞解釋 ====== */
+        /* ====== 翻卡 ====== */
         .flip-grid{
             display:grid;
             grid-template-columns:repeat(5,1fr);
-            gap:12px;
+            gap:10px;
             margin:12px 0;
         }
         .flip-card{
@@ -110,98 +110,63 @@
             display:flex;flex-direction:column;
             align-items:center;justify-content:center;
             border:1px solid rgba(180,160,130,0.3);
+            padding:6px;
+            text-align:center;
         }
         .flip-front{
             background:rgba(255,253,248,0.8);
             backdrop-filter:blur(6px);
             -webkit-backdrop-filter:blur(6px);
         }
-        .flip-front .fw{font-size:22px;font-weight:700;color:var(--text-primary);letter-spacing:2px}
-        .flip-front .fhint{font-size:10px;color:var(--text-muted);margin-top:4px;letter-spacing:1px}
+        .flip-front .fw{font-size:20px;font-weight:700;color:var(--text-primary);letter-spacing:2px}
+        .flip-front .fhint{font-size:10px;color:var(--text-muted);margin-top:3px;letter-spacing:1px}
         .flip-back{
-            background:rgba(255,253,248,0.92);
+            background:rgba(255,253,248,0.95);
             backdrop-filter:blur(8px);
             -webkit-backdrop-filter:blur(8px);
             transform:rotateY(180deg);
-            padding:10px;
+            justify-content:center;
         }
-        .flip-back .bw{font-size:15px;font-weight:700;color:var(--text-primary);letter-spacing:1px}
-        .flip-back .bdivider{width:24px;height:1px;background:rgba(180,160,130,0.35);margin:6px 0}
-        .flip-back .bquote{font-size:10px;color:var(--text-muted);text-align:center;line-height:1.5;letter-spacing:0.3px}
-        .flip-back .banswer{font-size:17px;font-weight:700;color:var(--gold);margin-top:6px;letter-spacing:1px}
-        .flip-back .bhint{font-size:9px;color:var(--text-muted);margin-top:2px}
+        .flip-back .bw{font-size:14px;font-weight:700;color:var(--text-primary);letter-spacing:1px;margin-bottom:2px}
+        .flip-back .bdivider{width:18px;height:1px;background:rgba(180,160,130,0.35);margin:3px 0}
+        .flip-back .bquote{font-size:9px;color:var(--text-muted);line-height:1.4;letter-spacing:0.2px;word-break:break-all}
+        .flip-back .banswer{font-size:14px;font-weight:700;color:var(--gold);margin-top:3px;letter-spacing:1px}
+        .flip-back .bhint{font-size:9px;color:var(--text-muted);margin-top:1px}
 
-        /* ====== 問答題 ====== */
-        .q-block{margin:16px 0}
-        .q-title{font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:8px;letter-spacing:0.5px;line-height:1.6}
+        /* ====== 題目卡片 ====== */
+        .q-card{
+            background:rgba(255,253,248,0.6);
+            border:1px solid rgba(180,160,130,0.2);
+            border-radius:14px;
+            padding:20px 22px;
+            margin:14px 0;
+        }
+        .q-title{font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:10px;letter-spacing:0.5px;line-height:1.6}
         .q-toggle{
             display:inline-flex;align-items:center;gap:6px;
             font-size:13px;color:var(--text-muted);
-            cursor:pointer;padding:6px 12px;
+            cursor:pointer;padding:6px 14px;
             border-radius:18px;
             border:1px solid rgba(180,160,130,0.2);
             background:rgba(255,253,248,0.5);
-            margin-right:8px;margin-bottom:6px;
+            margin-right:8px;margin-bottom:4px;
             transition:all 0.25s;
             letter-spacing:1px;
         }
         .q-toggle:hover{background:rgba(139,105,20,0.06);color:var(--gold);border-color:rgba(139,105,20,0.25)}
-        .q-toggle .q-arrow{font-size:10px;transition:transform 0.25s}
+        .q-toggle .q-arrow{font-size:10px;transition:transform 0.25s;flex-shrink:0}
         .q-toggle .q-arrow.open{transform:rotate(90deg)}
-        .q-hint-content,.q-answer-inline{
+        .q-content{
             display:none;
             background:rgba(139,105,20,0.04);
             border-left:3px solid var(--gold-light);
             border-radius:0 10px 10px 0;
-            padding:12px 16px;
-            margin:8px 0 12px;
+            padding:14px 18px;
+            margin:10px 0 4px;
             font-size:14px;color:var(--text-secondary);
-            line-height:1.8;letter-spacing:0.5px;
+            line-height:1.9;letter-spacing:0.5px;
         }
-        .q-hint-content.show,.q-answer-inline.show{display:block}
-
-        /* ====== 答案彈出卡片 ====== */
-        .overlay{
-            position:fixed;top:0;left:0;width:100%;height:100%;
-            background:rgba(44,36,22,0.3);
-            z-index:300;
-            display:none;
-            align-items:center;justify-content:center;
-            padding:20px;
-        }
-        .overlay.show{display:flex}
-        .answer-popup{
-            background:rgba(255,253,248,0.95);
-            backdrop-filter:blur(16px);
-            -webkit-backdrop-filter:blur(16px);
-            border:1px solid rgba(180,160,130,0.35);
-            border-radius:18px;
-            padding:28px 24px 20px;
-            max-width:520px;width:100%;
-            max-height:75vh;overflow-y:auto;
-            box-shadow:0 16px 48px rgba(60,40,20,0.15);
-            position:relative;
-            animation:popIn 0.3s ease;
-        }
-        @keyframes popIn{from{opacity:0;transform:scale(0.92)}to{opacity:1;transform:scale(1)}}
-        .answer-popup .pop-q{
-            font-size:15px;font-weight:600;color:var(--text-primary);
-            margin-bottom:14px;letter-spacing:0.5px;line-height:1.6;
-        }
-        .answer-popup .pop-a{
-            font-size:15px;color:var(--text-secondary);
-            line-height:2;letter-spacing:0.5px;
-        }
-        .answer-popup .pop-a p{margin-bottom:12px}
-        .answer-popup .pop-close{
-            position:absolute;top:12px;right:16px;
-            background:none;border:none;
-            font-size:18px;cursor:pointer;
-            color:var(--text-muted);
-            transition:color 0.3s;
-            font-family:var(--font-cn);
-        }
-        .answer-popup .pop-close:hover{color:var(--text-primary)}
+        .q-content.show{display:block}
 
         /* ====== 浮動目錄 ====== */
         .toc-btn{
@@ -263,8 +228,12 @@
             .flip-grid{grid-template-columns:repeat(3,1fr);gap:8px}
             .toc-panel{width:180px;right:10px}
             .toc-btn{right:10px;bottom:20px}
-            .answer-popup{padding:22px 16px 16px}
+            .q-card{padding:16px 14px}
             .q-title{font-size:15px}
+            .flip-front .fw{font-size:17px}
+            .flip-back .bw{font-size:12px}
+            .flip-back .bquote{font-size:8px}
+            .flip-back .banswer{font-size:12px}
         }
     </style>
 </head>
@@ -291,35 +260,31 @@
         <div class="page-title">師說 · 習題</div>
         <div class="page-subtitle">韓愈 ·《昌黎先生集》</div>
 
-        <!-- 一、字詞解釋（翻卡） -->
+        <!-- 一、字詞解釋 -->
         <div class="section-title" id="q1">一、字詞解釋</div>
         <div class="flip-grid" id="flipGrid"></div>
 
         <!-- 二、問答題 -->
         <div class="section-title" id="q2">二、問答題</div>
+        <div id="qaContainer"></div>
 
         <!-- 三、選擇題 -->
         <div class="section-title" id="q3">三、選擇題</div>
+        <div id="mcContainer"></div>
 
         <!-- 四、比較題 -->
         <div class="section-title" id="q4">四、比較題</div>
+        <div id="cmpContainer"></div>
 
         <!-- 五、摘錄題 -->
         <div class="section-title" id="q5">五、摘錄題</div>
+        <div id="extContainer"></div>
 
         <!-- 六、開放題 -->
         <div class="section-title" id="q6">六、開放題</div>
+        <div id="openContainer"></div>
 
         <div class="footer">── Shelly Liu ──</div>
-    </div>
-
-    <!-- 答案彈出卡片 -->
-    <div class="overlay" id="answerOverlay" onclick="closeAnswer(event)">
-        <div class="answer-popup" id="answerPopup" onclick="event.stopPropagation()">
-            <button class="pop-close" onclick="closeAnswer()">✕</button>
-            <div class="pop-q" id="popQ"></div>
-            <div class="pop-a" id="popA"></div>
-        </div>
     </div>
 
     <!-- 浮動目錄 -->
@@ -335,7 +300,6 @@
     </div>
 
     <script>
-        // ====== 數據 ======
         const vocabData=[
             {w:"身",q:"「於其身也，則恥師焉」",a:"自己"},
             {w:"受",q:"「所以傳道、受業、解惑也」",a:"通「授」，傳授"},
@@ -350,44 +314,44 @@
         ];
 
         const qaData=[
-            {q:"人們為甚麼要從師學習？",hint:"「人非生而知之者，孰能無惑？惑而不從師，其為惑也終不解矣。」",a:"人不是生下來就懂得道理，每個人都會有疑惑，如果不跟從老師學習，那些疑惑就永遠不能解決，所以必須從師學習。"},
-            {q:"選擇老師的標準是甚麼？",hint:"「無貴無賤，無長無少，道之所存，師之所存也。」",a:"不論地位高低、年紀大小，只要對方懂得道理，就可以作為老師。道理存在的地方，就是老師存在的地方。"},
-            {q:"韓愈認為老師主要的職責是甚麼？",hint:"「師者，所以傳道、受業、解惑也。」",a:"老師的職責是傳授道理、教授學業、解答疑惑。"},
-            {q:"士大夫恥學於師的原因有哪些？",hint:"「彼與彼年相若也，道相似也。」「位卑則足羞」「官盛則近諛」「曰師、曰弟子云者，則羣聚而笑之」",a:"士大夫認為彼此年紀相若、道德學問相似，不必互相學習；向地位低的人學習感到羞恥，向地位高的人學習怕被說諂媚；加上當時的社會風氣以從師為恥，聽到有人以師徒相稱就會聚在一起嘲笑，因此不願從師學習。"},
-            {q:"「師道之不傳也久矣！欲人之無惑也難矣！」在文章結構上有甚麼作用？",hint:"「師道之不傳也久矣！欲人之無惑也難矣！」",a:"這兩句在結構上起承上啟下的作用。承接上文指出從師學習的風氣中斷已久，人們難以沒有疑惑；同時開啟下文，批評當時士大夫不重視從師學習的風氣。"},
-            {q:"作者比較「古之聖人」與「今之眾人」的目的是甚麼？",hint:"「古之聖人，其出人也遠矣，猶且從師而問焉；今之眾人，其下聖人也亦遠矣，而恥學於師。是故聖益聖，愚益愚。」",a:"作者通過對比說明聖人與愚人的分別在於是否從師學習。古代的聖人學問才智遠超一般人，尚且虛心從師，因此更加聖明；現在的一般人才智遠不如聖人，卻以從師學習為恥，因此更加愚昧。這說明了從師學習的重要性，聖人尚且從師，一般人更應該從師學習。"},
-            {q:"韓愈以孔子為例說明了甚麼？",hint:"「聖人無常師。孔子師郯子、萇弘、師襄、老聃……孔子曰：『三人行，則必有我師。』是故弟子不必不如師，師不必賢於弟子；聞道有先後，術業有專攻，如是而已。」",a:"韓愈以孔子為例說明了三點：第一，聖人也要從師學習，呼應了「古之學者必有師」的中心論點；第二，每個人都有不同的專長，應該跟從不同的老師學習不同的知識，即「術業有專攻」；第三，老師不一定比學生賢能，學生也不一定比不上老師，擇師的標準在於對方是否掌握道理，而不是年齡或地位。"},
-            {q:"「小學而大遺」是甚麼意思？",hint:"「句讀之不知，惑之不解，或師焉，或不焉，小學而大遺，吾未見其明也。」",a:"「小學」指學習句讀等基本知識，「大遺」指放棄了能夠解決疑惑的大道理。韓愈批評士大夫只重視學習句讀這種小事，卻不從師學習以解答疑惑，這是本末倒置、輕重不分的行為，他認為這樣的人並不明智。"},
-            {q:"《師說》開篇與結尾在結構上運用了甚麼手法？",hint:"開篇：「古之學者必有師。」結尾：「余嘉其能行古道，作《師說》以貽之。」",a:"運用了首尾呼應的手法。文章開篇點明「古之學者必有師」，確立從師學習的中心論點；結尾讚揚李蟠「能行古道」，呼應開篇古人從師學習的風尚，使文章結構嚴謹、前後連貫。"},
-            {q:"最後一段表揚李蟠是否偏離了文章的主題？",hint:"「余嘉其能行古道，作《師說》以貽之。」",a:"沒有偏離主題。韓愈藉讚揚李蟠重申「從師而學」的論點。李蟠「能行古道」，不受當時恥於從師的風氣影響，跟隨韓愈學習。韓愈寫本文贈給他，既嘉許李蟠的行為，也藉此批評士大夫恥於從師的風氣，勉勵更多人遵行古人從師學習之道。"},
-            {q:"韓愈運用了甚麼手法說明「巫、醫、樂師、百工之人」與「士大夫之族」的不同？",hint:"「巫、醫、樂師、百工之人，不恥相師；士大夫之族，曰師、曰弟子云者，則羣聚而笑之……今其智乃反不能及，其可怪也歟！」",a:"韓愈運用了對比手法。他把社會地位較低的巫、醫、樂師、百工之人（不恥相師）與社會地位較高的士大夫（恥於從師並嘲笑他人）進行對比，指出士大夫的智慧反而比不上百工之人，從而批評士大夫恥於從師的愚昧，說明從師學習的重要。"},
-            {q:"韓愈在第6段提到李蟠，你同意這是韓愈惟一的寫作目的嗎？",hint:"「余嘉其能行古道，作《師說》以貽之。」",a:"不同意。讚揚李蟠只是寫作本文的直接緣由，韓愈的真正目的是批評當時士大夫不重視師道的風氣。他藉着嘉許李蟠「能行古道」、不受時俗影響從師學習，來反襯士大夫恥於從師的愚昧，從而說明從師學習的重要，希望扭轉社會風氣。"},
-            {q:"韓愈對「小學而大遺」的批評，對你個人的學習有什麼啟發？試舉一例說明。",hint:"「小學而大遺，吾未見其明也。」",a:"開放題，須舉與學習相關的例子，說明避免本末倒置。示例：韓愈批評士大夫只重視學習句讀等小事，卻忽略了更重要的道理。這啟發我在學習時要分清輕重，例如學習語文時，不應只死記硬背字詞解釋和句式，更應理解文章的內容義理和文化精神，才能真正掌握所學。"},
-            {q:"士大夫和巫、醫、樂師、百工之人在從師態度上有甚麼不同？",hint:"「巫、醫、樂師、百工之人，不恥相師；士大夫之族，曰師、曰弟子云者，則羣聚而笑之。」",a:"巫、醫、樂師、百工之人社會地位較低，但不以互相學習為恥；士大夫社會地位較高，卻以從師學習為恥，甚至聽到有人以師徒相稱就會聚在一起嘲笑。韓愈藉此批評士大夫恥於從師的愚昧，指出他們的智慧反而不及百工之人。"},
-            {q:"「聖人無常師」一句在全文結構上有甚麼作用？",hint:"「聖人無常師。」",a:"承上啟下。承接上文對士大夫恥於從師的批評，開啟下文以孔子為例，正面論證從師學習的重要和擇師的原則。"},
-            {q:"你是否同意韓愈「弟子不必不如師，師不必賢於弟子」這個觀點？試談談你的看法。",hint:"「是故弟子不必不如師，師不必賢於弟子；聞道有先後，術業有專攻。」",a:"（同意）我同意這個觀點。每個人都有不同的專長和知識，可以在不同方面互相學習。老師在某方面可能不如學生，學生也可能在某些領域超越老師，這是正常的。只要對方掌握道理，就可以向他學習，不必計較誰比誰賢能。\n\n（不同意）我不同意這個觀點。老師理論上應比學生更有學識和經驗，否則難以擔任教導的角色。如果老師處處不如學生，教學便失去意義。學生應該尊重老師的專業知識，而不是認為自己可以輕易超越老師。"}
+            {q:"人們為甚麼要從師學習？",h:"「人非生而知之者，孰能無惑？惑而不從師，其為惑也終不解矣。」",a:"人不是生下來就懂得道理，每個人都會有疑惑，如果不跟從老師學習，那些疑惑就永遠不能解決，所以必須從師學習。"},
+            {q:"選擇老師的標準是甚麼？",h:"「無貴無賤，無長無少，道之所存，師之所存也。」",a:"不論地位高低、年紀大小，只要對方懂得道理，就可以作為老師。道理存在的地方，就是老師存在的地方。"},
+            {q:"韓愈認為老師主要的職責是甚麼？",h:"「師者，所以傳道、受業、解惑也。」",a:"老師的職責是傳授道理、教授學業、解答疑惑。"},
+            {q:"士大夫恥學於師的原因有哪些？",h:"「彼與彼年相若也，道相似也。」「位卑則足羞」「官盛則近諛」「曰師、曰弟子云者，則羣聚而笑之」",a:"士大夫認為彼此年紀相若、道德學問相似，不必互相學習；向地位低的人學習感到羞恥，向地位高的人學習怕被說諂媚；加上當時的社會風氣以從師為恥，聽到有人以師徒相稱就會聚在一起嘲笑，因此不願從師學習。"},
+            {q:"「師道之不傳也久矣！欲人之無惑也難矣！」在文章結構上有甚麼作用？",h:"「師道之不傳也久矣！欲人之無惑也難矣！」",a:"這兩句在結構上起承上啟下的作用。承接上文指出從師學習的風氣中斷已久，人們難以沒有疑惑；同時開啟下文，批評當時士大夫不重視從師學習的風氣。"},
+            {q:"作者比較「古之聖人」與「今之眾人」的目的是甚麼？",h:"「古之聖人，其出人也遠矣，猶且從師而問焉；今之眾人，其下聖人也亦遠矣，而恥學於師。是故聖益聖，愚益愚。」",a:"作者通過對比說明聖人與愚人的分別在於是否從師學習。古代的聖人學問才智遠超一般人，尚且虛心從師，因此更加聖明；現在的一般人才智遠不如聖人，卻以從師學習為恥，因此更加愚昧。這說明了從師學習的重要性，聖人尚且從師，一般人更應該從師學習。"},
+            {q:"韓愈以孔子為例說明了甚麼？",h:"「聖人無常師。孔子師郯子、萇弘、師襄、老聃……孔子曰：『三人行，則必有我師。』是故弟子不必不如師，師不必賢於弟子；聞道有先後，術業有專攻，如是而已。」",a:"韓愈以孔子為例說明了三點：第一，聖人也要從師學習，呼應了「古之學者必有師」的中心論點；第二，每個人都有不同的專長，應該跟從不同的老師學習不同的知識，即「術業有專攻」；第三，老師不一定比學生賢能，學生也不一定比不上老師，擇師的標準在於對方是否掌握道理，而不是年齡或地位。"},
+            {q:"「小學而大遺」是甚麼意思？",h:"「句讀之不知，惑之不解，或師焉，或不焉，小學而大遺，吾未見其明也。」",a:"「小學」指學習句讀等基本知識，「大遺」指放棄了能夠解決疑惑的大道理。韓愈批評士大夫只重視學習句讀這種小事，卻不從師學習以解答疑惑，這是本末倒置、輕重不分的行為，他認為這樣的人並不明智。"},
+            {q:"《師說》開篇與結尾在結構上運用了甚麼手法？",h:"開篇：「古之學者必有師。」結尾：「余嘉其能行古道，作《師說》以貽之。」",a:"運用了首尾呼應的手法。文章開篇點明「古之學者必有師」，確立從師學習的中心論點；結尾讚揚李蟠「能行古道」，呼應開篇古人從師學習的風尚，使文章結構嚴謹、前後連貫。"},
+            {q:"最後一段表揚李蟠是否偏離了文章的主題？",h:"「余嘉其能行古道，作《師說》以貽之。」",a:"沒有偏離主題。韓愈藉讚揚李蟠重申「從師而學」的論點。李蟠「能行古道」，不受當時恥於從師的風氣影響，跟隨韓愈學習。韓愈寫本文贈給他，既嘉許李蟠的行為，也藉此批評士大夫恥於從師的風氣，勉勵更多人遵行古人從師學習之道。"},
+            {q:"韓愈運用了甚麼手法說明「巫、醫、樂師、百工之人」與「士大夫之族」的不同？",h:"「巫、醫、樂師、百工之人，不恥相師；士大夫之族，曰師、曰弟子云者，則羣聚而笑之……今其智乃反不能及，其可怪也歟！」",a:"韓愈運用了對比手法。他把社會地位較低的巫、醫、樂師、百工之人（不恥相師）與社會地位較高的士大夫（恥於從師並嘲笑他人）進行對比，指出士大夫的智慧反而比不上百工之人，從而批評士大夫恥於從師的愚昧，說明從師學習的重要。"},
+            {q:"韓愈在第6段提到李蟠，你同意這是韓愈惟一的寫作目的嗎？",h:"「余嘉其能行古道，作《師說》以貽之。」",a:"不同意。讚揚李蟠只是寫作本文的直接緣由，韓愈的真正目的是批評當時士大夫不重視師道的風氣。他藉着嘉許李蟠「能行古道」、不受時俗影響從師學習，來反襯士大夫恥於從師的愚昧，從而說明從師學習的重要，希望扭轉社會風氣。"},
+            {q:"韓愈對「小學而大遺」的批評，對你個人的學習有什麼啟發？試舉一例說明。",h:"「小學而大遺，吾未見其明也。」",a:"開放題，須舉與學習相關的例子，說明避免本末倒置。示例：韓愈批評士大夫只重視學習句讀等小事，卻忽略了更重要的道理。這啟發我在學習時要分清輕重，例如學習語文時，不應只死記硬背字詞解釋和句式，更應理解文章的內容義理和文化精神，才能真正掌握所學。"},
+            {q:"士大夫和巫、醫、樂師、百工之人在從師態度上有甚麼不同？",h:"「巫、醫、樂師、百工之人，不恥相師；士大夫之族，曰師、曰弟子云者，則羣聚而笑之。」",a:"巫、醫、樂師、百工之人社會地位較低，但不以互相學習為恥；士大夫社會地位較高，卻以從師學習為恥，甚至聽到有人以師徒相稱就會聚在一起嘲笑。韓愈藉此批評士大夫恥於從師的愚昧，指出他們的智慧反而不及百工之人。"},
+            {q:"「聖人無常師」一句在全文結構上有甚麼作用？",h:"「聖人無常師。」",a:"承上啟下。承接上文對士大夫恥於從師的批評，開啟下文以孔子為例，正面論證從師學習的重要和擇師的原則。"},
+            {q:"你是否同意韓愈「弟子不必不如師，師不必賢於弟子」這個觀點？試談談你的看法。",h:"「是故弟子不必不如師，師不必賢於弟子；聞道有先後，術業有專攻。」",a:"（同意）我同意這個觀點。每個人都有不同的專長和知識，可以在不同方面互相學習。老師在某方面可能不如學生，學生也可能在某些領域超越老師，這是正常的。只要對方掌握道理，就可以向他學習，不必計較誰比誰賢能。<br><br>（不同意）我不同意這個觀點。老師理論上應比學生更有學識和經驗，否則難以擔任教導的角色。如果老師處處不如學生，教學便失去意義。學生應該尊重老師的專業知識，而不是認為自己可以輕易超越老師。"}
         ];
 
         const mcData=[
-            {q:"第5段運用了甚麼手法論證「聖人無常師」？",hint:"「孔子師郯子、萇弘、師襄、老聃……孔子曰：『三人行，則必有我師。』」",a:"舉例論證（以孔子從師的事例為證）和引用論證（引用孔子的話「三人行，則必有我師」）。"},
-            {q:"第5段最主要的論點是甚麼？",hint:"「弟子不必不如師，師不必賢於弟子；聞道有先後，術業有專攻。」",a:"學習不應只限於以某一人為師，從師不必限於比自己賢能的人。每個人都有不同的專長，只要對方掌握道理，就可以向他學習。"}
+            {q:"第5段運用了甚麼手法論證「聖人無常師」？",h:"「孔子師郯子、萇弘、師襄、老聃……孔子曰：『三人行，則必有我師。』」",a:"舉例論證（以孔子從師的事例為證）和引用論證（引用孔子的話「三人行，則必有我師」）。"},
+            {q:"第5段最主要的論點是甚麼？",h:"「弟子不必不如師，師不必賢於弟子；聞道有先後，術業有專攻。」",a:"學習不應只限於以某一人為師，從師不必限於比自己賢能的人。每個人都有不同的專長，只要對方掌握道理，就可以向他學習。"}
         ];
 
         const cmpData=[
-            {q:"《師說》與《岳陽樓記》都是為了勉勵某個面對逆境的人而寫。試指出兩文分別為誰而寫，又如何達到勉勵的效果？",hint:"《師說》：「余嘉其能行古道，作《師說》以貽之。」\n《岳陽樓記》：「微斯人，吾誰與歸？」",a:"《師說》是韓愈為學生李蟠而寫。當時恥於從師的風氣盛行，士大夫嘲笑從師的人，李蟠向韓愈學習時承受壓力。韓愈通過論述老師的價值、從師學習的重要和擇師的原則，給予李蟠支持和鼓勵。\n\n《岳陽樓記》是范仲淹為朋友滕子京而寫。滕子京當時被貶守岳州，官場失意。范仲淹通過描述古仁人「不以物喜，不以己悲」的胸襟，寄語滕子京應心繫社稷蒼生，以天下為己任，勉勵他超越個人得失，繼續專注政務。"},
-            {q:"《師說》和《勸學》學習的目的是甚麼？",hint:"《師說》：「人非生而知之者，孰能無惑？惑而不從師，其為惑也終不解矣。」\n《勸學》：「君子博學而日參省乎己，則知明而行無過矣。」",a:"《師說》認為學習的目的是「解惑」。人不是一出生就懂得所有知識和道理，必定會遇到疑問，因此需要向老師學習以解答疑惑。\n\n《勸學》認為學習的目的是改變本性、增進智慧、提升品德。通過廣泛學習和每天自我反省，可以使人智慧明達、行為沒有過錯，從而更接近聖人的心志。"}
+            {q:"《師說》與《岳陽樓記》都是為了勉勵某個面對逆境的人而寫。試指出兩文分別為誰而寫，又如何達到勉勵的效果？",h:"《師說》：「余嘉其能行古道，作《師說》以貽之。」<br>《岳陽樓記》：「微斯人，吾誰與歸？」",a:"《師說》是韓愈為學生李蟠而寫。當時恥於從師的風氣盛行，士大夫嘲笑從師的人，李蟠向韓愈學習時承受壓力。韓愈通過論述老師的價值、從師學習的重要和擇師的原則，給予李蟠支持和鼓勵。<br><br>《岳陽樓記》是范仲淹為朋友滕子京而寫。滕子京當時被貶守岳州，官場失意。范仲淹通過描述古仁人「不以物喜，不以己悲」的胸襟，寄語滕子京應心繫社稷蒼生，以天下為己任，勉勵他超越個人得失，繼續專注政務。"},
+            {q:"《師說》和《勸學》學習的目的是甚麼？",h:"《師說》：「人非生而知之者，孰能無惑？惑而不從師，其為惑也終不解矣。」<br>《勸學》：「君子博學而日參省乎己，則知明而行無過矣。」",a:"《師說》認為學習的目的是「解惑」。人不是一出生就懂得所有知識和道理，必定會遇到疑問，因此需要向老師學習以解答疑惑。<br><br>《勸學》認為學習的目的是改變本性、增進智慧、提升品德。通過廣泛學習和每天自我反省，可以使人智慧明達、行為沒有過錯，從而更接近聖人的心志。"}
         ];
 
         const extData=[
-            {q:"試摘錄一句概括擇師的條件",hint:"",a:"「無貴無賤，無長無少，道之所存，師之所存也。」"},
-            {q:"試摘錄運用引用論證的句子",hint:"",a:"「孔子曰：『三人行，則必有我師。』」"}
+            {q:"試摘錄一句概括擇師的條件",h:"",a:"「無貴無賤，無長無少，道之所存，師之所存也。」"},
+            {q:"試摘錄運用引用論證的句子",h:"",a:"「孔子曰：『三人行，則必有我師。』」"}
         ];
 
         const openData=[
-            {q:"韓愈所說的「師」還適用於現代教育嗎？試說說你的看法。",hint:"",a:"開放題，言之成理即可。\n\n示例（適用）：我認為韓愈所說的「師」仍然適用於現代教育。雖然現代教育以知識傳授為主，但老師仍然肩負着培養學生品德的責任。韓愈強調老師要「傳道」，即傳授做人的道理，這在現代社會仍然重要。老師通過言傳身教，可以幫助學生建立正確的價值觀。\n\n示例（不適用）：我認為韓愈所說的「師」已不完全適用於現代教育。現代教育強調學生自主學習和批判性思考，師生關係不像古代那樣權威。而且現代知識更新迅速，學生可以通過多種渠道學習，不一定只依賴老師。因此，韓愈對老師的定義需要因應時代調整。"}
+            {q:"韓愈所說的「師」還適用於現代教育嗎？試說說你的看法。",h:"",a:"開放題，言之成理即可。<br><br>示例（適用）：我認為韓愈所說的「師」仍然適用於現代教育。雖然現代教育以知識傳授為主，但老師仍然肩負着培養學生品德的責任。韓愈強調老師要「傳道」，即傳授做人的道理，這在現代社會仍然重要。老師通過言傳身教，可以幫助學生建立正確的價值觀。<br><br>示例（不適用）：我認為韓愈所說的「師」已不完全適用於現代教育。現代教育強調學生自主學習和批判性思考，師生關係不像古代那樣權威。而且現代知識更新迅速，學生可以通過多種渠道學習，不一定只依賴老師。因此，韓愈對老師的定義需要因應時代調整。"}
         ];
 
-        // ====== 生成翻卡 ======
+        // 生成翻卡
         const flipGrid=document.getElementById('flipGrid');
         vocabData.forEach(v=>{
             const card=document.createElement('div');
@@ -406,43 +370,40 @@
                         <span class="bhint">點擊返回</span>
                     </div>
                 </div>`;
-            card.addEventListener('click',function(e){
-                // 不觸發答案彈出
-                e.stopPropagation();
-                this.classList.toggle('flipped');
-            });
+            card.addEventListener('click',function(e){e.stopPropagation();this.classList.toggle('flipped')});
             flipGrid.appendChild(card);
         });
 
-        // ====== 生成問答/選擇/比較/摘錄/開放題 ======
-        function buildQABlock(containerId,data,startNum){
+        // 生成題目區塊
+        function buildSection(containerId,data,startNum){
             const container=document.getElementById(containerId);
             if(!container) return;
-            // 找到section-title後插入
-            const section=container;
             data.forEach((item,i)=>{
                 const num=startNum+i;
-                const block=document.createElement('div');
-                block.className='q-block';
-                block.innerHTML=`
+                const card=document.createElement('div');
+                card.className='q-card';
+                const hid='h_'+containerId+'_'+i;
+                const aid='a_'+containerId+'_'+i;
+                card.innerHTML=`
                     <div class="q-title">${num}. ${item.q}</div>
-                    ${item.hint?`<span class="q-toggle hint-toggle" onclick="toggleHint(this)"><span class="q-arrow">▶</span> 提示</span>
-                    <div class="q-hint-content">${item.hint.replace(/\n/g,'<br>')}</div>`:''}
-                    <span class="q-toggle ans-toggle" onclick="openPopup('${item.q.replace(/'/g,"\\'")}','${item.a.replace(/'/g,"\\'").replace(/\n/g,'<br>')}')">📝 查看答案</span>
+                    ${item.h?`<span class="q-toggle" onclick="toggleQ('${hid}',this)"><span class="q-arrow">▶</span> 提示</span>
+                    <div class="q-content" id="${hid}">${item.h}</div>`:''}
+                    <span class="q-toggle" onclick="toggleQ('${aid}',this)"><span class="q-arrow">▶</span> 查看答案</span>
+                    <div class="q-content" id="${aid}">${item.a}</div>
                 `;
-                section.appendChild(block);
+                container.appendChild(card);
             });
         }
-        buildQABlock('q2',qaData,1);
-        buildQABlock('q3',mcData,1);
-        buildQABlock('q4',cmpData,1);
-        buildQABlock('q5',extData,1);
-        buildQABlock('q6',openData,1);
+        buildSection('qaContainer',qaData,1);
+        buildSection('mcContainer',mcData,1);
+        buildSection('cmpContainer',cmpData,1);
+        buildSection('extContainer',extData,1);
+        buildSection('openContainer',openData,1);
 
-        // ====== 提示折疊 ======
-        function toggleHint(el){
+        // 折疊切換
+        function toggleQ(id,el){
+            const content=document.getElementById(id);
             const arrow=el.querySelector('.q-arrow');
-            const content=el.nextElementSibling;
             if(content.classList.contains('show')){
                 content.classList.remove('show');
                 arrow.classList.remove('open');
@@ -454,38 +415,14 @@
             }
         }
 
-        // ====== 答案彈出 ======
-        function openPopup(q,a){
-            document.getElementById('popQ').textContent=q;
-            document.getElementById('popA').innerHTML=a;
-            document.getElementById('answerOverlay').classList.add('show');
-            document.body.style.overflow='hidden';
-        }
-        function closeAnswer(e){
-            if(e && e.target!==document.getElementById('answerOverlay')) return;
-            document.getElementById('answerOverlay').classList.remove('show');
-            document.body.style.overflow='';
-        }
-
-        // ====== 浮動目錄 ======
-        function toggleToc(){
-            document.getElementById('tocPanel').classList.toggle('show');
-        }
+        // 浮動目錄
+        function toggleToc(){document.getElementById('tocPanel').classList.toggle('show')}
         document.addEventListener('click',function(e){
             const panel=document.getElementById('tocPanel');
             const btn=document.getElementById('tocBtn');
-            if(!panel.contains(e.target) && e.target!==btn){
-                panel.classList.remove('show');
-            }
-        });
-
-        // ====== ESC 關閉彈窗 ======
-        document.addEventListener('keydown',function(e){
-            if(e.key==='Escape') closeAnswer();
+            if(!panel.contains(e.target) && e.target!==btn) panel.classList.remove('show');
         });
     </script>
 
 </body>
 </html>
-
-
