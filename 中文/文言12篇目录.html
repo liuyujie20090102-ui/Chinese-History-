@@ -90,6 +90,7 @@
             transition:transform 0.3s ease,box-shadow 0.3s ease;
         }
         .card:hover{transform:translateY(-3px);box-shadow:0 8px 32px rgba(60,40,20,0.06)}
+        .card.available{border-color:rgba(139,105,20,0.25)}
         .card.disabled{cursor:default;opacity:0.5}
         .card.disabled:hover{transform:none;box-shadow:0 2px 16px rgba(60,40,20,0.04)}
         .card-left{display:flex;align-items:center;gap:16px}
@@ -103,7 +104,9 @@
         }
         .card-title{font-size:17px;font-weight:600;color:var(--text-primary);letter-spacing:1px}
         .card-author{font-size:13px;color:var(--text-muted);letter-spacing:1px}
-        .card-status{font-size:12px;color:var(--text-muted);flex-shrink:0}
+        .card-status{font-size:12px;flex-shrink:0}
+        .card-status.ready{color:var(--gold)}
+        .card-status.waiting{color:var(--text-muted)}
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:36px}
         @media(max-width:480px){
             .page-title{font-size:22px}
@@ -147,7 +150,7 @@
                         <div class="card-author">《論語》</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 2 -->
@@ -159,7 +162,7 @@
                         <div class="card-author">孟子</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 3 -->
@@ -171,7 +174,7 @@
                         <div class="card-author">莊子</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 4 -->
@@ -183,7 +186,7 @@
                         <div class="card-author">荀子</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 5 -->
@@ -195,7 +198,7 @@
                         <div class="card-author">司馬遷</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 6 -->
@@ -207,11 +210,11 @@
                         <div class="card-author">諸葛亮</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
-            <!-- 7 -->
-            <a href="#" class="card disabled">
+            <!-- 7 師說（已開通） -->
+            <a href="師說主頁.html" class="card available">
                 <div class="card-left">
                     <div class="card-num">7</div>
                     <div>
@@ -219,7 +222,7 @@
                         <div class="card-author">韓愈</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status ready">已開通</span>
             </a>
 
             <!-- 8 -->
@@ -231,7 +234,7 @@
                         <div class="card-author">柳宗元</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 9 -->
@@ -243,7 +246,7 @@
                         <div class="card-author">范仲淹</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 10 -->
@@ -255,7 +258,7 @@
                         <div class="card-author">蘇洵</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 11 -->
@@ -267,7 +270,7 @@
                         <div class="card-author">王維</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 12 -->
@@ -279,7 +282,7 @@
                         <div class="card-author">李白</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 13 -->
@@ -291,7 +294,7 @@
                         <div class="card-author">杜甫</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 14 -->
@@ -303,7 +306,7 @@
                         <div class="card-author">蘇軾</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 15 -->
@@ -315,7 +318,7 @@
                         <div class="card-author">李清照</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
             <!-- 16 -->
@@ -327,7 +330,7 @@
                         <div class="card-author">辛棄疾</div>
                     </div>
                 </div>
-                <span class="card-status">待建</span>
+                <span class="card-status waiting">待建</span>
             </a>
 
         </div>
