@@ -260,7 +260,7 @@
             <button class="toc-btn" id="toc-toggle" onclick="toggleTOC()">📂 詞彙目錄 ▸</button>
             <div class="toc-list" id="toc-list">
                 · <a href="#fast-reflex">fast reflex</a> — 快速反應<br>
-            </div>
+                · <a href="#organisational">organisational</a> — 組織的<br>            </div>
         </div>
 
         <div class="footer">── Shelly Liu ──</div>
@@ -388,3 +388,226 @@
     </script>
 </body>
 </html>
+
+<!-- ==================== organisational ==================== -->
+<div class="word-card" id="organisational">
+    <div class="word-en">organisational</div>
+    <div class="word-zh">組織的；組織層面的</div>
+
+    <div class="section"><div class="section-title">家族詞</div>
+        <table><tr><th>形式</th><th>詞</th><th>中文</th></tr>
+        <tr><td>verb 動詞</td><td>organise</td><td>組織</td></tr>
+        <tr><td>noun 名詞</td><td>organisation</td><td>組織；機構</td></tr>
+        <tr><td>noun 名詞</td><td>organiser</td><td>組織者</td></tr>
+        <tr><td>adj 形容詞</td><td>organised</td><td>有組織的；有條理的</td></tr>
+        <tr><td>adj 形容詞</td><td>organisational</td><td>組織的；組織層面的</td></tr>
+        <tr><td>adv 副詞</td><td>organisationally</td><td>在組織層面</td></tr></table>
+    </div>
+
+    <div class="section"><div class="section-title">詞根拆解</div>
+        <table><tr><th>詞根</th><th>含義</th><th>例詞</th><th>拆解</th></tr>
+        <tr><td>organ-</td><td>器官；組織</td><td>organise</td><td>organ（組織）+ ise（動詞後綴）→ 使有組織</td></tr>
+        <tr><td></td><td></td><td>organisation</td><td>organ + isation（名詞後綴）</td></tr>
+        <tr><td></td><td></td><td>organism</td><td>organ + ism → 有器官的東西 → 有機體</td></tr></table>
+    </div>
+
+    <div class="section"><div class="section-title">近義詞</div>
+        <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+        <tr><td>structural</td><td>結構上的</td><td>強調組織架構</td></tr>
+        <tr><td>institutional</td><td>機構的</td><td>強調制度層面</td></tr>
+        <tr><td>administrative</td><td>行政的</td><td>強調管理層面</td></tr></table>
+    </div>
+
+    <div class="section"><div class="section-title">反義詞</div>
+        <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+        <tr><td>individual</td><td>個人的</td><td>與組織層面相對</td></tr>
+        <tr><td>personal</td><td>個人的</td><td>強調個體而非集體</td></tr></table>
+    </div>
+
+    <div class="section"><div class="section-title">固定搭配</div>
+        <table><tr><th>搭配</th><th>中文</th></tr>
+        <tr><td>organisational skills</td><td>組織能力</td></tr>
+        <tr><td>organisational structure</td><td>組織架構</td></tr>
+        <tr><td>organisational change</td><td>組織變革</td></tr>
+        <tr><td>organisational behaviour</td><td>組織行為</td></tr></table>
+    </div>
+
+    <div class="section"><div class="section-title">例句</div>
+        <div class="例句-box">Strong organisational skills are essential for effective leadership.<br>強大的組織能力對有效領導至關重要。</div>
+    </div>
+
+    <div class="practice-section">
+        <div class="practice-title">📝 練習</div>
+
+        <div class="practice-card" id="org-practice1">
+            <div class="practice-q"><b>1. 詞根拆解</b>：把詞根按正確順序排列</div>
+            <div class="slots" id="org-ex1-slots">
+                <div class="slot" onclick="orgClickSlot1(0)">？</div>
+                <div class="slot" onclick="orgClickSlot1(1)">？</div>
+                <div class="slot" onclick="orgClickSlot1(2)">？</div>
+            </div>
+            <div class="opts" id="org-ex1-opts">
+                <div class="opt-btn" onclick="orgClickOpt1(0)">organ（組織）</div>
+                <div class="opt-btn" onclick="orgClickOpt1(1)">-ise（動詞）</div>
+                <div class="opt-btn" onclick="orgClickOpt1(2)">-ation（名詞）</div>
+            </div>
+            <div>
+                <button class="btn primary" onclick="orgCheckEx1()">提交</button>
+                <button class="btn reset-btn" onclick="orgResetEx1()">🔄 重做</button>
+            </div>
+            <div class="feedback" id="org-ex1-fb"></div>
+        </div>
+
+        <div class="practice-card" id="org-practice2">
+            <div class="practice-q"><b>2. 家族詞填空</b></div>
+            <div class="form-tabs">
+                <div class="form-tab active" onclick="orgSwitchForm(0)">名詞（組織）</div>
+                <div class="form-tab" onclick="orgSwitchForm(1)">形容詞（有條理的）</div>
+                <div class="form-tab" onclick="orgSwitchForm(2)">形容詞（組織的）</div>
+                <div class="form-tab" onclick="orgSwitchForm(3)">副詞</div>
+            </div>
+            <div id="org-ex2-label" style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">當前：名詞（組織）</div>
+            <div class="blank-row" id="org-ex2-blanks"></div>
+            <div class="letter-pool" id="org-ex2-letters"></div>
+            <div>
+                <button class="btn" onclick="orgAddHint2()">+ 提示</button>
+                <button class="btn primary" onclick="orgCheckEx2()">提交</button>
+                <button class="btn reset-btn" onclick="orgResetEx2()">🔄 重做</button>
+            </div>
+            <div class="feedback" id="org-ex2-fb"></div>
+        </div>
+
+        <div class="practice-card" id="org-practice3">
+            <div class="practice-q"><b>3. 搭配選擇</b>：哪個是真正的常用搭配？</div>
+            <div class="choice-list" id="org-ex3-choices">
+                <div class="choice-item" onclick="orgCheckEx3(this,0)">A. organisational skills — 組織能力</div>
+                <div class="choice-item" onclick="orgCheckEx3(this,1)">B. organisational knowledge — 組織知識</div>
+                <div class="choice-item" onclick="orgCheckEx3(this,2)">C. organisational power — 組織權力</div>
+                <div class="choice-item" onclick="orgCheckEx3(this,3)">D. organisational talent — 組織天賦</div>
+            </div>
+            <div>
+                <button class="btn reset-btn" onclick="orgResetEx3()">🔄 重做</button>
+            </div>
+            <div class="feedback" id="org-ex3-fb"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+// ===== organisational 第1题 =====
+let orgEx1slots = [null,null,null];
+let orgEx1selected = null;
+const orgEx1opts = ['organ','-ise','-ation'];
+function orgClickSlot1(i){
+    if(orgEx1slots[i]!==null){document.querySelectorAll('#org-ex1-opts .opt-btn')[orgEx1slots[i]].classList.remove('used');orgEx1slots[i]=null;}
+    if(orgEx1selected!==null){orgEx1slots[i]=orgEx1selected;document.querySelectorAll('#org-ex1-opts .opt-btn')[orgEx1selected].classList.add('used');orgEx1selected=null;}
+    orgRefreshEx1();
+}
+function orgClickOpt1(i){
+    if(document.querySelectorAll('#org-ex1-opts .opt-btn')[i].classList.contains('used'))return;
+    document.querySelectorAll('#org-ex1-opts .opt-btn').forEach(e=>e.classList.remove('selected'));
+    orgEx1selected=i;document.querySelectorAll('#org-ex1-opts .opt-btn')[i].classList.add('selected');
+    const empty=orgEx1slots.findIndex(s=>s===null);
+    if(empty>=0){orgEx1slots[empty]=i;document.querySelectorAll('#org-ex1-opts .opt-btn')[i].classList.add('used');orgEx1selected=null;orgRefreshEx1();}
+}
+function orgRefreshEx1(){
+    for(let i=0;i<3;i++){
+        const el=document.getElementById('org-ex1-slots').children[i];
+        if(orgEx1slots[i]!==null){el.textContent=orgEx1opts[orgEx1slots[i]];el.classList.add('filled');}
+        else{el.textContent='？';el.classList.remove('filled');}
+    }
+}
+function orgCheckEx1(){
+    const fb=document.getElementById('org-ex1-fb');
+    if(orgEx1slots[0]===0&&orgEx1slots[1]===1&&orgEx1slots[2]===2){fb.innerHTML='✅ 正確！organ（組織）+ -ise（動詞）+ -ation（名詞）→ organisation';}
+    else{fb.innerHTML='❌ 再試試。正確答案：organ + -ise + -ation';}
+}
+function orgResetEx1(){
+    orgEx1slots=[null,null,null];orgEx1selected=null;
+    document.querySelectorAll('#org-ex1-opts .opt-btn').forEach(e=>{e.classList.remove('selected','used');});
+    document.getElementById('org-ex1-fb').innerHTML='';
+    orgRefreshEx1();
+}
+
+// ===== organisational 第2题 =====
+const orgForms=[
+    {name:'名詞（組織）',word:'organisation',cn:'組織'},
+    {name:'形容詞（有條理的）',word:'organised',cn:'有條理的'},
+    {name:'形容詞（組織的）',word:'organisational',cn:'組織的'},
+    {name:'副詞',word:'organisationally',cn:'在組織層面'}
+];
+let orgCurrentForm=0;
+let orgEx2blanks=[];
+let orgEx2selectedLetter=null;
+function orgSwitchForm(i){
+    orgCurrentForm=i;
+    document.querySelectorAll('#org-practice2 .form-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+    document.getElementById('org-ex2-label').textContent='當前：'+orgForms[i].name+'（'+orgForms[i].cn+'）';
+    orgInitEx2();
+}
+function orgInitEx2(){
+    const w=orgForms[orgCurrentForm].word;
+    orgEx2blanks=new Array(w.length).fill('');
+    orgEx2blanks[0]=w[0];orgEx2blanks[w.length-1]=w[w.length-1];
+    orgEx2selectedLetter=null;
+    const inner=w.slice(1,-1).split('');
+    const pool=[...inner];pool.sort(()=>Math.random()-0.5);
+    const container=document.getElementById('org-ex2-blanks');
+    container.innerHTML='';
+    for(let i=0;i<w.length;i++){
+        const d=document.createElement('div');d.className='blank';
+        d.textContent=orgEx2blanks[i]||'';d.onclick=()=>orgClickBlank2(i);
+        container.appendChild(d);
+    }
+    const lp=document.getElementById('org-ex2-letters');
+    lp.innerHTML='';
+    pool.forEach((l,i)=>{const d=document.createElement('div');d.className='lbtn';d.textContent=l;d.onclick=()=>orgClickLetter2(i);lp.appendChild(d);});
+    document.getElementById('org-ex2-fb').innerHTML='';
+}
+function orgClickBlank2(i){
+    if(orgEx2blanks[i]||orgEx2selectedLetter===null)return;
+    const lp=document.getElementById('org-ex2-letters').children;
+    orgEx2blanks[i]=lp[orgEx2selectedLetter].textContent;
+    lp[orgEx2selectedLetter].classList.add('used');
+    orgEx2selectedLetter=null;
+    orgRefreshEx2();
+}
+function orgClickLetter2(i){
+    if(document.getElementById('org-ex2-letters').children[i].classList.contains('used'))return;
+    document.querySelectorAll('#org-practice2 .lbtn.selected').forEach(e=>e.classList.remove('selected'));
+    orgEx2selectedLetter=i;
+    document.getElementById('org-ex2-letters').children[i].classList.add('selected');
+}
+function orgRefreshEx2(){
+    const container=document.getElementById('org-ex2-blanks').children;
+    for(let i=0;i<orgEx2blanks.length;i++)container[i].textContent=orgEx2blanks[i]||'';
+}
+function orgAddHint2(){
+    for(let i=1;i<orgEx2blanks.length-1;i++){
+        if(!orgEx2blanks[i]){orgEx2blanks[i]=orgForms[orgCurrentForm].word[i];orgRefreshEx2();return;}
+    }
+}
+function orgCheckEx2(){
+    const fb=document.getElementById('org-ex2-fb');
+    if(orgEx2blanks.join('')===orgForms[orgCurrentForm].word){fb.innerHTML='✅ 正確！';}
+    else{fb.innerHTML='❌ 正確答案是：'+orgForms[orgCurrentForm].word;}
+}
+function orgResetEx2(){
+    document.getElementById('org-ex2-fb').innerHTML='';
+    orgInitEx2();
+}
+orgSwitchForm(0);
+
+// ===== organisational 第3题 =====
+function orgCheckEx3(el,idx){
+    const all=document.querySelectorAll('#org-ex3-choices .choice-item');
+    all.forEach(c=>c.style.pointerEvents='none');
+    if(idx===0){el.classList.add('correct');document.getElementById('org-ex3-fb').innerHTML='✅ 正確！organisational skills 是標準搭配。';}
+    else{el.classList.add('wrong');all[0].classList.add('correct');document.getElementById('org-ex3-fb').innerHTML='❌ 正確答案是 A。';}
+}
+function orgResetEx3(){
+    const all=document.querySelectorAll('#org-ex3-choices .choice-item');
+    all.forEach(c=>{c.style.pointerEvents='auto';c.classList.remove('correct','wrong');});
+    document.getElementById('org-ex3-fb').innerHTML='';
+}
+</script>
