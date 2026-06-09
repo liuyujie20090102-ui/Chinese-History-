@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="zh-HK">
 <head>
@@ -129,7 +130,21 @@
         }
         .btn:hover{background:rgba(180,160,130,0.12);color:#2c2416}
         .btn.primary{background:var(--gold);color:#fff;border:none}
+        .btn.reset-btn{background:rgba(255,253,248,0.5);color:var(--text-muted);border:1px dashed rgba(180,160,130,0.3)}
+        .btn.reset-btn:hover{background:rgba(180,160,130,0.08);color:var(--text-secondary)}
         .feedback{margin-top:8px;font-size:13px;min-height:18px;color:var(--text-secondary)}
+
+        .toc-section{margin-top:36px;text-align:center}
+        .toc-btn{
+            padding:10px 22px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);
+            border-radius:20px;cursor:pointer;font-family:var(--font-cn);font-size:14px;color:#5c5347;
+            letter-spacing:2px;transition:all 0.3s;
+        }
+        .toc-btn:hover{background:rgba(180,160,130,0.12);color:#2c2416}
+        .toc-list{display:none;margin-top:12px;line-height:2.4;font-size:14px;color:#5c5347}
+        .toc-list a{color:var(--gold);text-decoration:none}
+        .toc-list a:hover{text-decoration:underline}
+
         .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:40px}
     </style>
 </head>
@@ -185,11 +200,10 @@
                 <div class="例句-box">A goalkeeper needs fast reflexes to save the ball.<br>守門員需要快速反應來撲救。</div>
             </div>
 
-            <!-- 练习 -->
             <div class="practice-section">
                 <div class="practice-title">📝 練習</div>
 
-                <div class="practice-card">
+                <div class="practice-card" id="practice1">
                     <div class="practice-q"><b>1. 詞根拆解</b>：把詞根按正確順序排列</div>
                     <div class="slots" id="ex1-slots">
                         <div class="slot" onclick="clickSlot1(0)">？</div>
@@ -199,11 +213,14 @@
                         <div class="opt-btn" onclick="clickOpt1(0)">re-（回）</div>
                         <div class="opt-btn" onclick="clickOpt1(1)">flex（彎曲）</div>
                     </div>
-                    <div><button class="btn primary" onclick="checkEx1()">提交</button></div>
+                    <div>
+                        <button class="btn primary" onclick="checkEx1()">提交</button>
+                        <button class="btn reset-btn" onclick="resetEx1()">🔄 重做</button>
+                    </div>
                     <div class="feedback" id="ex1-fb"></div>
                 </div>
 
-                <div class="practice-card">
+                <div class="practice-card" id="practice2">
                     <div class="practice-q"><b>2. 家族詞填空</b></div>
                     <div class="form-tabs">
                         <div class="form-tab active" onclick="switchForm(0)">名詞</div>
@@ -213,17 +230,24 @@
                     <div id="ex2-label" style="font-size:13px;color:var(--text-muted);margin-bottom:8px;">當前：名詞（反射）</div>
                     <div class="blank-row" id="ex2-blanks"></div>
                     <div class="letter-pool" id="ex2-letters"></div>
-                    <div><button class="btn" onclick="addHint2()">+ 提示</button> <button class="btn primary" onclick="checkEx2()">提交</button></div>
+                    <div>
+                        <button class="btn" onclick="addHint2()">+ 提示</button>
+                        <button class="btn primary" onclick="checkEx2()">提交</button>
+                        <button class="btn reset-btn" onclick="resetEx2()">🔄 重做</button>
+                    </div>
                     <div class="feedback" id="ex2-fb"></div>
                 </div>
 
-                <div class="practice-card">
+                <div class="practice-card" id="practice3">
                     <div class="practice-q"><b>3. 搭配選擇</b>：哪個是真正的常用搭配？</div>
                     <div class="choice-list" id="ex3-choices">
                         <div class="choice-item" onclick="checkEx3(this,0)">A. sharpen one's reflexes — 提高反應能力</div>
                         <div class="choice-item" onclick="checkEx3(this,1)">B. strengthen one's reflexes — 增強反應</div>
                         <div class="choice-item" onclick="checkEx3(this,2)">C. fasten one's reflexes — 加快反應</div>
                         <div class="choice-item" onclick="checkEx3(this,3)">D. quicken one's reflexes — 加快反應</div>
+                    </div>
+                    <div>
+                        <button class="btn reset-btn" onclick="resetEx3()">🔄 重做</button>
                     </div>
                     <div class="feedback" id="ex3-fb"></div>
                 </div>
@@ -232,10 +256,24 @@
 
         <!-- ==================== 以后新词加在这里 ==================== -->
 
+        <div class="toc-section">
+            <button class="toc-btn" id="toc-toggle" onclick="toggleTOC()">📂 詞彙目錄 ▸</button>
+            <div class="toc-list" id="toc-list">
+                · <a href="#fast-reflex">fast reflex</a> — 快速反應<br>
+            </div>
+        </div>
+
         <div class="footer">── Shelly Liu ──</div>
     </div>
 
     <script>
+        function toggleTOC(){
+            const list=document.getElementById('toc-list');
+            const btn=document.getElementById('toc-toggle');
+            if(list.style.display==='none'){list.style.display='block';btn.textContent='📂 詞彙目錄 ▾';}
+            else{list.style.display='none';btn.textContent='📂 詞彙目錄 ▸';}
+        }
+
         // ===== 第1题 =====
         let ex1slots = [null,null];
         let ex1selected = null;
@@ -263,6 +301,12 @@
             const fb=document.getElementById('ex1-fb');
             if(ex1slots[0]===0&&ex1slots[1]===1){fb.innerHTML='✅ 正確！re-（回）+ flex（彎曲）→ 反射';}
             else{fb.innerHTML='❌ 再試試。正確答案：re- + flex';}
+        }
+        function resetEx1(){
+            ex1slots=[null,null];ex1selected=null;
+            document.querySelectorAll('#ex1-opts .opt-btn').forEach(e=>{e.classList.remove('selected','used');});
+            document.getElementById('ex1-fb').innerHTML='';
+            refreshEx1();
         }
 
         // ===== 第2题 =====
@@ -323,6 +367,10 @@
             if(ex2blanks.join('')===forms[currentForm].word){fb.innerHTML='✅ 正確！';}
             else{fb.innerHTML='❌ 正確答案是：'+forms[currentForm].word;}
         }
+        function resetEx2(){
+            document.getElementById('ex2-fb').innerHTML='';
+            initEx2();
+        }
         switchForm(0);
 
         // ===== 第3题 =====
@@ -331,6 +379,11 @@
             all.forEach(c=>c.style.pointerEvents='none');
             if(idx===0){el.classList.add('correct');document.getElementById('ex3-fb').innerHTML='✅ 正確！sharpen one\'s reflexes 是標準搭配。';}
             else{el.classList.add('wrong');all[0].classList.add('correct');document.getElementById('ex3-fb').innerHTML='❌ 正確答案是 A。';}
+        }
+        function resetEx3(){
+            const all=document.querySelectorAll('#ex3-choices .choice-item');
+            all.forEach(c=>{c.style.pointerEvents='auto';c.classList.remove('correct','wrong');});
+            document.getElementById('ex3-fb').innerHTML='';
         }
     </script>
 </body>
