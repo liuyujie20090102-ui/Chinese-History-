@@ -1,0 +1,556 @@
+
+<!DOCTYPE html>
+<html lang="zh-HK">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>6月11日 · 新聞庫</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Noto+Serif+TC:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg: #f7f4ed;
+            --text-primary: #2c2416;
+            --text-secondary: #5c5347;
+            --text-muted: #a09880;
+            --gold: #8b6914;
+            --gold-light: #c4a97d;
+            --correct: #2e7d32;
+            --wrong: #c62828;
+            --font-cn: "Noto Serif TC","PingFang SC","Microsoft YaHei","KaiTi",serif;
+            --font-en: "Inter","Helvetica Neue",sans-serif;
+        }
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{
+            background-color:var(--bg);
+            font-family:var(--font-cn);
+            min-height:100vh;
+            display:flex;
+            flex-direction:column;
+            align-items:center;
+            padding:32px 20px 48px;
+            position:relative;
+            overflow-x:hidden;
+            -webkit-font-smoothing:antialiased;
+        }
+        body::before{
+            content:"";position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;
+            background-image:
+                repeating-linear-gradient(0deg,transparent,transparent 3px,rgba(139,119,80,0.012) 3px,rgba(139,119,80,0.012) 4px),
+                repeating-linear-gradient(90deg,transparent,transparent 5px,rgba(139,119,80,0.008) 5px,rgba(139,119,80,0.008) 6px);
+            opacity:0.7;
+        }
+        .mountains{position:fixed;bottom:0;left:0;width:100%;height:30%;pointer-events:none;z-index:0}
+        .mountain{position:absolute;bottom:0}
+        .m1{left:-8%;width:45%;height:55%;background:rgba(120,100,70,0.12);border-radius:55% 55% 0 0}
+        .m2{left:22%;width:50%;height:68%;background:rgba(100,80,55,0.16);border-radius:50% 48% 0 0}
+        .m3{right:-8%;width:42%;height:60%;background:rgba(80,60,40,0.2);border-radius:52% 52% 0 0}
+        .clouds{position:fixed;bottom:12%;left:0;width:100%;height:18%;pointer-events:none;z-index:0}
+        .cloud{position:absolute;background:rgba(255,252,245,0.7);border-radius:50%;filter:blur(28px)}
+        .c1{width:260px;height:50px;left:8%;bottom:30px;opacity:0.5}
+        .c2{width:220px;height:42px;right:12%;bottom:15px;opacity:0.4}
+        .c3{width:180px;height:35px;left:50%;bottom:8px;opacity:0.35;transform:translateX(-50%)}
+        .birds{position:fixed;top:12%;right:12%;pointer-events:none;z-index:0;opacity:0.3}
+        .bird{display:inline-block;font-size:13px;margin:0 5px;animation:birdFloat 6s ease-in-out infinite}
+        .bird:nth-child(2){animation-delay:1.5s;font-size:9px}
+        .bird:nth-child(3){animation-delay:3s;font-size:11px}
+        @keyframes birdFloat{0%,100%{transform:translateY(0) translateX(0)}25%{transform:translateY(-7px) translateX(3px)}50%{transform:translateY(-2px) translateX(8px)}75%{transform:translateY(-9px) translateX(3px)}}
+        .container{position:relative;z-index:1;width:100%;max-width:700px}
+        .back-link{display:inline-block;color:var(--text-muted);text-decoration:none;font-size:14px;margin-bottom:24px;letter-spacing:1px}
+        .back-link:hover{color:var(--gold)}
+        .page-title{text-align:center;font-size:24px;font-weight:700;color:var(--text-primary);letter-spacing:3px;margin-bottom:4px}
+        .page-subtitle{text-align:center;font-size:16px;color:var(--gold);letter-spacing:2px;margin-bottom:32px}
+        .section{margin-bottom:32px}
+        .section-title{font-size:16px;font-weight:600;color:var(--text-primary);letter-spacing:2px;margin-bottom:12px;padding-left:8px;border-left:3px solid var(--gold-light)}
+        .news-text{
+            background:rgba(255,253,248,0.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(180,160,130,0.3);border-radius:12px;padding:20px 24px;
+            font-size:15px;color:var(--text-primary);line-height:2;
+        }
+        .summary-text{
+            background:rgba(255,253,248,0.6);border-left:3px solid var(--gold-light);
+            padding:14px 18px;border-radius:0 8px 8px 0;color:var(--text-secondary);line-height:1.9;font-size:14px;
+        }
+        .word-card{
+            background:rgba(255,253,248,0.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(180,160,130,0.3);border-radius:14px;padding:24px;margin-bottom:20px;
+        }
+        .word-head{font-family:var(--font-en);font-size:22px;font-weight:700;color:var(--text-primary);margin-bottom:4px}
+        .word-head .zh{font-size:15px;color:var(--gold);font-weight:400;margin-left:8px}
+        .sub-title{font-size:14px;font-weight:600;color:var(--text-primary);margin:16px 0 8px;letter-spacing:1px}
+        table{width:100%;border-collapse:collapse;margin:8px 0;font-size:13px}
+        th{background:rgba(180,160,130,0.15);color:#2c2416;padding:7px 10px;text-align:center;font-weight:600;border:1px solid rgba(180,160,130,0.2);font-size:12px}
+        td{padding:7px 10px;border:1px solid rgba(180,160,130,0.2);color:#5c5347;line-height:1.7;font-size:13px}
+        td:first-child{font-weight:600;color:#2c2416;text-align:center;background:rgba(180,160,130,0.05)}
+        .例句-box{background:rgba(255,253,248,0.6);border-left:3px solid var(--gold-light);padding:12px 16px;border-radius:0 8px 8px 0;color:#5c5347;line-height:1.8;font-size:14px;font-style:italic;margin-top:8px}
+
+        .practice-card{
+            background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.2);
+            border-radius:12px;padding:16px;margin-top:16px;
+        }
+        .practice-q{font-size:13px;color:var(--text-primary);margin-bottom:10px;font-weight:600}
+        .slots{display:flex;justify-content:center;gap:8px;margin-bottom:10px}
+        .slot{
+            min-width:55px;height:34px;background:rgba(255,253,248,0.8);border:2px dashed rgba(180,160,130,0.5);
+            border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;cursor:pointer;
+        }
+        .slot.filled{background:rgba(139,105,20,0.08);border:2px solid var(--gold);font-weight:600}
+        .opts{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+        .opt-btn{
+            padding:5px 12px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
+            border-radius:8px;font-size:12px;cursor:pointer;
+        }
+        .opt-btn.selected{background:rgba(139,105,20,0.15);border-color:var(--gold);font-weight:600}
+        .opt-btn.used{opacity:0.3;pointer-events:none}
+        .blank-row{display:flex;justify-content:center;gap:3px;margin-bottom:10px}
+        .blank{
+            width:24px;height:30px;border-bottom:2px solid var(--gold);text-align:center;
+            font-size:15px;color:var(--text-primary);margin:0 1px;display:inline-flex;align-items:flex-end;justify-content:center;
+        }
+        .letter-pool{display:flex;justify-content:center;gap:3px;flex-wrap:wrap;margin-bottom:10px}
+        .lbtn{
+            width:28px;height:28px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
+            border-radius:6px;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;
+        }
+        .lbtn.selected{background:rgba(139,105,20,0.2);border-color:var(--gold)}
+        .lbtn.used{opacity:0.3;pointer-events:none}
+        .form-tabs{display:flex;gap:4px;margin-bottom:8px;flex-wrap:wrap}
+        .form-tab{
+            padding:4px 10px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.3);
+            border-radius:14px;font-size:11px;cursor:pointer;
+        }
+        .form-tab.active{background:rgba(139,105,20,0.12);border-color:var(--gold);font-weight:600}
+        .sentence-q{margin-bottom:8px;font-size:13px;color:var(--text-primary);line-height:1.8}
+        .sentence-q .blank-slot{display:inline-block;border-bottom:2px solid var(--gold);min-width:60px;text-align:center;color:var(--gold);font-weight:600}
+        .choice-list{display:flex;flex-direction:column;gap:6px;margin-bottom:10px}
+        .choice-item{
+            padding:8px 12px;background:rgba(255,253,248,0.8);border:1px solid rgba(180,160,130,0.4);
+            border-radius:8px;font-size:12px;cursor:pointer;
+        }
+        .choice-item:hover{background:rgba(180,160,130,0.08)}
+        .choice-item.selected{background:rgba(139,105,20,0.15);border-color:var(--gold);font-weight:600}
+        .choice-item.correct{border-color:var(--correct);background:rgba(46,125,50,0.06)}
+        .choice-item.wrong{border-color:var(--wrong);background:rgba(198,40,40,0.04)}
+        .btn{
+            padding:5px 12px;background:rgba(255,253,248,0.7);border:1px solid rgba(180,160,130,0.25);
+            border-radius:16px;cursor:pointer;font-family:var(--font-cn);font-size:11px;color:#5c5347;
+            letter-spacing:1px;margin:2px;
+        }
+        .btn.primary{background:var(--gold);color:#fff;border:none}
+        .btn.reset-btn{background:rgba(255,253,248,0.5);color:var(--text-muted);border:1px dashed rgba(180,160,130,0.3)}
+        .feedback{margin-top:6px;font-size:12px;min-height:16px;color:var(--text-secondary)}
+
+        .pattern-card{
+            background:rgba(255,253,248,0.75);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+            border:1px solid rgba(180,160,130,0.3);border-radius:14px;padding:20px;margin-bottom:16px;
+        }
+        .pattern-name{font-family:var(--font-en);font-size:16px;font-weight:700;color:var(--text-primary);margin-bottom:12px}
+
+        .footer{text-align:center;font-family:var(--font-en);font-size:11px;color:var(--text-muted);letter-spacing:2px;padding-top:40px}
+    </style>
+</head>
+<body>
+    <div class="mountains"><div class="mountain m1"></div><div class="mountain m2"></div><div class="mountain m3"></div></div>
+    <div class="clouds"><div class="cloud c1"></div><div class="cloud c2"></div><div class="cloud c3"></div></div>
+    <div class="birds"><span class="bird">⩳</span><span class="bird">⩳</span><span class="bird">⩳</span></div>
+    <div class="container">
+        <a href="1.html" class="back-link">← 返回新聞庫</a>
+        <div class="page-title">2026年6月11日</div>
+        <div class="page-subtitle">洪聖廟與赤柱清真寺列為法定古蹟</div>
+
+        <!-- 新闻原文 -->
+        <div class="section">
+            <div class="section-title">📰 新聞原文</div>
+            <div class="news-text">
+                Stanley Mosque and Stanley Prison and Hung Sing Temple in Wan Chai as statutory monuments. Hung Sing Temple, located on Queen's Road East, is believed to have been built between 1847 and 1852, the Antiquities and Monuments Office says. It has long served as the centre for worship and community activities, while retaining a high degree of its original design. Meanwhile, the Stanley Mosque was built between 1936 and 1937, and is the second oldest mosque in the city. It was built with the effort and donations of Muslim staff working for the Prison Department at the time, as well as the wider community. It is said to stand as a testament to the growth of the Muslim community in Hong Kong.
+            </div>
+        </div>
+
+        <!-- 新闻概要 -->
+        <div class="section">
+            <div class="section-title">📝 新聞概要</div>
+            <div class="summary-text">
+                这则新闻报导了香港两座历史建筑——<b>湾仔洪圣庙</b>和<b>赤柱清真寺</b>——被列为法定古迹。洪圣庙位于皇后大道东，据信建于1847至1852年间，长期作为宗教拜祭和社区活动中心，至今仍高度保留原有设计。赤柱清真寺建于1936至1937年，是香港第二古老的清真寺，由当时的监狱部门穆斯林职员及更广泛的社群捐款兴建，被视为香港穆斯林社群发展的见证。
+            </div>
+        </div>
+
+        <!-- 词汇卡 -->
+        <div class="section">
+            <div class="section-title">📖 詞彙卡</div>
+
+            <!-- statutory -->
+            <div class="word-card" id="statutory">
+                <div class="word-head">statutory<span class="zh">法定的</span></div>
+                <div class="sub-title">家族詞</div>
+                <table><tr><th>形式</th><th>詞</th><th>中文</th><th>說明</th></tr>
+                <tr><td>adj 形容詞</td><td>statutory</td><td>法定的</td><td>核心詞，指根據法律規定的</td></tr>
+                <tr><td>noun 名詞</td><td>statute</td><td>法規；法令</td><td>statut-（設立）+ e → 已設立的法律</td></tr>
+                <tr><td>adv 副詞</td><td>statutorily</td><td>依法地</td><td>statutory + ily → 依法地</td></tr></table>
+
+                <div class="sub-title">詞根拆解</div>
+                <table><tr><th>詞根</th><th>含義</th><th>例詞</th><th>拆解說明</th></tr>
+                <tr><td>statut-</td><td>站立；設立</td><td>statute</td><td>statut（設立）+ e → 已設立的東西 → 法令</td></tr>
+                <tr><td></td><td></td><td>statutory</td><td>statute + ory（形容詞後綴）→ 法令的 → 法定的</td></tr></table>
+
+                <div class="sub-title">近義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>legal</td><td>法律的</td><td>一般法律層面</td></tr>
+                <tr><td>mandatory</td><td>強制的</td><td>必須執行的</td></tr>
+                <tr><td>legislative</td><td>立法的</td><td>涉及立法過程的</td></tr></table>
+
+                <div class="sub-title">反義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>voluntary</td><td>自願的</td><td>非強制的</td></tr>
+                <tr><td>optional</td><td>可選的</td><td>可以選擇的</td></tr></table>
+
+                <div class="sub-title">固定搭配</div>
+                <table><tr><th>搭配</th><th>中文</th></tr>
+                <tr><td>statutory monument</td><td>法定古蹟</td></tr>
+                <tr><td>statutory requirement</td><td>法定要求</td></tr></table>
+
+                <div class="sub-title">例句</div>
+                <div class="例句-box">The temple was declared a statutory monument in 2024.<br>這座廟於2024年被列為法定古蹟。</div>
+
+                <!-- 练习 -->
+                <div class="practice-card">
+                    <div class="practice-q">1. 詞根拆解：把詞根按正確順序排列</div>
+                    <div class="slots" id="st-slots">
+                        <div class="slot" onclick="stClickSlot(0)">？</div>
+                        <div class="slot" onclick="stClickSlot(1)">？</div>
+                    </div>
+                    <div class="opts" id="st-opts">
+                        <div class="opt-btn" onclick="stClickOpt(0)">statut-（設立）</div>
+                        <div class="opt-btn" onclick="stClickOpt(1)">-ory（形容詞後綴）</div>
+                    </div>
+                    <button class="btn primary" onclick="stCheck1()">提交</button>
+                    <button class="btn reset-btn" onclick="stReset1()">🔄 重做</button>
+                    <div class="feedback" id="st-fb1"></div>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-q">2. 家族詞填空</div>
+                    <div class="form-tabs">
+                        <span class="form-tab active" onclick="stSwitchForm(0)">名詞（法規）</span>
+                        <span class="form-tab" onclick="stSwitchForm(1)">形容詞（法定的）</span>
+                        <span class="form-tab" onclick="stSwitchForm(2)">副詞（依法地）</span>
+                    </div>
+                    <div id="st-form-label" style="font-size:12px;color:var(--text-muted);margin-bottom:6px;">當前：名詞（法規）</div>
+                    <div class="blank-row" id="st-blanks"></div>
+                    <div class="letter-pool" id="st-letters"></div>
+                    <button class="btn" onclick="stAddHint()">+ 提示</button>
+                    <button class="btn primary" onclick="stCheck2()">提交</button>
+                    <button class="btn reset-btn" onclick="stReset2()">🔄 重做</button>
+                    <div class="feedback" id="st-fb2"></div>
+                </div>
+
+                <div class="practice-card">
+                    <div class="practice-q">3. 選出正確的家族詞填入句子</div>
+                    <div class="sentence-q">The temple was declared a ______ monument in 2024.</div>
+                    <div class="choice-list" id="st-sent-choices">
+                        <div class="choice-item" onclick="stSentCheck(this,0)">A. statute</div>
+                        <div class="choice-item" onclick="stSentCheck(this,1)">B. statutory</div>
+                        <div class="choice-item" onclick="stSentCheck(this,2)">C. statutorily</div>
+                    </div>
+                    <button class="btn reset-btn" onclick="stSentReset()">🔄 重做</button>
+                    <div class="feedback" id="st-sent-fb"></div>
+                </div>
+            </div>
+
+            <!-- monument -->
+            <div class="word-card" id="monument">
+                <div class="word-head">monument<span class="zh">紀念碑；古蹟</span></div>
+                <div class="sub-title">家族詞</div>
+                <table><tr><th>形式</th><th>詞</th><th>中文</th><th>說明</th></tr>
+                <tr><td>noun 名詞</td><td>monument</td><td>紀念碑；古蹟</td><td>核心詞</td></tr>
+                <tr><td>adj 形容詞</td><td>monumental</td><td>巨大的；里程碑式的</td><td>像紀念碑一樣大的</td></tr></table>
+
+                <div class="sub-title">詞根拆解</div>
+                <table><tr><th>詞根</th><th>含義</th><th>例詞</th><th>拆解說明</th></tr>
+                <tr><td>mon-</td><td>提醒；警告</td><td>monument</td><td>monu（提醒）+ ment（名詞後綴）→ 提醒人們記住的東西 → 紀念碑</td></tr></table>
+
+                <div class="sub-title">近義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>landmark</td><td>地標</td><td>地標性建築</td></tr>
+                <tr><td>memorial</td><td>紀念碑</td><td>紀念某人或事件</td></tr>
+                <tr><td>heritage site</td><td>文化遺產</td><td>被保護的遺址</td></tr></table>
+
+                <div class="sub-title">固定搭配</div>
+                <table><tr><th>搭配</th><th>中文</th></tr>
+                <tr><td>statutory monument</td><td>法定古蹟</td></tr>
+                <tr><td>historic monument</td><td>歷史古蹟</td></tr></table>
+
+                <div class="sub-title">例句</div>
+                <div class="例句-box">The mosque was declared a statutory monument.<br>這座清真寺被列為法定古蹟。</div>
+
+                <div class="practice-card">
+                    <div class="practice-q">3. 選出正確的家族詞填入句子</div>
+                    <div class="sentence-q">The building was declared a historic ______.</div>
+                    <div class="choice-list" id="mon-sent-choices">
+                        <div class="choice-item" onclick="monSentCheck(this,0)">A. monument</div>
+                        <div class="choice-item" onclick="monSentCheck(this,1)">B. monumental</div>
+                    </div>
+                    <button class="btn reset-btn" onclick="monSentReset()">🔄 重做</button>
+                    <div class="feedback" id="mon-sent-fb"></div>
+                </div>
+            </div>
+
+            <!-- worship -->
+            <div class="word-card" id="worship">
+                <div class="word-head">worship<span class="zh">崇拜；敬拜</span></div>
+                <div class="sub-title">家族詞</div>
+                <table><tr><th>形式</th><th>詞</th><th>中文</th><th>說明</th></tr>
+                <tr><td>noun/verb</td><td>worship</td><td>崇拜；敬拜</td><td>核心詞</td></tr>
+                <tr><td>noun 名詞</td><td>worshipper</td><td>崇拜者；信徒</td><td>worship + p + er（人）→ 崇拜的人</td></tr></table>
+
+                <div class="sub-title">詞根拆解</div>
+                <table><tr><th>詞根</th><th>含義</th><th>例詞</th><th>拆解說明</th></tr>
+                <tr><td>wor-</td><td>價值；榮譽</td><td>worship</td><td>wor（價值）+ ship（狀態）→ 承認價值的狀態 → 崇拜</td></tr></table>
+
+                <div class="sub-title">近義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>prayer</td><td>祈禱</td><td>宗教儀式</td></tr>
+                <tr><td>devotion</td><td>虔誠</td><td>對信仰的投入</td></tr>
+                <tr><td>adoration</td><td>崇拜</td><td>深深的愛和尊敬</td></tr></table>
+
+                <div class="sub-title">固定搭配</div>
+                <table><tr><th>搭配</th><th>中文</th></tr>
+                <tr><td>place of worship</td><td>禮拜場所</td></tr>
+                <tr><td>centre for worship</td><td>敬拜中心</td></tr></table>
+
+                <div class="sub-title">例句</div>
+                <div class="例句-box">The temple has long served as a centre for worship.<br>這座廟長期作為敬拜中心。</div>
+            </div>
+
+            <!-- retain -->
+            <div class="word-card" id="retain">
+                <div class="word-head">retain<span class="zh">保留</span></div>
+                <div class="sub-title">家族詞</div>
+                <table><tr><th>形式</th><th>詞</th><th>中文</th><th>說明</th></tr>
+                <tr><td>verb 動詞</td><td>retain</td><td>保留</td><td>核心詞，拿住不放</td></tr>
+                <tr><td>noun 名詞</td><td>retention</td><td>保留；保持</td><td>retain 的名詞形式</td></tr></table>
+
+                <div class="sub-title">詞根拆解</div>
+                <table><tr><th>詞根</th><th>含義</th><th>例詞</th><th>拆解說明</th></tr>
+                <tr><td>tain-</td><td>拿住；保持</td><td>retain</td><td>re-（回）+ tain（拿住）→ 拿住不放 → 保留</td></tr></table>
+
+                <div class="sub-title">近義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>keep</td><td>保持</td><td>日常通用</td></tr>
+                <tr><td>preserve</td><td>保存</td><td>強調保護不受損壞</td></tr>
+                <tr><td>maintain</td><td>維持</td><td>強調持續保持狀態</td></tr></table>
+
+                <div class="sub-title">反義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>lose</td><td>失去</td><td>不再擁有</td></tr>
+                <tr><td>discard</td><td>丟棄</td><td>主動扔掉</td></tr></table>
+
+                <div class="sub-title">固定搭配</div>
+                <table><tr><th>搭配</th><th>中文</th></tr>
+                <tr><td>retain the original design</td><td>保留原始設計</td></tr>
+                <tr><td>retain a high degree of</td><td>保留高度的……</td></tr></table>
+
+                <div class="sub-title">例句</div>
+                <div class="例句-box">The temple retains a high degree of its original design.<br>這座廟保留了高度的原始設計。</div>
+
+                <div class="practice-card">
+                    <div class="practice-q">3. 選出正確的家族詞填入句子</div>
+                    <div class="sentence-q">The old building still ______ much of its original charm.</div>
+                    <div class="choice-list" id="ret-sent-choices">
+                        <div class="choice-item" onclick="retSentCheck(this,0)">A. retains</div>
+                        <div class="choice-item" onclick="retSentCheck(this,1)">B. retention</div>
+                    </div>
+                    <button class="btn reset-btn" onclick="retSentReset()">🔄 重做</button>
+                    <div class="feedback" id="ret-sent-fb"></div>
+                </div>
+            </div>
+
+            <!-- donation -->
+            <div class="word-card" id="donation">
+                <div class="word-head">donation<span class="zh">捐款；捐贈</span></div>
+                <div class="sub-title">家族詞</div>
+                <table><tr><th>形式</th><th>詞</th><th>中文</th><th>說明</th></tr>
+                <tr><td>noun 名詞</td><td>donation</td><td>捐款；捐贈</td><td>核心詞</td></tr>
+                <tr><td>verb 動詞</td><td>donate</td><td>捐贈</td><td>donation 的動詞形式</td></tr>
+                <tr><td>noun 名詞</td><td>donor</td><td>捐贈者</td><td>don + or（人）→ 給予的人</td></tr></table>
+
+                <div class="sub-title">詞根拆解</div>
+                <table><tr><th>詞根</th><th>含義</th><th>例詞</th><th>拆解說明</th></tr>
+                <tr><td>don-</td><td>給予</td><td>donation</td><td>don（給予）+ ation（名詞後綴）→ 給予的東西 → 捐贈</td></tr></table>
+
+                <div class="sub-title">近義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>contribution</td><td>貢獻</td><td>更廣泛，不限於金錢</td></tr>
+                <tr><td>charity</td><td>慈善</td><td>強調幫助弱勢群體</td></tr>
+                <tr><td>gift</td><td>禮物</td><td>非正式場合</td></tr></table>
+
+                <div class="sub-title">固定搭配</div>
+                <table><tr><th>搭配</th><th>中文</th></tr>
+                <tr><td>with the donations of</td><td>在……的捐款下</td></tr>
+                <tr><td>make a donation</td><td>捐款</td></tr></table>
+
+                <div class="sub-title">例句</div>
+                <div class="例句-box">The mosque was built with the effort and donations of the Muslim community.<br>這座清真寺是靠穆斯林社群的努力和捐款建成的。</div>
+
+                <div class="practice-card">
+                    <div class="practice-q">3. 選出正確的家族詞填入句子</div>
+                    <div class="sentence-q">He made a generous ______ to the charity.</div>
+                    <div class="choice-list" id="don-sent-choices">
+                        <div class="choice-item" onclick="donSentCheck(this,0)">A. donate</div>
+                        <div class="choice-item" onclick="donSentCheck(this,1)">B. donation</div>
+                        <div class="choice-item" onclick="donSentCheck(this,2)">C. donor</div>
+                    </div>
+                    <button class="btn reset-btn" onclick="donSentReset()">🔄 重做</button>
+                    <div class="feedback" id="don-sent-fb"></div>
+                </div>
+            </div>
+
+            <!-- testament -->
+            <div class="word-card" id="testament">
+                <div class="word-head">testament<span class="zh">證明；見證</span></div>
+                <div class="sub-title">家族詞</div>
+                <table><tr><th>形式</th><th>詞</th><th>中文</th><th>說明</th></tr>
+                <tr><td>noun 名詞</td><td>testament</td><td>證明；見證</td><td>核心詞</td></tr>
+                <tr><td>noun 名詞</td><td>testimony</td><td>證詞</td><td>法律用語，法庭上的證詞</td></tr></table>
+
+                <div class="sub-title">詞根拆解</div>
+                <table><tr><th>詞根</th><th>含義</th><th>例詞</th><th>拆解說明</th></tr>
+                <tr><td>test-</td><td>見證；證明</td><td>testament</td><td>test（見證）+ ament（名詞後綴）→ 見證物 → 證明</td></tr></table>
+
+                <div class="sub-title">近義詞</div>
+                <table><tr><th>詞</th><th>中文</th><th>使用場景</th></tr>
+                <tr><td>proof</td><td>證明</td><td>證據</td></tr>
+                <tr><td>evidence</td><td>證據</td><td>法律或科學用語</td></tr>
+                <tr><td>witness</td><td>見證</td><td>親眼所見</td></tr></table>
+
+                <div class="sub-title">固定搭配</div>
+                <table><tr><th>搭配</th><th>中文</th></tr>
+                <tr><td>stand as a testament to</td><td>是……的見證</td></tr>
+                <tr><td>a testament to the growth of</td><td>……成長的見證</td></tr></table>
+
+                <div class="sub-title">例句</div>
+                <div class="例句-box">The mosque stands as a testament to the growth of the Muslim community.<br>這座清真寺是穆斯林社群發展的見證。</div>
+            </div>
+        </div>
+
+        <!-- 句式卡 -->
+        <div class="section">
+            <div class="section-title">📐 句式卡</div>
+
+            <div class="pattern-card">
+                <div class="pattern-name">It is believed to have been + 過去分詞 + 時間</div>
+                <table><tr><th>公式</th><td>It is believed to have been + 過去分詞 + 時間</td></tr>
+                <tr><th>解釋</th><td>被動語態表示「據信……」，用於引用不確定的來源或歷史推測。to have been 表示對過去已經發生的事的推測。</td></tr>
+                <tr><th>原文例句</th><td>It is believed to have been built between 1847 and 1852. 據信它建於1847年至1852年間。</td></tr>
+                <tr><th>仿寫例句</th><td>The temple is believed to have been used for community gatherings. 據信這座廟曾用於社區聚會。</td></tr>
+                <tr><th>適用文體</th><td>新聞報導、歷史介紹、文化類寫作</td></tr></table>
+            </div>
+
+            <div class="pattern-card">
+                <div class="pattern-name">It is said to stand as a testament to + 名詞</div>
+                <table><tr><th>公式</th><td>It is said to stand as a testament to + 名詞/名詞短語</td></tr>
+                <tr><th>解釋</th><td>表示「據說它是……的見證」，用於描述某物象徵性地證明了某個事實或歷史。</td></tr>
+                <tr><th>原文例句</th><td>It is said to stand as a testament to the growth of the Muslim community. 據說它是穆斯林社群發展的見證。</td></tr>
+                <tr><th>仿寫例句</th><td>The building stands as a testament to the skills of ancient craftsmen. 這座建築是古代工匠技藝的見證。</td></tr>
+                <tr><th>適用文體</th><td>文化類寫作、歷史介紹、新聞報導</td></tr></table>
+            </div>
+
+            <div class="pattern-card">
+                <div class="pattern-name">while retaining + 名詞</div>
+                <table><tr><th>公式</th><td>主句, + while retaining + 名詞/名詞短語</td></tr>
+                <tr><th>解釋</th><td>while 表示「同時」，retaining 是現在分詞，表示「在保留……的同時」，強調在變化中保持原有特徵。</td></tr>
+                <tr><th>原文例句</th><td>It has long served as the centre for worship, while retaining a high degree of its original design. 它長期作為敬拜中心，同時保留了高度的原始設計。</td></tr>
+                <tr><th>仿寫例句</th><td>The temple has been renovated several times, while retaining its original design. 這座廟經過多次翻新，同時保留了原始設計。</td></tr>
+                <tr><th>適用文體</th><td>文化類寫作、商業類寫作、議論文</td></tr></table>
+            </div>
+        </div>
+
+        <div class="footer">── Shelly Liu ──</div>
+    </div>
+
+    <script>
+        // ===== statutory 练习 =====
+        let stSlots=[null,null],stSelected=null;
+        const stOpts=['statut-','-ory'];
+        function stClickSlot(i){
+            if(stSlots[i]!==null){document.querySelectorAll('#st-opts .opt-btn')[stSlots[i]].classList.remove('used');stSlots[i]=null;}
+            if(stSelected!==null){stSlots[i]=stSelected;document.querySelectorAll('#st-opts .opt-btn')[stSelected].classList.add('used');stSelected=null;}
+            stRefresh1();
+        }
+        function stClickOpt(i){
+            if(document.querySelectorAll('#st-opts .opt-btn')[i].classList.contains('used'))return;
+            document.querySelectorAll('#st-opts .opt-btn').forEach(e=>e.classList.remove('selected'));
+            stSelected=i;document.querySelectorAll('#st-opts .opt-btn')[i].classList.add('selected');
+            const empty=stSlots.findIndex(s=>s===null);
+            if(empty>=0){stSlots[empty]=i;document.querySelectorAll('#st-opts .opt-btn')[i].classList.add('used');stSelected=null;stRefresh1();}
+        }
+        function stRefresh1(){
+            for(let i=0;i<2;i++){
+                const el=document.getElementById('st-slots').children[i];
+                if(stSlots[i]!==null){el.textContent=stOpts[stSlots[i]];el.classList.add('filled');}
+                else{el.textContent='？';el.classList.remove('filled');}
+            }
+        }
+        function stCheck1(){
+            const fb=document.getElementById('st-fb1');
+            if(stSlots[0]===0&&stSlots[1]===1){fb.innerHTML='✅ 正確！statut-（設立）+ -ory（形容詞後綴）→ statutory';}
+            else{fb.innerHTML='❌ 正確答案：statut- + -ory';}
+        }
+        function stReset1(){stSlots=[null,null];stSelected=null;document.querySelectorAll('#st-opts .opt-btn').forEach(e=>{e.classList.remove('selected','used');});document.getElementById('st-fb1').innerHTML='';stRefresh1();}
+
+        const stForms=[{name:'名詞（法規）',word:'statute',cn:'法規'},{name:'形容詞（法定的）',word:'statutory',cn:'法定的'},{name:'副詞（依法地）',word:'statutorily',cn:'依法地'}];
+        let stCur=0,stBlanks=[],stLetter=null;
+        function stSwitchForm(i){
+            stCur=i;document.querySelectorAll('#statutory .form-tab').forEach((t,idx)=>t.classList.toggle('active',idx===i));
+            document.getElementById('st-form-label').textContent='當前：'+stForms[i].name+'（'+stForms[i].cn+'）';stInit2();
+        }
+        function stInit2(){
+            const w=stForms[stCur].word;stBlanks=new Array(w.length).fill('');stBlanks[0]=w[0];stBlanks[w.length-1]=w[w.length-1];stLetter=null;
+            const inner=w.slice(1,-1).split('');const pool=[...inner];pool.sort(()=>Math.random()-0.5);
+            const c=document.getElementById('st-blanks');c.innerHTML='';
+            for(let i=0;i<w.length;i++){const d=document.createElement('div');d.className='blank';d.textContent=stBlanks[i]||'';d.onclick=()=>stClickBlank(i);c.appendChild(d);}
+            const lp=document.getElementById('st-letters');lp.innerHTML='';
+            pool.forEach((l,i)=>{const d=document.createElement('div');d.className='lbtn';d.textContent=l;d.onclick=()=>stClickLetter(i);lp.appendChild(d);});
+            document.getElementById('st-fb2').innerHTML='';
+        }
+        function stClickBlank(i){if(stBlanks[i]||stLetter===null)return;const lp=document.getElementById('st-letters').children;stBlanks[i]=lp[stLetter].textContent;lp[stLetter].classList.add('used');stLetter=null;stRefresh2();}
+        function stClickLetter(i){if(document.getElementById('st-letters').children[i].classList.contains('used'))return;document.querySelectorAll('#statutory .lbtn.selected').forEach(e=>e.classList.remove('selected'));stLetter=i;document.getElementById('st-letters').children[i].classList.add('selected');}
+        function stRefresh2(){const c=document.getElementById('st-blanks').children;for(let i=0;i<stBlanks.length;i++)c[i].textContent=stBlanks[i]||'';}
+        function stAddHint(){for(let i=1;i<stBlanks.length-1;i++){if(!stBlanks[i]){stBlanks[i]=stForms[stCur].word[i];stRefresh2();return;}}}
+        function stCheck2(){const fb=document.getElementById('st-fb2');if(stBlanks.join('')===stForms[stCur].word){fb.innerHTML='✅ 正確！';}else{fb.innerHTML='❌ 正確答案是：'+stForms[stCur].word;}}
+        function stReset2(){document.getElementById('st-fb2').innerHTML='';stInit2();}
+        stSwitchForm(0);
+
+        function stSentCheck(el,i){
+            const all=document.querySelectorAll('#st-sent-choices .choice-item');all.forEach(c=>c.style.pointerEvents='none');
+            if(i===1){el.classList.add('correct');document.getElementById('st-sent-fb').innerHTML='✅ B. statutory 正確！';}
+            else{el.classList.add('wrong');all[1].classList.add('correct');document.getElementById('st-sent-fb').innerHTML='❌ 正確答案是 B。';}
+        }
+        function stSentReset(){const all=document.querySelectorAll('#st-sent-choices .choice-item');all.forEach(c=>{c.style.pointerEvents='auto';c.classList.remove('correct','wrong');});document.getElementById('st-sent-fb').innerHTML='';}
+
+        // ===== monument =====
+        function monSentCheck(el,i){
+            const all=document.querySelectorAll('#mon-sent-choices .choice-item');all.forEach(c=>c.style.pointerEvents='none');
+            if(i===0){el.classList.add('correct');document.getElementById('mon-sent-fb').innerHTML='✅ A. monument 正確！';}
+            else{el.classList.add('wrong');all[0].classList.add('correct');document.getElementById('mon-sent-fb').innerHTML='❌ 正確答案是 A。';}
+        }
+        function monSentReset(){const all=document.querySelectorAll('#mon-sent-choices .choice-item');all.forEach(c=>{c.style.pointerEvents='auto';c.classList.remove('correct','wrong');});document.getElementById('mon-sent-fb').innerHTML='';}
+
+        // ===== retain =====
+        function retSentCheck(el,i){
+            const all=document.querySelectorAll('#ret-sent-choices .choice-item');all.forEach(c=>c.style.pointerEvents='none');
+            if(i===0){el.classList.add('correct');document.getElementById('ret-sent-fb').innerHTML='✅ A. retains 正確！';}
+            else{el.classList.add('wrong');all[0].classList.add('correct');document.getElementById('ret-sent-fb').innerHTML='❌ 正確答案是 A。';}
+        }
+        function retSentReset(){const all=document.querySelectorAll('#ret-sent-choices .choice-item');all.forEach(c=>{c.style.pointerEvents='auto';c.classList.remove('correct','wrong');});document.getElementById('ret-sent-fb').innerHTML='';}
+
+        // ===== donation =====
+        function donSentCheck(el,i){
+            const all=document.querySelectorAll('#don-sent-choices .choice-item');all.forEach(c=>c.style.pointerEvents='none');
+            if(i===1){el.classList.add('correct');document.getElementById('don-sent-fb').innerHTML='✅ B. donation 正確！';}
+            else{el.classList.add('wrong');all[1].classList.add('correct');document.getElementById('don-sent-fb').innerHTML='❌ 正確答案是 B。';}
+        }
+        function donSentReset(){const all=document.querySelectorAll('#don-sent-choices .choice-item');all.forEach(c=>{c.style.pointerEvents='auto';c.classList.remove('correct','wrong');});document.getElementById('don-sent-fb').innerHTML='';}
+    </script>
+</body>
+</html>
